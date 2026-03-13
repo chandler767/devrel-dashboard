@@ -1,0 +1,625 @@
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #22263a;
+  --border: #2e3250;
+  --text: #e8eaf6;
+  --text-muted: #7c83a0;
+  --accent: #6c63ff;
+  --yt: #ff3333;
+  --tt: #69c9d0;
+  --li: #0a66c2;
+  --green: #4ade80;
+  --radius: 12px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 15px;
+  min-height: 100vh;
+}
+
+/* ── Header ─────────────────────────────────────────── */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-left h1 {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.header-left .subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.report-select {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  max-width: 260px;
+}
+
+.report-select:focus { border-color: var(--accent); }
+
+/* ── Main Layout ─────────────────────────────────────── */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+/* ── Summary Stats ───────────────────────────────────── */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: border-color 0.15s;
+}
+
+.stat-card:hover { border-color: var(--accent); }
+
+.stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.stat-card.total .stat-value { color: var(--green); }
+.stat-card.youtube .stat-value { color: var(--yt); }
+.stat-card.tiktok .stat-value { color: var(--tt); }
+.stat-card.linkedin .stat-value { color: var(--li); }
+
+/* ── Growth Badges ───────────────────────────────────── */
+.growth-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.growth-badge.up   { color: #4ade80; background: rgba(74,222,128,0.12); }
+.growth-badge.down { color: #f87171; background: rgba(248,113,113,0.12); }
+.growth-badge.new  { color: #a78bfa; background: rgba(167,139,250,0.12); }
+
+/* Badge on stat cards sits below the value on its own line */
+.stat-card .growth-badge {
+  display: block;
+  margin-left: 0;
+  margin-top: 6px;
+  font-size: 12px;
+}
+
+/* Badge inside pv-views stays inline */
+.pv-views .growth-badge { font-size: 10px; margin-left: 5px; }
+
+/* Badge inside video-total-views stays inline */
+.video-total-views .growth-badge { font-size: 12px; }
+
+/* ── Chart ───────────────────────────────────────────── */
+.chart-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 20px 12px;
+  margin-bottom: 28px;
+  height: 220px;
+}
+
+/* ── Section Heading ─────────────────────────────────── */
+.section-heading {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  margin-top: 32px;
+}
+
+/* ── Video Cards ─────────────────────────────────────── */
+.video-list { display: flex; flex-direction: column; gap: 12px; }
+
+.video-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  position: relative;
+  transition: border-color 0.15s, transform 0.1s;
+}
+
+.video-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.video-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.video-title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.video-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.video-total-views {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green);
+  letter-spacing: -0.3px;
+}
+
+.video-duration {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ── Publish Date ────────────────────────────────────── */
+.video-date {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+/* ── Platform Version Rows ───────────────────────────── */
+.platform-versions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+
+.platform-version-row {
+  display: grid;
+  grid-template-columns: 10px 64px 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+  border: 1px solid transparent;
+}
+
+.platform-versions.local .platform-version-row {
+  grid-template-columns: 10px 64px 1fr auto auto auto;
+}
+
+.platform-version-row:hover { background: var(--surface2); }
+
+.platform-version-row.selected {
+  background: var(--surface2);
+  border-color: var(--accent);
+}
+
+.platform-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.platform-dot.youtube  { background: var(--yt); }
+.platform-dot.tiktok   { background: var(--tt); }
+.platform-dot.linkedin { background: var(--li); }
+.platform-dot.unknown  { background: var(--text-muted); }
+
+.pv-name  { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.pv-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pv-date  { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
+.pv-views { font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap; }
+
+/* ── Select Buttons (local mode) ─────────────────────── */
+
+/* Card-level "Select all" button */
+.select-btn {
+  margin-top: 12px;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.select-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* Per-platform-row select button */
+.pv-select-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.pv-select-btn:hover { border-color: var(--accent); color: var(--text); }
+
+.platform-version-row.selected .pv-select-btn {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.video-card.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+
+.video-card.selected .select-btn {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Merge Bar ───────────────────────────────────────── */
+#merge-bar {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 12px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.merge-bar-label { font-size: 13px; color: var(--text-muted); }
+
+.merge-btn {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 7px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.merge-btn:disabled { opacity: 0.4; cursor: default; }
+.merge-btn:not(:disabled):hover { opacity: 0.85; }
+
+.merge-cancel-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.merge-cancel-btn:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* ── Date Range Tabs ─────────────────────────────────── */
+.range-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.range-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.range-tab:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.range-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ── Custom Date Range Picker ────────────────────────── */
+.custom-range {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.custom-range label {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.custom-range input[type="date"] {
+  color-scheme: dark;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.custom-range input[type="date"]:hover,
+.custom-range input[type="date"]:focus { border-color: var(--accent); }
+
+/* ── Empty / Loading States ──────────────────────────── */
+.state-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ── Notice Bar ──────────────────────────────────────── */
+.notice-bar {
+  background: color-mix(in srgb, var(--accent) 15%, var(--surface));
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  gap: 12px;
+}
+
+.notice-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 18px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ── Hide Button ─────────────────────────────────────── */
+.hide-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 5px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.15s, color 0.15s;
+}
+
+.video-card:hover .hide-btn { opacity: 1; }
+.hide-btn:hover { color: #f87171; }
+
+/* ── Hidden Bar ──────────────────────────────────────── */
+#hidden-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+#hidden-bar-show {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+#hidden-bar-show:hover { border-color: var(--accent); color: var(--text); }
+
+/* ── Rolling 12-Month Section ────────────────────────── */
+.rolling-section {
+  margin-bottom: 32px;
+}
+
+.wow-section {
+  margin-bottom: 32px;
+}
+
+.wow-subheading {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 3px;
+  opacity: 0.75;
+}
+
+.rolling-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.rolling-heading {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+
+#selected-heading { margin-bottom: 14px; }
+
+.trend-toggle { display: flex; gap: 4px; }
+
+.trend-toggle-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.trend-toggle-btn:hover { border-color: var(--accent); color: var(--text); }
+
+.trend-toggle-btn.active {
+  background: var(--surface2);
+  border-color: var(--accent);
+  color: var(--text);
+  font-weight: 600;
+}
+
+.rolling-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.trend-chart-container {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 20px 12px;
+  height: 260px;
+}
+
+/* ── Export Button ───────────────────────────────────── */
+.export-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.export-btn:hover { border-color: var(--accent); color: var(--text); }
+
+/* ── Export Mode (hide UI chrome) ────────────────────── */
+body.exporting .hide-btn,
+body.exporting .select-btn,
+body.exporting .pv-select-btn,
+body.exporting #merge-bar,
+body.exporting .range-tabs,
+body.exporting .custom-range,
+body.exporting .trend-toggle,
+body.exporting #hidden-bar,
+body.exporting .report-select,
+body.exporting #export-btn,
+body.exporting .notice-bar { display: none !important; }
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 600px) {
+  header { padding: 14px 16px; flex-wrap: wrap; gap: 10px; }
+  main { padding: 20px 16px 48px; }
+  .video-card-header { flex-direction: column; }
+  .video-meta { align-items: flex-start; flex-direction: row; gap: 10px; align-items: center; }
+}

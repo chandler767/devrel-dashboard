@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevRel Shorts Dashboard</title>
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>DevRel Shorts Dashboard</h1>
+    <div class="subtitle" id="last-updated">Loading…</div>
+  </div>
+  <div class="header-right">
+    <button class="export-btn" id="export-btn">Export image</button>
+    <select class="report-select" id="report-select" title="Select report date"></select>
+  </div>
+</header>
+
+<main>
+
+  <!-- Rolling 12-month stats + trend chart -->
+  <section class="rolling-section">
+    <div class="rolling-heading-row">
+      <div class="rolling-heading">Rolling 12 Month Cumulative Totals</div>
+      <div class="trend-toggle" id="trend-toggle">
+        <button class="trend-toggle-btn" data-grouping="date">By release date</button>
+        <button class="trend-toggle-btn active" data-grouping="month">By month</button>
+      </div>
+    </div>
+    <div class="rolling-stats">
+      <div class="stat-card total">
+        <div class="stat-label">Total Views</div>
+        <div class="stat-value" id="rolling-total">—</div>
+      </div>
+      <div class="stat-card youtube">
+        <div class="stat-label">YouTube</div>
+        <div class="stat-value" id="rolling-yt">—</div>
+      </div>
+      <div class="stat-card tiktok">
+        <div class="stat-label">TikTok</div>
+        <div class="stat-value" id="rolling-tt">—</div>
+      </div>
+      <div class="stat-card linkedin">
+        <div class="stat-label">LinkedIn</div>
+        <div class="stat-value" id="rolling-li">—</div>
+      </div>
+    </div>
+    <div class="trend-chart-container">
+      <canvas id="trend-chart"></canvas>
+    </div>
+  </section>
+  <!-- Week-over-week chart -->
+  <section class="wow-section">
+    <div class="rolling-heading-row">
+      <div>
+        <div class="rolling-heading">Week over Week</div>
+        <div class="wow-subheading">Total accumulated views on videos published each week — not new views gained that week</div>
+      </div>
+    </div>
+    <div class="trend-chart-container">
+      <canvas id="wow-chart"></canvas>
+    </div>
+  </section>
+
+  <div class="rolling-heading" id="selected-heading">Selected Time Totals</div>
+  <!-- Summary stats -->
+  <div class="summary">
+    <div class="stat-card total">
+      <div class="stat-label">Total Views</div>
+      <div class="stat-value" id="total-views">—</div>
+    </div>
+    <div class="stat-card youtube">
+      <div class="stat-label">YouTube</div>
+      <div class="stat-value" id="yt-views">—</div>
+    </div>
+    <div class="stat-card tiktok">
+      <div class="stat-label">TikTok</div>
+      <div class="stat-value" id="tt-views">—</div>
+    </div>
+    <div class="stat-card linkedin">
+      <div class="stat-label">LinkedIn</div>
+      <div class="stat-value" id="li-views">—</div>
+    </div>
+  </div>
+
+  <!-- Platform breakdown chart -->
+  <div class="chart-container">
+    <canvas id="views-chart"></canvas>
+  </div>
+
+  <!-- Date range filter -->
+  <div class="range-tabs" id="range-tabs">
+    <button class="range-tab" data-range="last7">Last 7 days</button>
+    <button class="range-tab" data-range="last30">Last 30 days</button>
+    <button class="range-tab" data-range="last6mo">Last 6 months</button>
+    <button class="range-tab" data-range="last12mo">Last 12 months</button>
+    <button class="range-tab" data-range="ytd">Year to date</button>
+    <button class="range-tab active" data-range="all">All time</button>
+    <button class="range-tab" data-range="custom">Custom</button>
+  </div>
+
+  <!-- Custom date range picker (shown only when Custom is active) -->
+  <div class="custom-range" id="custom-range" hidden>
+    <label for="custom-from">From</label>
+    <input type="date" id="custom-from" />
+    <label for="custom-to">to</label>
+    <input type="date" id="custom-to" />
+  </div>
+
+  <!-- Hidden videos bar -->
+  <div id="hidden-bar" hidden>
+    <span id="hidden-bar-label"></span>
+    <button id="hidden-bar-show">Show all</button>
+  </div>
+
+  <!-- Video list (groups + single-platform, unified) -->
+  <div class="section-heading">Videos</div>
+  <div class="video-list" id="video-groups">
+    <p class="state-message">Loading…</p>
+  </div>
+
+</main>
+
+<!-- Merge bar (only shown in local mode when videos are selected) -->
+<div id="merge-bar" hidden>
+  <span class="merge-bar-label"></span>
+  <button class="merge-btn" disabled>Merge &amp; Download</button>
+  <button class="merge-cancel-btn">Cancel</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="dashboard.js"></script>
+</body>
+</html>

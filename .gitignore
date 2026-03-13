@@ -1,0 +1,12 @@
+# Credentials — never commit
+.env
+
+# Compiled binary
+devrel-fetch
+devrel-fetch.exe
+
+# Go build cache
+*.test
+
+# macOS
+.DS_Store
