@@ -397,6 +397,8 @@ function buildWeekOverWeekData(allItems, numWeeks = 12) {
     return mon;
   };
 
+  const now      = Date.now();
+  const msPerDay = 86400000;
   const thisWeek = startOfMonday(new Date());
   const cutoff   = new Date(thisWeek);
   cutoff.setDate(cutoff.getDate() - (numWeeks - 1) * 7);
@@ -410,27 +412,86 @@ function buildWeekOverWeekData(allItems, numWeeks = 12) {
     return { start, end, yt: 0, tt: 0, li: 0 };
   });
 
+  // Reference pool: videos 7–90 days old → views-per-day baseline per platform
+  // Current-week pool: videos published since the start of this week
+  const refPool  = { youtube: { views: 0, days: 0 }, tiktok: { views: 0, days: 0 }, linkedin: { views: 0, days: 0 } };
+  const cwPool   = { youtube: { views: 0, items: [] }, tiktok: { views: 0, items: [] }, linkedin: { views: 0, items: [] } };
+
   for (const item of allItems) {
     if (!item.publishedAt) continue;
-    const d = new Date(item.publishedAt);
-    if (d < cutoff) continue;
-    for (const slot of slots) {
-      if (d >= slot.start && d < slot.end) {
-        for (const p of item.platforms) {
-          const v = p.views || 0;
-          if (p.platform === 'youtube')  slot.yt += v;
-          if (p.platform === 'tiktok')   slot.tt += v;
-          if (p.platform === 'linkedin') slot.li += v;
+    const pub     = new Date(item.publishedAt);
+    const ageDays = (now - pub.getTime()) / msPerDay;
+
+    // Slot assignment (actual views)
+    if (pub >= cutoff) {
+      for (const slot of slots) {
+        if (pub >= slot.start && pub < slot.end) {
+          for (const p of item.platforms) {
+            const v = p.views || 0;
+            if (p.platform === 'youtube')  slot.yt += v;
+            if (p.platform === 'tiktok')   slot.tt += v;
+            if (p.platform === 'linkedin') slot.li += v;
+          }
+          break;
         }
-        break;
       }
     }
+
+    // Reference pool (7–90 days old)
+    if (ageDays >= 7 && ageDays <= 90) {
+      for (const p of item.platforms) {
+        const pool = refPool[p.platform];
+        if (pool) { pool.views += (p.views || 0); pool.days += ageDays; }
+      }
+    }
+
+    // Current-week pool (< 7 days old, published since thisWeek Monday)
+    if (pub >= thisWeek) {
+      for (const p of item.platforms) {
+        const pool = cwPool[p.platform];
+        if (pool) { pool.views += (p.views || 0); pool.items.push({ views: p.views || 0, ageDays }); }
+      }
+    }
+  }
+
+  // Compute predictions: for each current-week video, estimate views it will gain
+  // for the remaining days of the week using the 3-month reference velocity (views/day).
+  // If no reference data exists, fall back to the video's own current rate.
+  const pred = { youtube: 0, tiktok: 0, linkedin: 0 };
+  for (const [plat, cw] of Object.entries(cwPool)) {
+    if (cw.items.length === 0) continue;
+    const ref     = refPool[plat];
+    const refVpd  = ref.days > 0 ? ref.views / ref.days : 0; // historical views-per-day
+    let additional = 0;
+    for (const v of cw.items) {
+      const remaining = Math.max(0, 7 - v.ageDays);
+      if (remaining === 0) continue;
+      // Own rate as fallback; clamp to 2× reference when reference is available
+      const ownVpd = v.views / Math.max(v.ageDays, 0.25);
+      const vpd    = refVpd > 0 ? Math.min(ownVpd, refVpd * 2) : ownVpd;
+      additional  += vpd * remaining;
+    }
+    pred[plat] = Math.round(additional);
+  }
+
+  const hasPred = pred.youtube > 0 || pred.tiktok > 0 || pred.linkedin > 0;
+  const predYt  = Array(numWeeks).fill(null);
+  const predTt  = Array(numWeeks).fill(null);
+  const predLi  = Array(numWeeks).fill(null);
+  if (hasPred) {
+    predYt[numWeeks - 1] = pred.youtube || null;
+    predTt[numWeeks - 1] = pred.tiktok  || null;
+    predLi[numWeeks - 1] = pred.linkedin || null;
   }
 
   const labels = slots.map(s =>
     s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
   );
-  return { labels, yt: slots.map(s => s.yt), tt: slots.map(s => s.tt), li: slots.map(s => s.li) };
+  return {
+    labels,
+    yt: slots.map(s => s.yt), tt: slots.map(s => s.tt), li: slots.map(s => s.li),
+    predYt, predTt, predLi, hasPred,
+  };
 }
 
 function initWowChart(data) {
@@ -442,20 +503,43 @@ function initWowChart(data) {
     data: {
       labels: data.labels,
       datasets: [
-        { label: 'YouTube',  data: data.yt, backgroundColor: 'rgba(255,51,51,0.75)',   stack: 'views' },
-        { label: 'TikTok',   data: data.tt, backgroundColor: 'rgba(105,201,208,0.75)', stack: 'views' },
-        { label: 'LinkedIn', data: data.li, backgroundColor: 'rgba(10,102,194,0.75)',  stack: 'views' },
+        { label: 'YouTube',            data: data.yt,    backgroundColor: 'rgba(255,51,51,0.75)',   stack: 'views' },
+        { label: 'TikTok',             data: data.tt,    backgroundColor: 'rgba(105,201,208,0.75)', stack: 'views' },
+        { label: 'LinkedIn',           data: data.li,    backgroundColor: 'rgba(10,102,194,0.75)',  stack: 'views' },
+        { label: 'YouTube (proj.)',    data: data.predYt, backgroundColor: 'rgba(255,51,51,0.25)',   borderColor: 'rgba(255,51,51,0.6)',   borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
+        { label: 'TikTok (proj.)',     data: data.predTt, backgroundColor: 'rgba(105,201,208,0.25)', borderColor: 'rgba(105,201,208,0.6)', borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
+        { label: 'LinkedIn (proj.)',   data: data.predLi, backgroundColor: 'rgba(10,102,194,0.25)',  borderColor: 'rgba(10,102,194,0.6)',  borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
       ],
     },
     options: {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { labels: { boxWidth: 12, font: { size: 12 } } },
+        legend: {
+          labels: {
+            boxWidth: 12, font: { size: 12 },
+            filter: item => !item.text.includes('proj.'),
+          },
+        },
         tooltip: {
           callbacks: {
-            footer: items => ' Total: ' + fmt(items.reduce((s, i) => s + i.parsed.y, 0)),
-            label:  ctx  => ` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}`,
+            label: ctx => {
+              const v = ctx.parsed.y;
+              if (v == null || v === 0) return null;
+              const proj = ctx.dataset.label.includes('proj.');
+              const name = ctx.dataset.label.replace(' (proj.)', '');
+              return proj
+                ? ` ${name} +${fmt(v)} est.`
+                : ` ${name}: ${fmt(v)}`;
+            },
+            footer: items => {
+              const actual = items.filter(i => !i.dataset.label.includes('proj.')).reduce((s, i) => s + (i.parsed.y || 0), 0);
+              const projExtra = items.filter(i => i.dataset.label.includes('proj.')).reduce((s, i) => s + (i.parsed.y || 0), 0);
+              if (projExtra > 0) {
+                return [` Actual: ${fmt(actual)}`, ` Proj. total: ${fmt(actual + projExtra)}  (3-mo avg rate)`];
+              }
+              return ` Total: ${fmt(actual)}`;
+            },
           },
         },
       },
@@ -472,10 +556,13 @@ function renderWow(allItems) {
   if (!wowChartInstance) {
     initWowChart(data);
   } else {
-    wowChartInstance.data.labels = data.labels;
+    wowChartInstance.data.labels          = data.labels;
     wowChartInstance.data.datasets[0].data = data.yt;
     wowChartInstance.data.datasets[1].data = data.tt;
     wowChartInstance.data.datasets[2].data = data.li;
+    wowChartInstance.data.datasets[3].data = data.predYt;
+    wowChartInstance.data.datasets[4].data = data.predTt;
+    wowChartInstance.data.datasets[5].data = data.predLi;
     wowChartInstance.update('none');
   }
 }
