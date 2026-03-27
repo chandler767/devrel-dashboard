@@ -6,7 +6,7 @@ window.__devrelReport={
       "id": "2026-W11-2",
       "canonical_title": "The EU AI Act Deadline Nobody's Ready For #ai #aiact #ainews #technews",
       "duration_seconds": 80,
-      "total_views": 6002,
+      "total_views": 6554,
       "platforms": {
         "tiktok": {
           "video_id": "7616386393538972942",
@@ -23,6 +23,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=UqPUDRXOy7A",
           "published_at": "2026-03-12T00:00:00Z",
           "duration_seconds": 80
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7437891528506769409",
+          "title": "The EU AI Act Deadline Nobody's Ready For:",
+          "views": 552,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7437891528506769409/",
+          "published_at": "2026-03-12T16:05:29Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -52,13 +60,13 @@ window.__devrelReport={
     },
     {
       "id": "2026-W11",
-      "canonical_title": "Why the biggest AI models aren’t always the best for your use case. #ai #aiagents #llm #coding",
+      "canonical_title": "Why the biggest AI models aren\u2019t always the best for your use case. #ai #aiagents #llm #coding",
       "duration_seconds": 63,
-      "total_views": 3575,
+      "total_views": 4357,
       "platforms": {
         "tiktok": {
           "video_id": "7616769950576807181",
-          "title": "Why the biggest AI models aren’t always best for every use case. #tec...",
+          "title": "Why the biggest AI models aren\u2019t always best for every use case. #tec...",
           "views": 2460,
           "url": "https://www.tiktok.com/@redpanda_data/video/7616769950576807181",
           "published_at": "2026-03-13T00:00:00Z",
@@ -66,19 +74,27 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "54uLE8-xZ2Y",
-          "title": "Why the biggest AI models aren’t always the best for your use case. #ai #aiagents #llm #coding",
+          "title": "Why the biggest AI models aren\u2019t always the best for your use case. #ai #aiagents #llm #coding",
           "views": 1115,
           "url": "https://www.youtube.com/watch?v=54uLE8-xZ2Y",
           "published_at": "2026-03-13T00:00:00Z",
           "duration_seconds": 63
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7437565302265163776",
+          "title": "What are your {hashtag|\\#|aiagents} doing? How can you make them use data better? We answer all these questions and more",
+          "views": 782,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7437565302265163776/",
+          "published_at": "2026-03-11T18:29:32Z",
+          "duration_seconds": 0
         }
       }
     },
     {
       "id": "2026-W08",
-      "canonical_title": "Introducing the Model Context Protocol￼. #coding #computerscience #aiagents #mcp",
+      "canonical_title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
       "duration_seconds": 59,
-      "total_views": 3309,
+      "total_views": 3917,
       "platforms": {
         "tiktok": {
           "video_id": "7608600660732300558",
@@ -90,11 +106,19 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "tXrYPQU9rrk",
-          "title": "Introducing the Model Context Protocol￼. #coding #computerscience #aiagents #mcp",
+          "title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
           "views": 2079,
           "url": "https://www.youtube.com/watch?v=tXrYPQU9rrk",
           "published_at": "2026-02-19T00:00:00Z",
           "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7430670831325937664",
+          "title": "{hashtag|\\#|MCP} went from an Anthropic side project to the industry standard for AI agent tooling in 12 months. \u00e2\u009a\u0099\u00ef\u00b8\u008f ",
+          "views": 608,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7430670831325937664/",
+          "published_at": "2026-02-20T17:53:19Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -102,7 +126,7 @@ window.__devrelReport={
       "id": "2026-W09-2",
       "canonical_title": "Why did #openai buy #openclaw? #aiagents #aitools #programming #developer",
       "duration_seconds": 79,
-      "total_views": 3301,
+      "total_views": 4155,
       "platforms": {
         "tiktok": {
           "video_id": "7611273170091298062",
@@ -119,6 +143,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=b6eJB3lso1Q",
           "published_at": "2026-02-26T00:00:00Z",
           "duration_seconds": 79
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7433171598427418624",
+          "title": "{hashtag|\\#|anthropic} just shipped remote control for {hashtag|\\#|claude} code - but what\u00e2\u0080\u0099s missing? ",
+          "views": 854,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7433171598427418624/",
+          "published_at": "2026-02-27T18:15:01Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -150,7 +182,7 @@ window.__devrelReport={
       "id": "2026-W10-2",
       "canonical_title": "What is an #ai agent? #coding #programming",
       "duration_seconds": 81,
-      "total_views": 2566,
+      "total_views": 3000,
       "platforms": {
         "tiktok": {
           "video_id": "7613431181287247135",
@@ -167,12 +199,20 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=woiBFB8Turs",
           "published_at": "2026-03-04T00:00:00Z",
           "duration_seconds": 81
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7435743346414899201",
+          "title": "What\u00e2\u0080\u0099s a knowledge base? And why do you need one?",
+          "views": 434,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7435743346414899201/",
+          "published_at": "2026-03-06T17:49:37Z",
+          "duration_seconds": 0
         }
       }
     },
     {
       "id": "2025-W28",
-      "canonical_title": "Come say hello at ​⁠@amazonwebservices summit NYC - booth 454. #aws",
+      "canonical_title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
       "duration_seconds": 20,
       "total_views": 2525,
       "platforms": {
@@ -186,7 +226,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "IVvmR66sLXk",
-          "title": "Come say hello at ​⁠@amazonwebservices summit NYC - booth 454. #aws",
+          "title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
           "views": 1368,
           "url": "https://www.youtube.com/watch?v=IVvmR66sLXk",
           "published_at": "2025-07-09T00:00:00Z",
@@ -220,13 +260,13 @@ window.__devrelReport={
     },
     {
       "id": "2025-W22",
-      "canonical_title": "Most AI just talks. Agents act. Here’s the difference. #ai #chatgpt #programming #code #tech #coding",
+      "canonical_title": "Most AI just talks. Agents act. Here\u2019s the difference. #ai #chatgpt #programming #code #tech #coding",
       "duration_seconds": 49,
       "total_views": 2450,
       "platforms": {
         "tiktok": {
           "video_id": "7509276007283674410",
-          "title": "Most AI just talks. Agents act. Here’s the difference.#ai #chatgpt #p...",
+          "title": "Most AI just talks. Agents act. Here\u2019s the difference.#ai #chatgpt #p...",
           "views": 1124,
           "url": "https://www.tiktok.com/@redpanda_data/video/7509276007283674410",
           "published_at": "2025-05-27T00:00:00Z",
@@ -234,7 +274,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "CWcHYNhD39Q",
-          "title": "Most AI just talks. Agents act. Here’s the difference. #ai #chatgpt #programming #code #tech #coding",
+          "title": "Most AI just talks. Agents act. Here\u2019s the difference. #ai #chatgpt #programming #code #tech #coding",
           "views": 1326,
           "url": "https://www.youtube.com/watch?v=CWcHYNhD39Q",
           "published_at": "2025-05-27T00:00:00Z",
@@ -244,13 +284,13 @@ window.__devrelReport={
     },
     {
       "id": "2026-W09",
-      "canonical_title": "#anthropic just shipped remote control for #claude code. ￼#aicoding #coding #aiagents",
+      "canonical_title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
       "duration_seconds": 71,
-      "total_views": 2289,
+      "total_views": 3145,
       "platforms": {
         "tiktok": {
           "video_id": "7611565011500027150",
-          "title": "#anthropic just shipped remote control for #claude code - but what’s ...",
+          "title": "#anthropic just shipped remote control for #claude code - but what\u2019s ...",
           "views": 1371,
           "url": "https://www.tiktok.com/@redpanda_data/video/7611565011500027150",
           "published_at": "2026-02-27T00:00:00Z",
@@ -258,11 +298,19 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "FfnizEtJgx0",
-          "title": "#anthropic just shipped remote control for #claude code. ￼#aicoding #coding #aiagents",
+          "title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
           "views": 918,
           "url": "https://www.youtube.com/watch?v=FfnizEtJgx0",
           "published_at": "2026-02-27T00:00:00Z",
           "duration_seconds": 71
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7432523141517721601",
+          "title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u00e2\u0080\u0099s really coo",
+          "views": 856,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432523141517721601/",
+          "published_at": "2026-02-25T20:33:57Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -292,7 +340,7 @@ window.__devrelReport={
     },
     {
       "id": "2025-W23-2",
-      "canonical_title": "￼Should competitors be banned from events? #software #programming #coding #events",
+      "canonical_title": "\ufffcShould competitors be banned from events? #software #programming #coding #events",
       "duration_seconds": 25,
       "total_views": 2065,
       "platforms": {
@@ -306,7 +354,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "d4GnfKAPcKQ",
-          "title": "￼Should competitors be banned from events? #software #programming #coding #events",
+          "title": "\ufffcShould competitors be banned from events? #software #programming #coding #events",
           "views": 1693,
           "url": "https://www.youtube.com/watch?v=d4GnfKAPcKQ",
           "published_at": "2025-06-04T00:00:00Z",
@@ -322,7 +370,7 @@ window.__devrelReport={
       "platforms": {
         "tiktok": {
           "video_id": "7524815218170498318",
-          "title": "It’s easy to build your own #mcp server to use with #claude or anothe...",
+          "title": "It\u2019s easy to build your own #mcp server to use with #claude or anothe...",
           "views": 989,
           "url": "https://www.tiktok.com/@redpanda_data/video/7524815218170498318",
           "published_at": "2025-07-08T00:00:00Z",
@@ -388,7 +436,7 @@ window.__devrelReport={
     },
     {
       "id": "2025-W42",
-      "canonical_title": "You've probably heard of vibe coding, but what about vibe streaming? 🧠 #coding #AIagents #AIWeekSF",
+      "canonical_title": "You've probably heard of vibe coding, but what about vibe streaming? \ud83e\udde0 #coding #AIagents #AIWeekSF",
       "duration_seconds": 23,
       "total_views": 1777,
       "platforms": {
@@ -402,7 +450,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "JMKW-lvo_OU",
-          "title": "You've probably heard of vibe coding, but what about vibe streaming? 🧠 #coding #AIagents #AIWeekSF",
+          "title": "You've probably heard of vibe coding, but what about vibe streaming? \ud83e\udde0 #coding #AIagents #AIWeekSF",
           "views": 1567,
           "url": "https://www.youtube.com/watch?v=JMKW-lvo_OU",
           "published_at": "2025-10-16T00:00:00Z",
@@ -486,11 +534,11 @@ window.__devrelReport={
       "id": "2026-W10",
       "canonical_title": "What's a knowledge base? #coding #programming #aicoding",
       "duration_seconds": 70,
-      "total_views": 1246,
+      "total_views": 1712,
       "platforms": {
         "tiktok": {
           "video_id": "7614085911181004045",
-          "title": "What’s a knowledge base? #coding #programming #aicoding ",
+          "title": "What\u2019s a knowledge base? #coding #programming #aicoding ",
           "views": 274,
           "url": "https://www.tiktok.com/@redpanda_data/video/7614085911181004045",
           "published_at": "2026-03-06T00:00:00Z",
@@ -503,6 +551,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=qP98ecazSFI",
           "published_at": "2026-03-06T00:00:00Z",
           "duration_seconds": 70
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7434640229250109440",
+          "title": "Are you overpaying for {hashtag|\\#|Al} by 20x by not using open-weight models?",
+          "views": 466,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7434640229250109440/",
+          "published_at": "2026-03-03T16:46:20Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -532,9 +588,9 @@ window.__devrelReport={
     },
     {
       "id": "2026-W10-3",
-      "canonical_title": "You’re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
+      "canonical_title": "You\u2019re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
       "duration_seconds": 66,
-      "total_views": 1141,
+      "total_views": 1480,
       "platforms": {
         "tiktok": {
           "video_id": "7613155058594712862",
@@ -546,17 +602,25 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "871NOfCJDHE",
-          "title": "You’re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
+          "title": "You\u2019re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
           "views": 1076,
           "url": "https://www.youtube.com/watch?v=871NOfCJDHE",
           "published_at": "2026-03-03T00:00:00Z",
           "duration_seconds": 66
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7435006921063010304",
+          "title": "What\u00e2\u0080\u0099s an AI Agent? Here\u00e2\u0080\u0099s a quick overview. {hashtag|\\#|aicoding} {hashtag|\\#|aiagents}",
+          "views": 339,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7435006921063010304/",
+          "published_at": "2026-03-04T17:15:01Z",
+          "duration_seconds": 0
         }
       }
     },
     {
       "id": "2025-W23-4",
-      "canonical_title": "￼What is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+      "canonical_title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
       "duration_seconds": 48,
       "total_views": 1106,
       "platforms": {
@@ -570,7 +634,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "jC-Z6Z7qMlU",
-          "title": "￼What is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+          "title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
           "views": 920,
           "url": "https://www.youtube.com/watch?v=jC-Z6Z7qMlU",
           "published_at": "2025-06-03T00:00:00Z",
@@ -606,7 +670,7 @@ window.__devrelReport={
       "id": "2026-W13-2",
       "canonical_title": "#openai just killed #sora. They were spending $15 million a day making memes. #technews #ainews #ai",
       "duration_seconds": 66,
-      "total_views": 1043,
+      "total_views": 1284,
       "platforms": {
         "tiktok": {
           "video_id": "7621630978183679245",
@@ -623,6 +687,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=0WSP7tH9Ltw",
           "published_at": "2026-03-26T00:00:00Z",
           "duration_seconds": 66
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7442647845142405120",
+          "title": "3 things you should be doing to use Claude Code better:",
+          "views": 241,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7442647845142405120/",
+          "published_at": "2026-03-25T19:05:51Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -630,11 +702,11 @@ window.__devrelReport={
       "id": "2026-W08-2",
       "canonical_title": "What #agent Infrastructure Actually Looks Like #programming #coding #code #aiagents",
       "duration_seconds": 59,
-      "total_views": 871,
+      "total_views": 1457,
       "platforms": {
         "tiktok": {
           "video_id": "7608262781221063950",
-          "title": "Nobody shows you this part of AI agents 👀 #ai #agent  #mcp #techexpla...",
+          "title": "Nobody shows you this part of AI agents \ud83d\udc40 #ai #agent  #mcp #techexpla...",
           "views": 364,
           "url": "https://www.tiktok.com/@redpanda_data/video/7608262781221063950",
           "published_at": "2026-02-18T00:00:00Z",
@@ -647,18 +719,26 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=qHFgtFmkG9g",
           "published_at": "2026-02-18T00:00:00Z",
           "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7429984111391584259",
+          "title": "Everyone's talking about AI agents. Almost nobody is showing what the infrastructure underneath them looks like. \u00f0\u009f\u0094\u008e ",
+          "views": 586,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7429984111391584259/",
+          "published_at": "2026-02-18T20:24:29Z",
+          "duration_seconds": 0
         }
       }
     },
     {
       "id": "2026-W12-2",
-      "canonical_title": "What are the drawbacks of cheap #ai? It’s worse than you think… #programming #coding",
+      "canonical_title": "What are the drawbacks of cheap #ai? It\u2019s worse than you think\u2026 #programming #coding",
       "duration_seconds": 79,
-      "total_views": 808,
+      "total_views": 1229,
       "platforms": {
         "tiktok": {
           "video_id": "7619043100639448333",
-          "title": "What are the drawbacks of cheap #ai? It’s worse than you think… #prog...",
+          "title": "What are the drawbacks of cheap #ai? It\u2019s worse than you think\u2026 #prog...",
           "views": 369,
           "url": "https://www.tiktok.com/@redpanda_data/video/7619043100639448333",
           "published_at": "2026-03-19T00:00:00Z",
@@ -666,11 +746,19 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "lQsEC0D4mB8",
-          "title": "What are the drawbacks of cheap #ai? It’s worse than you think… #programming #coding",
+          "title": "What are the drawbacks of cheap #ai? It\u2019s worse than you think\u2026 #programming #coding",
           "views": 439,
           "url": "https://www.youtube.com/watch?v=lQsEC0D4mB8",
           "published_at": "2026-03-19T00:00:00Z",
           "duration_seconds": 79
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7440108494952763392",
+          "title": "Do you have an {hashtag|\\#|ai} mandate? ",
+          "views": 421,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440108494952763392/",
+          "published_at": "2026-03-18T19:15:01Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -678,7 +766,7 @@ window.__devrelReport={
       "id": "2026-W11-3",
       "canonical_title": "Check out our new #agenticai podcast: Hello, Agent. #techexplained #computerscience",
       "duration_seconds": 35,
-      "total_views": 755,
+      "total_views": 1214,
       "platforms": {
         "tiktok": {
           "video_id": "7616064680565558541",
@@ -695,6 +783,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=6Ehg9P83ZzA",
           "published_at": "2026-03-11T00:00:00Z",
           "duration_seconds": 35
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7438253848458211330",
+          "title": "The biggest AI models aren\u00e2\u0080\u0099t always the best for your use case. Here\u00e2\u0080\u0099s why:",
+          "views": 459,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7438253848458211330/",
+          "published_at": "2026-03-13T17:00:12Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -702,7 +798,7 @@ window.__devrelReport={
       "id": "2026-W11-4",
       "canonical_title": "Does your AI strategy have the flexibility to switch to the next best model? #aistrategy #opensource",
       "duration_seconds": 74,
-      "total_views": 598,
+      "total_views": 982,
       "platforms": {
         "tiktok": {
           "video_id": "7615714587010256141",
@@ -719,6 +815,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=ylprKHXT4NU",
           "published_at": "2026-03-10T00:00:00Z",
           "duration_seconds": 74
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7437223174443864064",
+          "title": "Does your AI strategy have the flexibility to switch to the next best model? ",
+          "views": 384,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7437223174443864064/",
+          "published_at": "2026-03-10T19:50:01Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -742,7 +846,7 @@ window.__devrelReport={
       "id": "2026-W12-3",
       "canonical_title": "Do you have an #ai strategy? #programming #coding #aiagents",
       "duration_seconds": 59,
-      "total_views": 490,
+      "total_views": 852,
       "platforms": {
         "tiktok": {
           "video_id": "7618668868046720269",
@@ -759,6 +863,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=wiCXuBXMhYw",
           "published_at": "2026-03-18T00:00:00Z",
           "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7440478620688642048",
+          "title": "What are the drawbacks of cheap {hashtag|\\#|ai}? It may be worse than you think\u00e2\u0080\u00a6",
+          "views": 362,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440478620688642048/",
+          "published_at": "2026-03-19T19:45:01Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -766,11 +878,11 @@ window.__devrelReport={
       "id": "2026-W12",
       "canonical_title": "This is how you get real-time Al with zero lag #AI #datastreaming #software #coding",
       "duration_seconds": 85,
-      "total_views": 419,
+      "total_views": 893,
       "platforms": {
         "tiktok": {
           "video_id": "7619334579387649293",
-          "title": "This is how you get real-time AI with zero lag 🚀 #AI #Streaming #soft...",
+          "title": "This is how you get real-time AI with zero lag \ud83d\ude80 #AI #Streaming #soft...",
           "views": 104,
           "url": "https://www.tiktok.com/@redpanda_data/video/7619334579387649293",
           "published_at": "2026-03-20T00:00:00Z",
@@ -783,6 +895,14 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=I8delZKnD68",
           "published_at": "2026-03-20T00:00:00Z",
           "duration_seconds": 85
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7440758792369139713",
+          "title": "From raw data to real-time AI in milliseconds \u00f0\u009f\u009a\u0080",
+          "views": 474,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440758792369139713/",
+          "published_at": "2026-03-20T18:30:03Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -804,13 +924,13 @@ window.__devrelReport={
     },
     {
       "id": "2026-W13",
-      "canonical_title": "Is AI coming for your job? Yes… but let me explain. #ai #tech #jobs #career #prediction",
+      "canonical_title": "Is AI coming for your job? Yes\u2026 but let me explain. #ai #tech #jobs #career #prediction",
       "duration_seconds": 73,
-      "total_views": 271,
+      "total_views": 768,
       "platforms": {
         "tiktok": {
           "video_id": "7621930946136198413",
-          "title": "Is AI coming for your job? Yes… but let me explain. #ai #tech #jobs #...",
+          "title": "Is AI coming for your job? Yes\u2026 but let me explain. #ai #tech #jobs #...",
           "views": 165,
           "url": "https://www.tiktok.com/@redpanda_data/video/7621930946136198413",
           "published_at": "2026-03-27T00:00:00Z",
@@ -818,11 +938,19 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "lz-V7JW3q4Y",
-          "title": "Is AI coming for your job? Yes… but let me explain. #ai #tech #jobs #career #prediction",
+          "title": "Is AI coming for your job? Yes\u2026 but let me explain. #ai #tech #jobs #career #prediction",
           "views": 106,
           "url": "https://www.youtube.com/watch?v=lz-V7JW3q4Y",
           "published_at": "2026-03-27T00:00:00Z",
           "duration_seconds": 73
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7443000608443219969",
+          "title": "{hashtag|\\#|openai} just killed {hashtag|\\#|sora}. They were spending $15 million a day making memes. ",
+          "views": 497,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7443000608443219969/",
+          "published_at": "2026-03-26T18:27:26Z",
+          "duration_seconds": 0
         }
       }
     },
