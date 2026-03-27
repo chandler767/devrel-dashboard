@@ -59,6 +59,10 @@ func main() {
 		videos, err := platforms.YouTubeFetch()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "YouTube error: %v\n", err)
+			if carried := carryForwardSkipped([]string{"youtube"}, prevReport); len(carried) > 0 {
+				fmt.Printf("  Carried forward %d YouTube video(s) from previous report (fetch failed)\n", len(carried))
+				allVideos = append(allVideos, carried...)
+			}
 		} else {
 			fmt.Printf("  Found %d YouTube videos\n", len(videos))
 			allVideos = append(allVideos, videos...)
@@ -70,6 +74,10 @@ func main() {
 		videos, err := platforms.TikTokFetch()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "TikTok error: %v\n", err)
+			if carried := carryForwardSkipped([]string{"tiktok"}, prevReport); len(carried) > 0 {
+				fmt.Printf("  Carried forward %d TikTok video(s) from previous report (fetch failed)\n", len(carried))
+				allVideos = append(allVideos, carried...)
+			}
 		} else {
 			fmt.Printf("  Found %d TikTok videos\n", len(videos))
 			videos, backfilled := internal.BackfillMissingTikTokVideos(videos, prevReport)
@@ -85,6 +93,10 @@ func main() {
 		videos, err := platforms.LinkedInFetch()
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "LinkedIn error: %v\n", err)
+			if carried := carryForwardSkipped([]string{"linkedin"}, prevReport); len(carried) > 0 {
+				fmt.Printf("  Carried forward %d LinkedIn video(s) from previous report (fetch failed)\n", len(carried))
+				allVideos = append(allVideos, carried...)
+			}
 		} else {
 			fmt.Printf("  Found %d LinkedIn videos\n", len(videos))
 			allVideos = append(allVideos, videos...)

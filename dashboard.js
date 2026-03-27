@@ -73,12 +73,12 @@ function fmtDuration(s) {
 
 function fmtDate(iso) {
   if (!iso) return '';
-  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 }
 
 function fmtDateShort(iso) {
   if (!iso) return '';
-  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+  return new Date(iso).toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' });
 }
 
 // ── Growth Helpers ────────────────────────────────────────────────────────────
@@ -834,7 +834,7 @@ function renderCard(item) {
 
   const titleEl = document.createElement('div');
   titleEl.className = 'video-title';
-  titleEl.textContent = item.canonicalTitle;
+  titleEl.textContent = item.publishedAt ? fmtDate(item.publishedAt) : '(no date)';
 
   const meta = document.createElement('div');
   meta.className = 'video-meta';
@@ -857,10 +857,6 @@ function renderCard(item) {
   meta.append(totalEl, durationEl);
   header.append(titleEl, meta);
 
-  // Publish date
-  const dateEl = document.createElement('div');
-  dateEl.className = 'video-date';
-  dateEl.textContent = item.publishedAt ? fmtDate(item.publishedAt) : '';
 
   // Platform version rows
   const local = isLocalMode();
@@ -924,7 +920,7 @@ function renderCard(item) {
     versions.appendChild(row);
   }
 
-  card.append(header, dateEl, versions);
+  card.append(header, versions);
 
   // Hide button
   const hideBtn = document.createElement('button');
