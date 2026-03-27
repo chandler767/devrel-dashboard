@@ -97,6 +97,12 @@ func main() {
 				fmt.Printf("  Carried forward %d LinkedIn video(s) from previous report (fetch failed)\n", len(carried))
 				allVideos = append(allVideos, carried...)
 			}
+		} else if len(videos) == 0 {
+			fmt.Println("  LinkedIn returned 0 videos (likely rate-limited) — carrying forward from previous report")
+			if carried := carryForwardSkipped([]string{"linkedin"}, prevReport); len(carried) > 0 {
+				fmt.Printf("  Carried forward %d LinkedIn video(s)\n", len(carried))
+				allVideos = append(allVideos, carried...)
+			}
 		} else {
 			fmt.Printf("  Found %d LinkedIn videos\n", len(videos))
 			allVideos = append(allVideos, videos...)
