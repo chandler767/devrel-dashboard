@@ -4,11 +4,12 @@ import (
 	"testing"
 )
 
-func TestGrouping_MatchesSameVideoAcrossPlatforms(t *testing.T) {
+func TestGrouping_SameWeekAllPlatforms(t *testing.T) {
+	// All three videos are in ISO week 2026-W11 (Mar 9–15)
 	videos := []Video{
-		{Platform: "youtube", ID: "yt1", Title: "How to Build APIs Fast", DurationSeconds: 58, Views: 5000},
-		{Platform: "tiktok", ID: "tt1", Title: "How to Build APIs Fast #coding #shorts", DurationSeconds: 57, Views: 18000},
-		{Platform: "linkedin", ID: "li1", Title: "How to Build APIs Fast", DurationSeconds: 58, Views: 1500},
+		{Platform: "youtube", ID: "yt1", Title: "How to Build APIs Fast", Views: 5000, PublishedAt: "2026-03-10T12:00:00Z"},
+		{Platform: "tiktok", ID: "tt1", Title: "How to Build APIs Fast #coding", Views: 18000, PublishedAt: "2026-03-11T08:00:00Z"},
+		{Platform: "linkedin", ID: "li1", Title: "How to Build APIs Fast", Views: 1500, PublishedAt: "2026-03-12T10:00:00Z"},
 	}
 
 	groups, unmatched := Group(videos)
@@ -25,45 +26,102 @@ func TestGrouping_MatchesSameVideoAcrossPlatforms(t *testing.T) {
 	if len(groups[0].Platforms) != 3 {
 		t.Errorf("expected 3 platforms, got %d", len(groups[0].Platforms))
 	}
+	if groups[0].ID != "2026-W11" {
+		t.Errorf("expected group ID 2026-W11, got %q", groups[0].ID)
+	}
+	// Canonical title should be YouTube's
+	if groups[0].CanonicalTitle != "How to Build APIs Fast" {
+		t.Errorf("unexpected canonical title %q", groups[0].CanonicalTitle)
+	}
 }
 
-func TestGrouping_DurationMismatchNotGrouped(t *testing.T) {
+func TestGrouping_DifferentWeeksSeparateGroups(t *testing.T) {
+	// Week 10 (Mar 2–8) and week 11 (Mar 9–15)
 	videos := []Video{
-		{Platform: "youtube", ID: "yt1", Title: "My Tutorial", DurationSeconds: 30, Views: 1000},
-		{Platform: "tiktok", ID: "tt1", Title: "My Tutorial", DurationSeconds: 90, Views: 2000},
+		{Platform: "youtube", ID: "yt1", Title: "Video A", Views: 1000, PublishedAt: "2026-03-02T12:00:00Z"},
+		{Platform: "tiktok", ID: "tt1", Title: "Video A", Views: 2000, PublishedAt: "2026-03-03T08:00:00Z"},
+		{Platform: "youtube", ID: "yt2", Title: "Video B", Views: 3000, PublishedAt: "2026-03-09T12:00:00Z"},
+		{Platform: "tiktok", ID: "tt2", Title: "Video B", Views: 4000, PublishedAt: "2026-03-10T08:00:00Z"},
+	}
+
+	groups, unmatched := Group(videos)
+
+	if len(groups) != 2 {
+		t.Fatalf("expected 2 groups, got %d", len(groups))
+	}
+	if len(unmatched) != 0 {
+		t.Fatalf("expected 0 unmatched, got %d", len(unmatched))
+	}
+
+	ids := map[string]bool{}
+	for _, g := range groups {
+		ids[g.ID] = true
+	}
+	if !ids["2026-W10"] || !ids["2026-W11"] {
+		t.Errorf("expected groups 2026-W10 and 2026-W11, got %v", ids)
+	}
+}
+
+func TestGrouping_NoParsableDateGoesUnmatched(t *testing.T) {
+	videos := []Video{
+		{Platform: "youtube", ID: "yt1", Title: "My Video", Views: 1000, PublishedAt: "not-a-date"},
 	}
 
 	groups, unmatched := Group(videos)
 
 	if len(groups) != 0 {
-		t.Errorf("expected 0 groups (duration too different), got %d", len(groups))
+		t.Errorf("expected 0 groups, got %d", len(groups))
 	}
-	if len(unmatched) != 2 {
-		t.Errorf("expected 2 unmatched, got %d", len(unmatched))
+	if len(unmatched) != 1 {
+		t.Errorf("expected 1 unmatched, got %d", len(unmatched))
 	}
 }
 
-func TestGrouping_DifferentVideosSamePlatform(t *testing.T) {
+func TestGrouping_MissingDateGoesUnmatched(t *testing.T) {
 	videos := []Video{
-		{Platform: "youtube", ID: "yt1", Title: "Video Alpha", DurationSeconds: 45, Views: 100},
-		{Platform: "youtube", ID: "yt2", Title: "Video Beta", DurationSeconds: 50, Views: 200},
+		{Platform: "linkedin", ID: "li1", Title: "Some Post", Views: 500, PublishedAt: ""},
 	}
 
 	groups, unmatched := Group(videos)
 
 	if len(groups) != 0 {
-		t.Errorf("expected 0 groups (same platform), got %d", len(groups))
+		t.Errorf("expected 0 groups, got %d", len(groups))
 	}
-	if len(unmatched) != 2 {
-		t.Errorf("expected 2 unmatched, got %d", len(unmatched))
+	if len(unmatched) != 1 {
+		t.Errorf("expected 1 unmatched, got %d", len(unmatched))
 	}
 }
 
-func TestGrouping_PartialMatch(t *testing.T) {
-	// Video exists on YouTube and TikTok but not LinkedIn
+func TestGrouping_MultipleVideosFromSamePlatformSameWeek(t *testing.T) {
+	// Two YouTube videos in week 11 — should produce 2 sub-groups
 	videos := []Video{
-		{Platform: "youtube", ID: "yt1", Title: "Quick Go Tutorial", DurationSeconds: 60, Views: 3000},
-		{Platform: "tiktok", ID: "tt1", Title: "Quick Go Tutorial #golang", DurationSeconds: 59, Views: 7000},
+		{Platform: "youtube", ID: "yt1", Title: "Video A", Views: 1000, PublishedAt: "2026-03-10T10:00:00Z"},
+		{Platform: "youtube", ID: "yt2", Title: "Video B", Views: 2000, PublishedAt: "2026-03-11T10:00:00Z"},
+		{Platform: "tiktok", ID: "tt1", Title: "Video A", Views: 3000, PublishedAt: "2026-03-10T12:00:00Z"},
+	}
+
+	groups, unmatched := Group(videos)
+
+	if len(groups) != 2 {
+		t.Fatalf("expected 2 sub-groups for the week, got %d", len(groups))
+	}
+	if len(unmatched) != 0 {
+		t.Fatalf("expected 0 unmatched, got %d", len(unmatched))
+	}
+
+	ids := map[string]bool{}
+	for _, g := range groups {
+		ids[g.ID] = true
+	}
+	if !ids["2026-W11"] || !ids["2026-W11-2"] {
+		t.Errorf("expected 2026-W11 and 2026-W11-2, got %v", ids)
+	}
+}
+
+func TestGrouping_SinglePlatformWeekStillAGroup(t *testing.T) {
+	// LinkedIn-only week should still produce a group (not unmatched)
+	videos := []Video{
+		{Platform: "linkedin", ID: "li1", Title: "Solo Post", Views: 400, PublishedAt: "2026-03-10T10:00:00Z"},
 	}
 
 	groups, unmatched := Group(videos)
@@ -71,35 +129,23 @@ func TestGrouping_PartialMatch(t *testing.T) {
 	if len(groups) != 1 {
 		t.Fatalf("expected 1 group, got %d", len(groups))
 	}
-	if _, ok := groups[0].Platforms["youtube"]; !ok {
-		t.Error("expected youtube in group platforms")
-	}
-	if _, ok := groups[0].Platforms["tiktok"]; !ok {
-		t.Error("expected tiktok in group platforms")
-	}
 	if len(unmatched) != 0 {
-		t.Errorf("expected 0 unmatched, got %d", len(unmatched))
+		t.Fatalf("expected 0 unmatched, got %d", len(unmatched))
 	}
 }
 
-func TestJaroWinkler(t *testing.T) {
-	tests := []struct {
-		a, b     string
-		wantHigh bool
-	}{
-		{"hello world", "hello world", true},
-		{"hello world", "hello wrold", true},
-		{"completely different", "nothing alike xyz", false},
-		{"go tutorial shorts", "go tutorial #shorts #coding", true},
+func TestGrouping_CanonicalTitlePrefersYouTube(t *testing.T) {
+	videos := []Video{
+		{Platform: "tiktok", ID: "tt1", Title: "TikTok Title #shorts", Views: 9000, PublishedAt: "2026-03-10T08:00:00Z"},
+		{Platform: "youtube", ID: "yt1", Title: "YouTube Title", Views: 1000, PublishedAt: "2026-03-10T12:00:00Z"},
 	}
 
-	for _, tt := range tests {
-		sim := jaroWinkler(normalizeTitle(tt.a), normalizeTitle(tt.b))
-		if tt.wantHigh && sim < 0.70 {
-			t.Errorf("jaroWinkler(%q, %q) = %.2f, want >= 0.70", tt.a, tt.b, sim)
-		}
-		if !tt.wantHigh && sim >= 0.70 {
-			t.Errorf("jaroWinkler(%q, %q) = %.2f, want < 0.70", tt.a, tt.b, sim)
-		}
+	groups, _ := Group(videos)
+
+	if len(groups) != 1 {
+		t.Fatalf("expected 1 group, got %d", len(groups))
+	}
+	if groups[0].CanonicalTitle != "YouTube Title" {
+		t.Errorf("expected YouTube title as canonical, got %q", groups[0].CanonicalTitle)
 	}
 }

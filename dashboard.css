@@ -164,6 +164,19 @@ main {
   margin-top: 32px;
 }
 
+/* ── Week Headings ───────────────────────────────────── */
+.week-heading {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  padding: 16px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+.week-heading:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+
 /* ── Video Cards ─────────────────────────────────────── */
 .video-list { display: flex; flex-direction: column; gap: 12px; }
 

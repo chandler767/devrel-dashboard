@@ -955,9 +955,43 @@ function renderVideoList(items, range) {
     return;
   }
 
-  for (const item of visible) {
+  // Sort newest week first, then by views within a week
+  const sorted = [...visible].sort((a, b) => {
+    const da = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
+    const db = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
+    if (db - da !== 0) return db - da;
+    return (b.totalViews || 0) - (a.totalViews || 0);
+  });
+
+  let currentWeekKey = null;
+  for (const item of sorted) {
+    const weekKey = isoWeekKey(item.publishedAt);
+    if (weekKey !== currentWeekKey) {
+      currentWeekKey = weekKey;
+      const header = document.createElement('div');
+      header.className = 'week-heading';
+      header.textContent = isoWeekLabel(item.publishedAt);
+      container.appendChild(header);
+    }
     container.appendChild(renderCard(item));
   }
+}
+
+function isoWeekKey(publishedAt) {
+  if (!publishedAt) return 'unknown';
+  const d = new Date(publishedAt);
+  const day = d.getUTCDay() || 7;
+  const monday = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - day + 1));
+  return monday.toISOString().slice(0, 10);
+}
+
+function isoWeekLabel(publishedAt) {
+  if (!publishedAt) return 'Unknown week';
+  const d = new Date(publishedAt);
+  const day = d.getUTCDay() || 7;
+  const monday = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate() - day + 1));
+  const sunday = new Date(Date.UTC(monday.getUTCFullYear(), monday.getUTCMonth(), monday.getUTCDate() + 6));
+  return `Week of ${fmtDateShort(monday.toISOString())} – ${fmtDateShort(sunday.toISOString())}`;
 }
 
 // ── Selected Heading ──────────────────────────────────────────────────────────

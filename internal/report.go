@@ -133,6 +133,43 @@ func updateIndex(reportID, fileName string, generatedAt time.Time) error {
 	return os.WriteFile(indexJSPath, []byte(indexJS), 0644)
 }
 
+// LoadAllKnownVideoIDs scans every report file listed in reports/index.json
+// and returns the union of all "platform:videoID" pairs ever approved.
+func LoadAllKnownVideoIDs() map[string]bool {
+	known := map[string]bool{}
+
+	indexPath := filepath.Join(reportsDir, "index.json")
+	data, err := os.ReadFile(indexPath)
+	if err != nil {
+		return known
+	}
+	var index ReportIndex
+	if err := json.Unmarshal(data, &index); err != nil {
+		return known
+	}
+
+	for _, entry := range index.Reports {
+		reportData, err := os.ReadFile(filepath.Join(reportsDir, entry.File))
+		if err != nil {
+			continue // deleted or missing — skip
+		}
+		var report Report
+		if err := json.Unmarshal(reportData, &report); err != nil {
+			continue
+		}
+		for _, g := range report.VideoGroups {
+			for platform, pd := range g.Platforms {
+				known[platform+":"+pd.VideoID] = true
+			}
+		}
+		for _, u := range report.Unmatched {
+			known[u.Platform+":"+u.VideoID] = true
+		}
+	}
+
+	return known
+}
+
 // LoadPreviousReport reads the most recent report from reports/index.json.
 // Returns nil (no error) if no previous report exists yet.
 func LoadPreviousReport() (*Report, error) {
@@ -145,17 +182,22 @@ func LoadPreviousReport() (*Report, error) {
 	if err := json.Unmarshal(data, &index); err != nil || len(index.Reports) == 0 {
 		return nil, nil
 	}
-	prev := index.Reports[0] // most recent is first
-	reportPath := filepath.Join(reportsDir, prev.File)
-	reportData, err := os.ReadFile(reportPath)
-	if err != nil {
-		return nil, fmt.Errorf("read previous report %s: %w", prev.File, err)
+	for _, prev := range index.Reports {
+		reportPath := filepath.Join(reportsDir, prev.File)
+		reportData, err := os.ReadFile(reportPath)
+		if os.IsNotExist(err) {
+			continue // file was deleted; try the next one
+		}
+		if err != nil {
+			return nil, fmt.Errorf("read previous report %s: %w", prev.File, err)
+		}
+		var report Report
+		if err := json.Unmarshal(reportData, &report); err != nil {
+			return nil, fmt.Errorf("parse previous report: %w", err)
+		}
+		return &report, nil
 	}
-	var report Report
-	if err := json.Unmarshal(reportData, &report); err != nil {
-		return nil, fmt.Errorf("parse previous report: %w", err)
-	}
-	return &report, nil
+	return nil, nil // all index entries point to deleted files
 }
 
 // BackfillMissingTikTokVideos guards against yt-dlp returning an incomplete

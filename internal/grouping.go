@@ -4,11 +4,9 @@ import (
 	"crypto/sha1"
 	"encoding/json"
 	"fmt"
-	"math"
 	"os"
-	"regexp"
 	"strings"
-	"unicode"
+	"time"
 )
 
 // ManualGroup is one entry in manual_groups.json.
@@ -28,6 +26,7 @@ type Video struct {
 	Platform        string
 	ID              string
 	Title           string
+	Author          string // optional; populated where available (e.g. LinkedIn)
 	Views           int64
 	DurationSeconds int
 	URL             string
@@ -53,7 +52,8 @@ type VideoGroup struct {
 	Platforms       map[string]PlatformData `json:"platforms"`
 }
 
-// UnmatchedVideo is a video that only exists on one platform.
+// UnmatchedVideo is a video that could not be assigned to a week group
+// (e.g. missing or unparseable publish date).
 type UnmatchedVideo struct {
 	Platform        string `json:"platform"`
 	VideoID         string `json:"video_id"`
@@ -63,132 +63,6 @@ type UnmatchedVideo struct {
 	URL             string `json:"url"`
 	PublishedAt     string `json:"published_at"`
 }
-
-var (
-	hashtagRe    = regexp.MustCompile(`#\S+`)
-	nonAlphaRe   = regexp.MustCompile(`[^a-z0-9\s]`)
-	whitespaceRe = regexp.MustCompile(`\s+`)
-)
-
-// normalizeTitle lowercases, strips hashtags and punctuation, collapses whitespace.
-func normalizeTitle(title string) string {
-	s := strings.ToLower(title)
-	s = hashtagRe.ReplaceAllString(s, " ")
-	var b strings.Builder
-	for _, r := range s {
-		if unicode.IsLetter(r) || unicode.IsDigit(r) || unicode.IsSpace(r) {
-			b.WriteRune(r)
-		} else {
-			b.WriteRune(' ')
-		}
-	}
-	s = nonAlphaRe.ReplaceAllString(b.String(), " ")
-	s = whitespaceRe.ReplaceAllString(strings.TrimSpace(s), " ")
-	return s
-}
-
-// jaroWinkler computes the Jaro-Winkler similarity between two strings.
-// Returns a value between 0.0 (no match) and 1.0 (exact match).
-func jaroWinkler(s1, s2 string) float64 {
-	if s1 == s2 {
-		return 1.0
-	}
-	if len(s1) == 0 || len(s2) == 0 {
-		return 0.0
-	}
-
-	// Jaro similarity
-	matchDist := int(math.Max(float64(len(s1)), float64(len(s2)))/2) - 1
-	if matchDist < 0 {
-		matchDist = 0
-	}
-
-	s1Matches := make([]bool, len(s1))
-	s2Matches := make([]bool, len(s2))
-
-	matches := 0
-	transpositions := 0
-
-	for i, c1 := range s1 {
-		start := int(math.Max(0, float64(i-matchDist)))
-		end := int(math.Min(float64(len(s2)-1), float64(i+matchDist)))
-		for j := start; j <= end; j++ {
-			if s2Matches[j] || rune(s2[j]) != c1 {
-				continue
-			}
-			s1Matches[i] = true
-			s2Matches[j] = true
-			matches++
-			break
-		}
-	}
-
-	if matches == 0 {
-		return 0.0
-	}
-
-	k := 0
-	for i := range s1 {
-		if !s1Matches[i] {
-			continue
-		}
-		for k < len(s2) && !s2Matches[k] {
-			k++
-		}
-		if k < len(s2) && rune(s1[i]) != rune(s2[k]) {
-			transpositions++
-		}
-		k++
-	}
-
-	jaro := (float64(matches)/float64(len(s1)) +
-		float64(matches)/float64(len(s2)) +
-		float64(matches-transpositions/2)/float64(matches)) / 3.0
-
-	// Winkler prefix boost (up to 4 chars)
-	prefix := 0
-	for i := 0; i < int(math.Min(4, math.Min(float64(len(s1)), float64(len(s2))))); i++ {
-		if s1[i] == s2[i] {
-			prefix++
-		} else {
-			break
-		}
-	}
-
-	return jaro + float64(prefix)*0.1*(1-jaro)
-}
-
-// union-find for clustering
-type unionFind struct {
-	parent []int
-}
-
-func newUnionFind(n int) *unionFind {
-	p := make([]int, n)
-	for i := range p {
-		p[i] = i
-	}
-	return &unionFind{parent: p}
-}
-
-func (uf *unionFind) find(x int) int {
-	if uf.parent[x] != x {
-		uf.parent[x] = uf.find(uf.parent[x])
-	}
-	return uf.parent[x]
-}
-
-func (uf *unionFind) union(x, y int) {
-	px, py := uf.find(x), uf.find(y)
-	if px != py {
-		uf.parent[px] = py
-	}
-}
-
-const (
-	titleSimilarityThreshold = 0.70
-	durationDeltaSeconds     = 5
-)
 
 // loadManualGroups reads manual_groups.json if it exists; returns empty slice otherwise.
 func loadManualGroups() []ManualGroup {
@@ -201,151 +75,174 @@ func loadManualGroups() []ManualGroup {
 	return groups
 }
 
-// Group clusters videos across platforms by title similarity and duration proximity.
-// Manual merges from manual_groups.json are applied first, then auto-grouping runs.
-// Videos that match go into VideoGroups; those that don't are returned as UnmatchedVideo.
+// Group clusters videos by ISO week across platforms.
+// Manual merges from manual_groups.json are applied first and bypass week grouping.
+// Videos without a parseable publish date are returned as UnmatchedVideo.
 func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 	n := len(videos)
 	if n == 0 {
 		return nil, nil
 	}
 
-	uf := newUnionFind(n)
-
-	// Build a lookup: (platform, id) → index in videos slice
 	videoIndex := make(map[string]int, n)
 	for i, v := range videos {
 		videoIndex[v.Platform+":"+v.ID] = i
 	}
 
-	// Apply manual merges first — pre-union any specified pairs
+	manuallyGrouped := make(map[int]bool)
+	var groups []VideoGroup
+
+	// Apply manual groups first — they override week grouping
 	for _, mg := range loadManualGroups() {
 		if len(mg.VideoIDs) < 2 {
 			continue
 		}
-		first := -1
+		var indices []int
 		for _, vid := range mg.VideoIDs {
-			idx, ok := videoIndex[vid.Platform+":"+vid.ID]
-			if !ok {
-				continue
-			}
-			if first == -1 {
-				first = idx
-			} else {
-				uf.union(first, idx)
+			if idx, ok := videoIndex[vid.Platform+":"+vid.ID]; ok {
+				indices = append(indices, idx)
+				manuallyGrouped[idx] = true
 			}
 		}
-	}
-
-	for i := 0; i < n; i++ {
-		for j := i + 1; j < n; j++ {
-			// Only group videos from different platforms
-			if videos[i].Platform == videos[j].Platform {
-				continue
-			}
-			normI := normalizeTitle(videos[i].Title)
-			normJ := normalizeTitle(videos[j].Title)
-			sim := jaroWinkler(normI, normJ)
-			durationDiff := videos[i].DurationSeconds - videos[j].DurationSeconds
-			if durationDiff < 0 {
-				durationDiff = -durationDiff
-			}
-			if sim >= titleSimilarityThreshold && durationDiff <= durationDeltaSeconds {
-				uf.union(i, j)
-			}
+		if len(indices) == 0 {
+			continue
 		}
+		g := buildVideoGroup(videos, indices)
+		g.ID = videoGroupID(g.CanonicalTitle)
+		groups = append(groups, g)
 	}
 
-	// Build clusters: root → []index
-	clusters := map[int][]int{}
-	for i := 0; i < n; i++ {
-		root := uf.find(i)
-		clusters[root] = append(clusters[root], i)
-	}
-
-	var groups []VideoGroup
+	// Bucket remaining videos by ISO week (year + week number)
+	weekBuckets := map[string][]int{}
 	var unmatched []UnmatchedVideo
 
-	for _, indices := range clusters {
-		if len(indices) == 1 {
-			v := videos[indices[0]]
-			unmatched = append(unmatched, UnmatchedVideo{
-				Platform:        v.Platform,
-				VideoID:         v.ID,
-				Title:           v.Title,
-				Views:           v.Views,
-				DurationSeconds: v.DurationSeconds,
-				URL:             v.URL,
-				PublishedAt:     v.PublishedAt,
-			})
+	for i, v := range videos {
+		if manuallyGrouped[i] {
 			continue
 		}
-
-		// Check if this cluster actually has multiple platforms
-		platformsSeen := map[string]bool{}
-		for _, idx := range indices {
-			platformsSeen[videos[idx].Platform] = true
-		}
-		if len(platformsSeen) == 1 {
-			// All from same platform - treat as unmatched
-			for _, idx := range indices {
-				v := videos[idx]
-				unmatched = append(unmatched, UnmatchedVideo{
-					Platform:        v.Platform,
-					VideoID:         v.ID,
-					Title:           v.Title,
-					Views:           v.Views,
-					DurationSeconds: v.DurationSeconds,
-					URL:             v.URL,
-					PublishedAt:     v.PublishedAt,
-				})
-			}
+		if v.PublishedAt == "" {
+			unmatched = append(unmatched, videoToUnmatched(v))
 			continue
 		}
-
-		group := VideoGroup{
-			Platforms: map[string]PlatformData{},
+		t, err := time.Parse(time.RFC3339, v.PublishedAt)
+		if err != nil {
+			unmatched = append(unmatched, videoToUnmatched(v))
+			continue
 		}
+		year, week := t.ISOWeek()
+		key := fmt.Sprintf("%d-W%02d", year, week)
+		weekBuckets[key] = append(weekBuckets[key], i)
+	}
 
-		var totalViews int64
-		var totalDuration int
-		var canonicalTitle string
-		var canonicalPriority int // 1=youtube, 2=other
-
-		for _, idx := range indices {
-			v := videos[idx]
-			totalViews += v.Views
-			totalDuration += v.DurationSeconds
-
-			// Pick canonical title: prefer YouTube, then longest
-			if v.Platform == "youtube" && canonicalPriority < 1 {
-				canonicalTitle = v.Title
-				canonicalPriority = 1
-			} else if canonicalPriority == 0 && len(v.Title) > len(canonicalTitle) {
-				canonicalTitle = v.Title
+	// Build VideoGroups from week buckets.
+	// If multiple videos from the same platform land in the same week,
+	// they spill into numbered sub-groups (2026-W11-2, etc.).
+	for weekKey, indices := range weekBuckets {
+		subGroups := splitIntoPlatformGroups(videos, indices)
+		for si, sg := range subGroups {
+			g := buildVideoGroup(videos, sg)
+			if si == 0 {
+				g.ID = weekKey
+			} else {
+				g.ID = fmt.Sprintf("%s-%d", weekKey, si+1)
 			}
-
-			group.Platforms[v.Platform] = PlatformData{
-				VideoID:         v.ID,
-				Title:           v.Title,
-				Views:           v.Views,
-				URL:             v.URL,
-				PublishedAt:     v.PublishedAt,
-				DurationSeconds: v.DurationSeconds,
-			}
+			groups = append(groups, g)
 		}
-
-		group.CanonicalTitle = canonicalTitle
-		group.DurationSeconds = totalDuration / len(indices)
-		group.TotalViews = totalViews
-		group.ID = videoGroupID(canonicalTitle)
-		groups = append(groups, group)
 	}
 
 	return groups, unmatched
 }
 
+// buildVideoGroup assembles a VideoGroup from a slice of video indices.
+// Canonical title prefers YouTube, then TikTok, then first available.
+// Duration prefers YouTube, then TikTok (LinkedIn reports 0).
+func buildVideoGroup(videos []Video, indices []int) VideoGroup {
+	group := VideoGroup{Platforms: map[string]PlatformData{}}
+	var totalViews int64
+	var canonicalTitle string
+	var canonicalPriority int // 1=youtube, 2=tiktok, 3=other
+
+	for _, idx := range indices {
+		v := videos[idx]
+		totalViews += v.Views
+
+		switch {
+		case v.Platform == "youtube":
+			canonicalTitle = v.Title
+			canonicalPriority = 1
+		case v.Platform == "tiktok" && canonicalPriority != 1:
+			canonicalTitle = v.Title
+			canonicalPriority = 2
+		case canonicalPriority == 0:
+			canonicalTitle = v.Title
+			canonicalPriority = 3
+		}
+
+		group.Platforms[v.Platform] = PlatformData{
+			VideoID:         v.ID,
+			Title:           v.Title,
+			Views:           v.Views,
+			URL:             v.URL,
+			PublishedAt:     v.PublishedAt,
+			DurationSeconds: v.DurationSeconds,
+		}
+	}
+
+	group.CanonicalTitle = canonicalTitle
+	group.TotalViews = totalViews
+
+	if pd, ok := group.Platforms["youtube"]; ok {
+		group.DurationSeconds = pd.DurationSeconds
+	} else if pd, ok := group.Platforms["tiktok"]; ok {
+		group.DurationSeconds = pd.DurationSeconds
+	}
+
+	return group
+}
+
+// videoToUnmatched converts a Video to an UnmatchedVideo.
+func videoToUnmatched(v Video) UnmatchedVideo {
+	return UnmatchedVideo{
+		Platform:        v.Platform,
+		VideoID:         v.ID,
+		Title:           v.Title,
+		Views:           v.Views,
+		DurationSeconds: v.DurationSeconds,
+		URL:             v.URL,
+		PublishedAt:     v.PublishedAt,
+	}
+}
+
+// splitIntoPlatformGroups divides video indices into sub-groups where each
+// sub-group has at most one video per platform. Extras spill into new sub-groups.
+func splitIntoPlatformGroups(videos []Video, indices []int) [][]int {
+	var subGroups [][]int
+	for _, idx := range indices {
+		platform := videos[idx].Platform
+		placed := false
+		for si := range subGroups {
+			alreadyHas := false
+			for _, sIdx := range subGroups[si] {
+				if videos[sIdx].Platform == platform {
+					alreadyHas = true
+					break
+				}
+			}
+			if !alreadyHas {
+				subGroups[si] = append(subGroups[si], idx)
+				placed = true
+				break
+			}
+		}
+		if !placed {
+			subGroups = append(subGroups, []int{idx})
+		}
+	}
+	return subGroups
+}
+
 // videoGroupID generates a stable short ID from the canonical title.
+// Used only for manually-defined groups.
 func videoGroupID(title string) string {
 	h := sha1.Sum([]byte(strings.ToLower(strings.TrimSpace(title))))
 	return fmt.Sprintf("%x", h[:4])

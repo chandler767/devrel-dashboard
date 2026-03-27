@@ -1,6 +1,7 @@
 package platforms
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -13,129 +14,77 @@ import (
 	"github.com/devrel-dashboard/internal"
 )
 
-const voyagerBase = "https://www.linkedin.com/voyager/api"
+const (
+	liAPIBase    = "https://api.linkedin.com"
+	liAPIVersion = "202603"
+)
 
-// LinkedInFetch fetches LinkedIn video posts via the Voyager (internal) API.
-// Requires LINKEDIN_LI_AT and LINKEDIN_JSESSIONID from your browser cookies
-// (DevTools → Storage → Cookies → linkedin.com).
-// Optionally set LINKEDIN_PUBLIC_ID to your profile URL slug to skip auto-detection.
-// Optionally set LINKEDIN_ORG_URNS (comma-separated) to also fetch from pages you manage.
-func LinkedInFetch() ([]internal.Video, error) {
-	liAt := os.Getenv("LINKEDIN_LI_AT")
-	if liAt == "" {
-		return nil, fmt.Errorf("linkedin: LINKEDIN_LI_AT is not set")
-	}
+// ── API types ─────────────────────────────────────────────────────────────────
 
-	fmt.Println("  (using Voyager API with cookie auth)")
-	vc := &voyagerClient{
-		liAt:       liAt,
-		jsessionid: os.Getenv("LINKEDIN_JSESSIONID"),
-		bcookie:    os.Getenv("LINKEDIN_BCOOKIE"),
-		bscookie:   os.Getenv("LINKEDIN_BSCOOKIE"),
-	}
+type liTokenResponse struct {
+	AccessToken           string `json:"access_token"`
+	ExpiresIn             int    `json:"expires_in"`
+	RefreshToken          string `json:"refresh_token"`
+	RefreshTokenExpiresIn int    `json:"refresh_token_expires_in"`
+}
 
-	// Person's public profile slug (the part after linkedin.com/in/)
-	publicID := os.Getenv("LINKEDIN_PUBLIC_ID")
-	var info meInfo
-	if publicID == "" {
-		var err error
-		info, err = vc.me()
-		if err != nil {
-			return nil, fmt.Errorf("linkedin: could not detect profile ID: %w\n  Tip: set LINKEDIN_PUBLIC_ID=your-url-slug to skip auto-detection", err)
+type liPost struct {
+	ID          string `json:"id"`
+	Author      string `json:"author"`
+	Commentary  string `json:"commentary"`
+	PublishedAt int64  `json:"publishedAt"` // Unix ms
+	Content     struct {
+		Media *struct {
+			ID string `json:"id"` // "urn:li:video:..." or "urn:li:image:..."
+		} `json:"media"`
+	} `json:"content"`
+}
+
+// ── Client ────────────────────────────────────────────────────────────────────
+
+type liClient struct {
+	accessToken string
+	http        *http.Client
+}
+
+func (c *liClient) get(path string, params url.Values) ([]byte, error) {
+	return c.getURL(liAPIBase + path + func() string {
+		if len(params) > 0 {
+			return "?" + params.Encode()
 		}
-		publicID = info.publicID
-		fmt.Printf("  Auto-detected: slug=%s memberURN=%s fsdURN=%s\n", publicID, info.memberURN, info.fsdProfileURN)
-	}
+		return ""
+	}())
+}
 
-	var posts []voyagerPost
-
-	personal, err := vc.personPosts(publicID, info)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "  linkedin warning: personal posts failed: %v\n", err)
-	} else {
-		fmt.Printf("  %d personal video post(s)\n", len(personal))
-		posts = append(posts, personal...)
-	}
-
-	if orgURNs := os.Getenv("LINKEDIN_ORG_URNS"); orgURNs != "" {
-		for _, urn := range strings.Split(orgURNs, ",") {
-			urn = strings.TrimSpace(urn)
-			if urn == "" {
-				continue
-			}
-			orgPosts, err := vc.orgPosts(urn)
-			if err != nil {
-				fmt.Fprintf(os.Stderr, "  linkedin warning: org %s: %v\n", urn, err)
-				continue
-			}
-			fmt.Printf("  %d video post(s) from %s\n", len(orgPosts), urn)
-			posts = append(posts, orgPosts...)
+// getRestLi builds a URL with RestLi-style list params that must not be
+// percent-encoded (e.g. ugcPosts=List(urn:li:ugcPost:123)).
+// encoded holds normal key=value pairs; raw is appended verbatim after &.
+func (c *liClient) getRestLi(path string, encoded url.Values, raw string) ([]byte, error) {
+	u := liAPIBase + path
+	q := encoded.Encode()
+	if raw != "" {
+		if q != "" {
+			q += "&"
 		}
+		q += raw
 	}
-
-	videos := make([]internal.Video, 0, len(posts))
-	for _, p := range posts {
-		videos = append(videos, internal.Video{
-			Platform:        "linkedin",
-			ID:              p.urn,
-			Title:           p.text,
-			Views:           p.views,
-			DurationSeconds: p.durationSecs,
-			URL:             p.postURL,
-			PublishedAt:     p.publishedAt,
-		})
+	if q != "" {
+		u += "?" + q
 	}
-	return videos, nil
+	return c.getURL(u)
 }
 
-// ── Voyager client ────────────────────────────────────────────────────────────
-
-type voyagerClient struct {
-	liAt, jsessionid, bcookie, bscookie string
-}
-
-type voyagerPost struct {
-	urn, text, postURL, publishedAt string
-	views                           int64
-	durationSecs                    int
-}
-
-func (vc *voyagerClient) get(path string, params url.Values) ([]byte, error) {
-	return vc.getWithReferer(path, params, "")
-}
-
-func (vc *voyagerClient) getWithReferer(path string, params url.Values, referer string) ([]byte, error) {
-	u := voyagerBase + path
-	if len(params) > 0 {
-		u += "?" + params.Encode()
-	}
+func (c *liClient) getURL(u string) ([]byte, error) {
 	req, err := http.NewRequest("GET", u, nil)
 	if err != nil {
 		return nil, err
 	}
-	csrf := strings.Trim(vc.jsessionid, `"`)
-	cookieVal := "li_at=" + vc.liAt + "; JSESSIONID=" + vc.jsessionid
-	if vc.bcookie != "" {
-		cookieVal += "; bcookie=" + vc.bcookie
-	}
-	if vc.bscookie != "" {
-		cookieVal += "; bscookie=" + vc.bscookie
-	}
-	req.Header.Set("Cookie", cookieVal)
-	req.Header.Set("Csrf-Token", csrf)
-	req.Header.Set("X-RestLi-Protocol-Version", "2.0.0")
-	req.Header.Set("X-Li-Lang", "en_US")
+	req.Header.Set("Authorization", "Bearer "+c.accessToken)
+	req.Header.Set("LinkedIn-Version", liAPIVersion)
+	req.Header.Set("X-Restli-Protocol-Version", "2.0.0")
 	req.Header.Set("Accept", "application/json")
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
-	req.Header.Set("x-li-page-instance", "urn:li:page:p_flagship3_profile_view_base;00000000-0000-0000-0000-000000000001")
-	req.Header.Set("x-li-track", `{"clientVersion":"1.13.6535","mpVersion":"1.13.6535","osName":"web","timezoneOffset":-8,"timezone":"America/Los_Angeles","deviceFormFactor":"DESKTOP","mpName":"voyager-web","displayDensity":2,"displayWidth":1440,"displayHeight":900}`)
-	if referer != "" {
-		req.Header.Set("Referer", referer)
-	} else {
-		req.Header.Set("Referer", "https://www.linkedin.com/")
-	}
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.http.Do(req)
 	if err != nil {
 		return nil, err
 	}
@@ -150,437 +99,450 @@ func (vc *voyagerClient) getWithReferer(path string, params url.Values, referer 
 	return body, nil
 }
 
-type meInfo struct {
-	publicID      string // URL slug e.g. "chandler-mayo"
-	memberURN     string // e.g. "urn:li:member:214302444"
-	fsdProfileURN string // e.g. "urn:li:fsd_profile:ACoAAAzF_uw..."
-}
+// ── Token refresh ─────────────────────────────────────────────────────────────
 
-func (vc *voyagerClient) me() (meInfo, error) {
-	body, err := vc.get("/me", nil)
+// refreshToken uses the stored refresh token to get a new access token and
+// writes it back to .env. If any credential is missing, returns the current
+// LINKEDIN_ACCESS_TOKEN as-is (allows using a manually set token).
+func refreshToken() (string, error) {
+	clientID := os.Getenv("LINKEDIN_CLIENT_ID")
+	clientSecret := os.Getenv("LINKEDIN_CLIENT_SECRET")
+	refreshTok := os.Getenv("LINKEDIN_REFRESH_TOKEN")
+
+	if clientID == "" || clientSecret == "" || refreshTok == "" {
+		// No refresh credentials — use whatever access token is set
+		tok := os.Getenv("LINKEDIN_ACCESS_TOKEN")
+		if tok == "" {
+			return "", fmt.Errorf("linkedin: no access token and no refresh credentials (set LINKEDIN_ACCESS_TOKEN or LINKEDIN_CLIENT_ID + LINKEDIN_CLIENT_SECRET + LINKEDIN_REFRESH_TOKEN)")
+		}
+		return tok, nil
+	}
+
+	form := url.Values{
+		"grant_type":    {"refresh_token"},
+		"refresh_token": {refreshTok},
+		"client_id":     {clientID},
+		"client_secret": {clientSecret},
+	}
+
+	resp, err := http.PostForm("https://www.linkedin.com/oauth/v2/accessToken", form)
 	if err != nil {
-		return meInfo{}, err
+		return "", fmt.Errorf("linkedin token refresh: %w", err)
 	}
-	var r struct {
-		PlainID     json.Number `json:"plainId"`
-		MiniProfile *struct {
-			PublicIdentifier string `json:"publicIdentifier"`
-			EntityURN        string `json:"entityUrn"`
-		} `json:"miniProfile"`
-		Data *struct {
-			PlainID     json.Number `json:"plainId"`
-			MiniProfile *struct {
-				PublicIdentifier string `json:"publicIdentifier"`
-				EntityURN        string `json:"entityUrn"`
-			} `json:"miniProfile"`
-		} `json:"data"`
-		Included []struct {
-			PublicIdentifier string `json:"publicIdentifier"`
-			EntityURN        string `json:"entityUrn"`
-		} `json:"included"`
-	}
-	if err := json.Unmarshal(body, &r); err != nil {
-		return meInfo{}, fmt.Errorf("parse /me: %w (%.400s)", err, string(body))
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return "", fmt.Errorf("linkedin token refresh HTTP %d: %.400s", resp.StatusCode, string(body))
 	}
 
-	info := meInfo{}
+	var tok liTokenResponse
+	if err := json.Unmarshal(body, &tok); err != nil {
+		return "", fmt.Errorf("linkedin token refresh parse: %w", err)
+	}
 
-	// Extract publicIdentifier (URL slug) and entityUrn
-	if r.MiniProfile != nil {
-		info.publicID = r.MiniProfile.PublicIdentifier
-		info.fsdProfileURN = fsMiniProfileToFsd(r.MiniProfile.EntityURN)
+	if err := updateEnvValue("LINKEDIN_ACCESS_TOKEN", tok.AccessToken); err != nil {
+		fmt.Fprintf(os.Stderr, "  linkedin warning: could not save new access token: %v\n", err)
 	}
-	if r.Data != nil && r.Data.MiniProfile != nil {
-		if info.publicID == "" {
-			info.publicID = r.Data.MiniProfile.PublicIdentifier
-		}
-		if info.fsdProfileURN == "" {
-			info.fsdProfileURN = fsMiniProfileToFsd(r.Data.MiniProfile.EntityURN)
-		}
-	}
-	for _, inc := range r.Included {
-		if info.publicID == "" && inc.PublicIdentifier != "" {
-			info.publicID = inc.PublicIdentifier
-		}
-		if info.fsdProfileURN == "" && strings.Contains(inc.EntityURN, "fs_miniProfile") {
-			info.fsdProfileURN = fsMiniProfileToFsd(inc.EntityURN)
+	if tok.RefreshToken != "" && tok.RefreshToken != refreshTok {
+		if err := updateEnvValue("LINKEDIN_REFRESH_TOKEN", tok.RefreshToken); err != nil {
+			fmt.Fprintf(os.Stderr, "  linkedin warning: could not save rotated refresh token: %v\n", err)
 		}
 	}
 
-	// Extract numeric member ID for URN
-	plainID := r.PlainID
-	if plainID.String() == "" && r.Data != nil {
-		plainID = r.Data.PlainID
-	}
-	if id := plainID.String(); id != "" && id != "0" {
-		info.memberURN = "urn:li:member:" + id
-	}
-
-	if info.publicID == "" && info.memberURN == "" && info.fsdProfileURN == "" {
-		return meInfo{}, fmt.Errorf("could not find profile ID in /me response (%.400s)", string(body))
-	}
-	return info, nil
+	return tok.AccessToken, nil
 }
 
-// fsMiniProfileToFsd converts urn:li:fs_miniProfile:X → urn:li:fsd_profile:X
-func fsMiniProfileToFsd(urn string) string {
-	if strings.HasPrefix(urn, "urn:li:fs_miniProfile:") {
-		return "urn:li:fsd_profile:" + strings.TrimPrefix(urn, "urn:li:fs_miniProfile:")
-	}
-	return ""
-}
+// ── Posts fetching ────────────────────────────────────────────────────────────
 
-// ── Feed element parsing ──────────────────────────────────────────────────────
-
-// Legacy Voyager element format (profileUpdatesV2 / feed/updatesV2)
-type liElement struct {
-	CreatedAt    int64    `json:"createdAt"`
-	EntityURN    string   `json:"entityUrn"`
-	Value        liValue  `json:"value"`
-	SocialDetail *struct {
-		TotalSocialActivityCounts *struct {
-			NumViews int64 `json:"numViews"`
-		} `json:"totalSocialActivityCounts"`
-	} `json:"socialDetail"`
-}
-
-type liValue struct {
-	UpdateV2 *liUpdateV2 `json:"com.linkedin.voyager.feed.render.UpdateV2"`
-}
-
-type liUpdateV2 struct {
-	Commentary *struct {
-		Text struct{ Text string `json:"text"` } `json:"text"`
-	} `json:"commentary"`
-	Content *struct {
-		VideoComponent *struct {
-			VideoPlayMetadata *struct {
-				Duration int64 `json:"duration"` // milliseconds
-			} `json:"videoPlayMetadata"`
-		} `json:"com.linkedin.voyager.feed.render.VideoComponent"`
-	} `json:"content"`
-	UpdateMetadata *struct {
-		URN string `json:"urn"`
-	} `json:"updateMetadata"`
-}
-
-// Dash element format (identity/dash/profileUpdates)
-type dashElement struct {
-	PublishedAt  int64  `json:"publishedAt"`
-	EntityURN    string `json:"entityUrn"`
-	Commentary   *struct {
-		Text struct{ Text string `json:"text"` } `json:"text"`
-	} `json:"commentary"`
-	Content      *dashContent `json:"content"`
-	SocialDetail *struct {
-		TotalSocialActivityCounts *struct {
-			NumViews int64 `json:"numViews"`
-		} `json:"totalSocialActivityCounts"`
-	} `json:"socialDetail"`
-	UpdateMetadata *struct {
-		URN string `json:"urn"`
-	} `json:"updateMetadata"`
-}
-
-type dashContent struct {
-	VideoComponent *struct {
-		VideoPlayMetadata *struct {
-			Duration int64 `json:"duration"` // milliseconds
-		} `json:"videoPlayMetadata"`
-	} `json:"com.linkedin.voyager.dash.feed.render.entity.update.content.video.VideoComponent"`
-}
-
-func (vc *voyagerClient) fetchPosts(path string, params url.Values) ([]voyagerPost, error) {
-	return vc.fetchPostsRef(path, params, "")
-}
-
-func (vc *voyagerClient) fetchPostsRef(path string, params url.Values, referer string) ([]voyagerPost, error) {
-	var all []voyagerPost
-	start, count := 0, 50
+// fetchPosts fetches all video posts for the given author URN (person or org),
+// paginating until all posts are retrieved.
+func (c *liClient) fetchPosts(authorURN string) ([]liPost, error) {
+	var all []liPost
+	count := 100
+	start := 0
 
 	for {
-		p := url.Values{}
-		for k, v := range params {
-			p[k] = v
+		params := url.Values{
+			"author": {authorURN},
+			"q":      {"author"},
+			"count":  {fmt.Sprintf("%d", count)},
+			"start":  {fmt.Sprintf("%d", start)},
 		}
-		p.Set("count", fmt.Sprintf("%d", count))
-		p.Set("start", fmt.Sprintf("%d", start))
 
-		body, err := vc.getWithReferer(path, p, referer)
+		body, err := c.get("/rest/posts", params)
 		if err != nil {
 			return nil, err
 		}
 
-		var feed struct {
-			Elements []liElement `json:"elements"`
+		var result struct {
+			Elements []liPost `json:"elements"`
 			Paging   struct {
 				Total int `json:"total"`
+				Count int `json:"count"`
+				Start int `json:"start"`
 			} `json:"paging"`
 		}
-		if err := json.Unmarshal(body, &feed); err != nil {
-			return nil, fmt.Errorf("parse feed from %s: %w\n  body: %.400s", path, err, string(body))
+		if err := json.Unmarshal(body, &result); err != nil {
+			return nil, fmt.Errorf("parse /rest/posts: %w (%.400s)", err, string(body))
 		}
 
-		if len(feed.Elements) == 0 && start == 0 {
-			fmt.Fprintf(os.Stderr, "  linkedin: no elements found — raw response: %.600s\n", string(body))
-		}
-
-		for _, el := range feed.Elements {
-			upd := el.Value.UpdateV2
-			if upd == nil || upd.Content == nil || upd.Content.VideoComponent == nil {
+		for _, p := range result.Elements {
+			// Only keep posts authored directly by the requested entity (skip reshares)
+			if p.Author != authorURN {
 				continue
 			}
-
-			urn := el.EntityURN
-			if upd.UpdateMetadata != nil && upd.UpdateMetadata.URN != "" {
-				urn = upd.UpdateMetadata.URN
-			}
-			if urn == "" {
+			// Only keep video posts
+			if p.Content.Media == nil {
 				continue
 			}
-
-			text := "(untitled)"
-			if upd.Commentary != nil {
-				t := strings.TrimSpace(upd.Commentary.Text.Text)
-				if idx := strings.IndexByte(t, '\n'); idx > 0 {
-					t = t[:idx]
-				}
-				if len(t) > 120 {
-					t = t[:120]
-				}
-				if t != "" {
-					text = t
-				}
+			if !strings.HasPrefix(p.Content.Media.ID, "urn:li:video:") {
+				continue
 			}
-
-			var durationSecs int
-			if vm := upd.Content.VideoComponent.VideoPlayMetadata; vm != nil {
-				durationSecs = int(vm.Duration / 1000)
-			}
-
-			var views int64
-			if el.SocialDetail != nil && el.SocialDetail.TotalSocialActivityCounts != nil {
-				views = el.SocialDetail.TotalSocialActivityCounts.NumViews
-			}
-
-			publishedAt := ""
-			if el.CreatedAt > 0 {
-				publishedAt = time.Unix(el.CreatedAt/1000, 0).UTC().Format(time.RFC3339)
-			}
-
-			postURL := "https://www.linkedin.com/feed/update/" + url.PathEscape(urn) + "/"
-
-			all = append(all, voyagerPost{
-				urn:          urn,
-				text:         text,
-				views:        views,
-				durationSecs: durationSecs,
-				postURL:      postURL,
-				publishedAt:  publishedAt,
-			})
+			all = append(all, p)
 		}
 
-		nextStart := start + len(feed.Elements)
-		if nextStart >= feed.Paging.Total || len(feed.Elements) < count {
+		nextStart := start + len(result.Elements)
+		if nextStart >= result.Paging.Total || len(result.Elements) < count {
 			break
 		}
 		start = nextStart
 	}
+
 	return all, nil
 }
 
-// fetchPostsDash handles the newer /identity/dash/profileUpdates endpoint
-// which uses a different element structure from the legacy endpoints.
-func (vc *voyagerClient) fetchPostsDash(path string, params url.Values) ([]voyagerPost, error) {
-	return vc.fetchPostsDashRef(path, params, "")
-}
-
-func (vc *voyagerClient) fetchPostsDashRef(path string, params url.Values, referer string) ([]voyagerPost, error) {
-	var all []voyagerPost
-	start, count := 0, 50
-
-	for {
-		p := url.Values{}
-		for k, v := range params {
-			p[k] = v
-		}
-		p.Set("count", fmt.Sprintf("%d", count))
-		p.Set("start", fmt.Sprintf("%d", start))
-
-		body, err := vc.getWithReferer(path, p, referer)
-		if err != nil {
-			return nil, err
-		}
-
-		var feed struct {
-			Elements []dashElement `json:"elements"`
-			Paging   struct {
-				Total int `json:"total"`
-			} `json:"paging"`
-		}
-		if err := json.Unmarshal(body, &feed); err != nil {
-			return nil, fmt.Errorf("parse dash feed from %s: %w\n  body: %.400s", path, err, string(body))
-		}
-
-		if len(feed.Elements) == 0 && start == 0 {
-			fmt.Fprintf(os.Stderr, "  linkedin: no dash elements found — raw response: %.600s\n", string(body))
-		}
-
-		for _, el := range feed.Elements {
-			if el.Content == nil || el.Content.VideoComponent == nil {
-				continue
-			}
-
-			urn := el.EntityURN
-			if el.UpdateMetadata != nil && el.UpdateMetadata.URN != "" {
-				urn = el.UpdateMetadata.URN
-			}
-			if urn == "" {
-				continue
-			}
-
-			text := "(untitled)"
-			if el.Commentary != nil {
-				t := strings.TrimSpace(el.Commentary.Text.Text)
-				if idx := strings.IndexByte(t, '\n'); idx > 0 {
-					t = t[:idx]
-				}
-				if len(t) > 120 {
-					t = t[:120]
-				}
-				if t != "" {
-					text = t
-				}
-			}
-
-			var durationSecs int
-			if vm := el.Content.VideoComponent.VideoPlayMetadata; vm != nil {
-				durationSecs = int(vm.Duration / 1000)
-			}
-
-			var views int64
-			if el.SocialDetail != nil && el.SocialDetail.TotalSocialActivityCounts != nil {
-				views = el.SocialDetail.TotalSocialActivityCounts.NumViews
-			}
-
-			publishedAt := ""
-			if el.PublishedAt > 0 {
-				publishedAt = time.Unix(el.PublishedAt/1000, 0).UTC().Format(time.RFC3339)
-			}
-
-			postURL := "https://www.linkedin.com/feed/update/" + url.PathEscape(urn) + "/"
-
-			all = append(all, voyagerPost{
-				urn:          urn,
-				text:         text,
-				views:        views,
-				durationSecs: durationSecs,
-				postURL:      postURL,
-				publishedAt:  publishedAt,
-			})
-		}
-
-		nextStart := start + len(feed.Elements)
-		if nextStart >= feed.Paging.Total || len(feed.Elements) < count {
-			break
-		}
-		start = nextStart
-	}
-	return all, nil
-}
-
-func (vc *voyagerClient) personPosts(publicID string, info meInfo) ([]voyagerPost, error) {
-	referer := "https://www.linkedin.com/in/" + publicID + "/recent-activity/videos/"
-
-	type attempt struct {
-		ep     string
-		params url.Values
-		dash   bool
-	}
-	var attempts []attempt
-
-	// 1. Newer dash endpoint — uses profileUrn with fsd_profile format
-	if info.fsdProfileURN != "" {
-		attempts = append(attempts,
-			attempt{"/identity/dash/profileUpdates", url.Values{
-				"q":          {"memberShareFeed"},
-				"profileUrn": {info.fsdProfileURN},
-			}, true},
-		)
+// batchOrgPostImpressions fetches impression counts for all posts of an org in
+// a single API call. Returns a map of postURN → impressionCount.
+// The RestLi List(...) syntax must not be percent-encoded, so we use getRestLi.
+func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (map[string]int64, error) {
+	encoded := url.Values{
+		"q":                    {"organizationalEntity"},
+		"organizationalEntity": {orgURN},
 	}
 
-	// 2. Dash endpoint with member URN (some accounts use this)
-	if info.memberURN != "" {
-		attempts = append(attempts,
-			attempt{"/identity/dash/profileUpdates", url.Values{
-				"q":          {"memberShareFeed"},
-				"profileUrn": {info.memberURN},
-			}, true},
-		)
-	}
-
-	// 3. Legacy endpoints with moduleKey=member-share (required by some LinkedIn regions)
-	for _, id := range []string{publicID, info.memberURN} {
-		if id == "" {
-			continue
-		}
-		attempts = append(attempts,
-			attempt{"/identity/profileUpdatesV2", url.Values{
-				"q":         {"memberShareFeed"},
-				"profileId": {id},
-				"moduleKey": {"member-share"},
-			}, false},
-		)
-	}
-
-	// 4. Legacy endpoints without moduleKey
-	for _, ep := range []string{"/identity/profileUpdatesV2", "/feed/updatesV2"} {
-		for _, q := range []string{"memberShareFeed", "SELF", ""} {
-			for _, id := range []string{publicID, info.memberURN, ""} {
-				params := url.Values{}
-				if q != "" {
-					params.Set("q", q)
-				}
-				if id != "" {
-					params.Set("profileId", id)
-				}
-				attempts = append(attempts, attempt{ep, params, false})
-			}
-		}
-	}
-
-	var lastErr error
-	for _, a := range attempts {
-		var posts []voyagerPost
-		var err error
-		if a.dash {
-			posts, err = vc.fetchPostsDashRef(a.ep, a.params, referer)
+	var ugcPosts, shares []string
+	for _, urn := range postURNs {
+		if strings.HasPrefix(urn, "urn:li:ugcPost:") {
+			ugcPosts = append(ugcPosts, url.QueryEscape(urn))
 		} else {
-			posts, err = vc.fetchPostsRef(a.ep, a.params, referer)
+			shares = append(shares, url.QueryEscape(urn))
 		}
-		if err == nil {
-			fmt.Fprintf(os.Stderr, "  linkedin: success with %s params=%v\n", a.ep, a.params)
-			return posts, nil
-		}
-		lastErr = err
-		fmt.Fprintf(os.Stderr, "  linkedin: %s params=%v → %v\n", a.ep, a.params, err)
 	}
-	return nil, fmt.Errorf("all endpoint/param combinations failed — last error: %w", lastErr)
+
+	var rawParts []string
+	if len(ugcPosts) > 0 {
+		rawParts = append(rawParts, "ugcPosts=List("+strings.Join(ugcPosts, ",")+")")
+	}
+	if len(shares) > 0 {
+		rawParts = append(rawParts, "shares=List("+strings.Join(shares, ",")+")")
+	}
+	raw := strings.Join(rawParts, "&")
+
+	body, err := c.getRestLi("/rest/organizationalEntityShareStatistics", encoded, raw)
+	if err != nil {
+		return nil, err
+	}
+
+	var result struct {
+		Elements []struct {
+			UgcPost              string `json:"ugcPost"`
+			Share                string `json:"share"`
+			TotalShareStatistics struct {
+				ImpressionCount int64 `json:"impressionCount"`
+			} `json:"totalShareStatistics"`
+		} `json:"elements"`
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, fmt.Errorf("parse /rest/organizationalEntityShareStatistics: %w (%.400s)", err, string(body))
+	}
+
+	out := make(map[string]int64, len(result.Elements))
+	for _, el := range result.Elements {
+		key := el.UgcPost
+		if key == "" {
+			key = el.Share
+		}
+		if key != "" {
+			out[key] = el.TotalShareStatistics.ImpressionCount
+		}
+	}
+	return out, nil
 }
 
-func (vc *voyagerClient) orgPosts(orgURN string) ([]voyagerPost, error) {
-	// Try newer dash org endpoint first
-	posts, err := vc.fetchPostsDash("/feed/dash/updatesV2", url.Values{
-		"q":               {"organizationAndSponsoredUpdates"},
-		"organizationUrn": {orgURN},
-	})
-	if err == nil {
-		return posts, nil
+// batchPersonalPostViews fetches impression counts for personal posts in one call.
+// Returns a map of postURN → impressionCount.
+func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, error) {
+	escaped := make([]string, len(postURNs))
+	for i, u := range postURNs {
+		escaped[i] = url.QueryEscape(u)
 	}
-	fmt.Fprintf(os.Stderr, "  linkedin: dash org endpoint failed (%v), trying legacy\n", err)
+	raw := "entities=List(" + strings.Join(escaped, ",") + ")"
+	body, err := c.getRestLi("/rest/socialMetricsV2", nil, raw)
+	if err != nil {
+		return nil, err
+	}
 
-	return vc.fetchPosts("/feed/updatesV2", url.Values{
-		"q":               {"companyFeedByOrganization"},
-		"organizationUrn": {orgURN},
+	var result struct {
+		Results map[string]struct {
+			TotalShareStatistics struct {
+				ImpressionCount int64 `json:"impressionCount"`
+			} `json:"totalShareStatistics"`
+		} `json:"results"`
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil, fmt.Errorf("parse /rest/socialMetricsV2: %w", err)
+	}
+
+	out := make(map[string]int64, len(result.Results))
+	for urn, entry := range result.Results {
+		out[urn] = entry.TotalShareStatistics.ImpressionCount
+	}
+	return out, nil
+}
+
+// ── LinkedInFetch ─────────────────────────────────────────────────────────────
+
+// LinkedInFetch fetches LinkedIn video posts via the Community Management API.
+// Requires LINKEDIN_ACCESS_TOKEN (auto-refreshed if LINKEDIN_CLIENT_ID,
+// LINKEDIN_CLIENT_SECRET, and LINKEDIN_REFRESH_TOKEN are set).
+// Set LINKEDIN_PERSON_URN to fetch personal video posts.
+// Set LINKEDIN_ORG_URNS (comma-separated) to fetch from LinkedIn Pages.
+func LinkedInFetch() ([]internal.Video, error) {
+	fmt.Println("  (using Community Management API with OAuth 2.0)")
+
+	accessToken, err := refreshToken()
+	if err != nil {
+		return nil, err
+	}
+
+	client := &liClient{
+		accessToken: accessToken,
+		http:        &http.Client{Timeout: 30 * time.Second},
+	}
+
+	type sourcePost struct {
+		post   liPost
+		orgURN string // empty for personal posts
+	}
+	var sourcePosts []sourcePost
+
+	// Fetch personal posts
+	if personURN := os.Getenv("LINKEDIN_PERSON_URN"); personURN != "" {
+		posts, err := client.fetchPosts(personURN)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "  linkedin warning: personal posts (%s): %v\n", personURN, err)
+		} else {
+			fmt.Printf("  %d personal video post(s)\n", len(posts))
+			for _, p := range posts {
+				sourcePosts = append(sourcePosts, sourcePost{post: p})
+			}
+		}
+	}
+
+	// orgImpressions maps orgURN → (postURN → impressionCount), populated in batch
+	orgImpressions := map[string]map[string]int64{}
+
+	// Fetch org posts, then batch-fetch their impression counts
+	if orgURNsStr := os.Getenv("LINKEDIN_ORG_URNS"); orgURNsStr != "" {
+		for _, orgURN := range strings.Split(orgURNsStr, ",") {
+			orgURN = strings.TrimSpace(orgURN)
+			if orgURN == "" {
+				continue
+			}
+			posts, err := client.fetchPosts(orgURN)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "  linkedin warning: org %s: %v\n", orgURN, err)
+				continue
+			}
+			fmt.Printf("  %d video post(s) from %s\n", len(posts), orgURN)
+			for _, p := range posts {
+				sourcePosts = append(sourcePosts, sourcePost{post: p, orgURN: orgURN})
+			}
+
+			// Batch-fetch impression counts for all posts in this org (1 API call)
+			postURNs := make([]string, len(posts))
+			for i, p := range posts {
+				postURNs[i] = p.ID
+			}
+			if len(postURNs) > 0 {
+				impressions, err := client.batchOrgPostImpressions(orgURN, postURNs)
+				if err != nil {
+					fmt.Fprintf(os.Stderr, "  linkedin warning: batchOrgPostImpressions(%s): %v\n", orgURN, err)
+				} else {
+					orgImpressions[orgURN] = impressions
+				}
+			}
+		}
+	}
+
+	// Batch-fetch personal post impression counts (1 API call total)
+	personalImpressions := map[string]int64{}
+	var personalURNs []string
+	for _, sp := range sourcePosts {
+		if sp.orgURN == "" {
+			personalURNs = append(personalURNs, sp.post.ID)
+		}
+	}
+	if len(personalURNs) > 0 {
+		if m, err := client.batchPersonalPostViews(personalURNs); err != nil {
+			fmt.Fprintf(os.Stderr, "  linkedin warning: batchPersonalPostViews: %v\n", err)
+		} else {
+			personalImpressions = m
+		}
+	}
+
+	videos := make([]internal.Video, 0, len(sourcePosts))
+	for _, sp := range sourcePosts {
+		p := sp.post
+
+		// Resolve view count from batch results
+		var views int64
+		if sp.orgURN != "" {
+			if m, ok := orgImpressions[sp.orgURN]; ok {
+				views = m[p.ID]
+			}
+		} else {
+			views = personalImpressions[p.ID]
+		}
+
+		// Title: first line of commentary, capped at 120 chars
+		title := "(untitled)"
+		if text := strings.TrimSpace(p.Commentary); text != "" {
+			if idx := strings.IndexByte(text, '\n'); idx > 0 {
+				text = text[:idx]
+			}
+			if len(text) > 120 {
+				text = text[:120]
+			}
+			title = text
+		}
+
+		publishedAt := ""
+		if p.PublishedAt > 0 {
+			publishedAt = time.UnixMilli(p.PublishedAt).UTC().Format(time.RFC3339)
+		}
+
+		postURL := "https://www.linkedin.com/feed/update/" + url.PathEscape(p.ID) + "/"
+
+		videos = append(videos, internal.Video{
+			Platform:        "linkedin",
+			ID:              p.ID,
+			Title:           title,
+			Author:          p.Author,
+			Views:           views,
+			DurationSeconds: 0, // not available from posts API
+			URL:             postURL,
+			PublishedAt:     publishedAt,
+		})
+	}
+
+	return videos, nil
+}
+
+// ── LinkedInAuth ──────────────────────────────────────────────────────────────
+
+// LinkedInAuth runs a one-time OAuth 2.0 authorization code flow.
+// It prints the auth URL, starts a local server to capture the redirect,
+// exchanges the code for tokens, and saves them to .env.
+func LinkedInAuth() error {
+	clientID := os.Getenv("LINKEDIN_CLIENT_ID")
+	clientSecret := os.Getenv("LINKEDIN_CLIENT_SECRET")
+	if clientID == "" || clientSecret == "" {
+		return fmt.Errorf("linkedin: LINKEDIN_CLIENT_ID and LINKEDIN_CLIENT_SECRET must be set in .env")
+	}
+
+	redirectURI := "http://localhost:8080/callback"
+	scopes := "r_organization_social rw_organization_admin"
+
+	authURL := "https://www.linkedin.com/oauth/v2/authorization?" + url.Values{
+		"response_type": {"code"},
+		"client_id":     {clientID},
+		"redirect_uri":  {redirectURI},
+		"scope":         {scopes},
+	}.Encode()
+
+	fmt.Println("\nOpen this URL in your browser to authorize:")
+	fmt.Println()
+	fmt.Println(" ", authURL)
+	fmt.Println()
+	fmt.Println("Waiting for redirect on http://localhost:8080/callback ...")
+
+	codeCh := make(chan string, 1)
+	errCh := make(chan error, 1)
+
+	mux := http.NewServeMux()
+	srv := &http.Server{Addr: ":8080", Handler: mux}
+
+	mux.HandleFunc("/callback", func(w http.ResponseWriter, r *http.Request) {
+		code := r.URL.Query().Get("code")
+		if errParam := r.URL.Query().Get("error"); errParam != "" {
+			desc := r.URL.Query().Get("error_description")
+			fmt.Fprintf(w, "Authorization failed: %s — %s\n", errParam, desc)
+			errCh <- fmt.Errorf("authorization denied: %s — %s", errParam, desc)
+			return
+		}
+		fmt.Fprintln(w, "Authorization successful! You can close this tab.")
+		codeCh <- code
 	})
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			errCh <- fmt.Errorf("local server: %w", err)
+		}
+	}()
+
+	var code string
+	select {
+	case code = <-codeCh:
+	case err := <-errCh:
+		return err
+	case <-time.After(5 * time.Minute):
+		return fmt.Errorf("timed out waiting for OAuth callback")
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	_ = srv.Shutdown(ctx)
+
+	// Exchange code for tokens
+	form := url.Values{
+		"grant_type":   {"authorization_code"},
+		"code":         {code},
+		"redirect_uri": {redirectURI},
+		"client_id":    {clientID},
+		"client_secret": {clientSecret},
+	}
+	resp, err := http.PostForm("https://www.linkedin.com/oauth/v2/accessToken", form)
+	if err != nil {
+		return fmt.Errorf("token exchange: %w", err)
+	}
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("token exchange HTTP %d: %.400s", resp.StatusCode, string(body))
+	}
+
+	var tok liTokenResponse
+	if err := json.Unmarshal(body, &tok); err != nil {
+		return fmt.Errorf("token exchange parse: %w", err)
+	}
+
+	if err := updateEnvValue("LINKEDIN_ACCESS_TOKEN", tok.AccessToken); err != nil {
+		return fmt.Errorf("save access token: %w", err)
+	}
+	if tok.RefreshToken != "" {
+		if err := updateEnvValue("LINKEDIN_REFRESH_TOKEN", tok.RefreshToken); err != nil {
+			return fmt.Errorf("save refresh token: %w", err)
+		}
+	}
+
+	fmt.Println()
+	fmt.Println("Tokens saved to .env!")
+	if tok.ExpiresIn > 0 {
+		fmt.Printf("Access token expires in %d seconds (~%.0f days)\n", tok.ExpiresIn, float64(tok.ExpiresIn)/86400)
+	}
+	if tok.RefreshTokenExpiresIn > 0 {
+		fmt.Printf("Refresh token expires in %d seconds (~%.0f days)\n", tok.RefreshTokenExpiresIn, float64(tok.RefreshTokenExpiresIn)/86400)
+	}
+	return nil
 }
