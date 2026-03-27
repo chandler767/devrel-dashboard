@@ -21,7 +21,7 @@ let allReportEntries = [];
 let chartInstance      = null;
 let trendChartInstance = null;
 let wowChartInstance   = null;
-let trendGrouping      = 'month'; // 'month' (time scale) | 'date' (ordinal)
+let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
@@ -384,6 +384,22 @@ function updateTrendChart(data) {
   trendChartInstance.update('none');
 }
 
+// ── Linear Regression ─────────────────────────────────────────────────────────
+
+function linearRegression(values) {
+  const n = values.length;
+  if (n < 2) return values.slice();
+  let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
+  for (let i = 0; i < n; i++) {
+    sumX += i; sumY += values[i]; sumXY += i * values[i]; sumX2 += i * i;
+  }
+  const denom = n * sumX2 - sumX * sumX;
+  if (denom === 0) return values.slice();
+  const slope     = (n * sumXY - sumX * sumY) / denom;
+  const intercept = (sumY - slope * sumX) / n;
+  return Array.from({ length: n }, (_, i) => Math.max(0, Math.round(slope * i + intercept)));
+}
+
 // ── Week-over-Week Chart ──────────────────────────────────────────────────────
 
 function buildWeekOverWeekData(allItems, numWeeks = 12) {
@@ -484,13 +500,19 @@ function buildWeekOverWeekData(allItems, numWeeks = 12) {
     predLi[numWeeks - 1] = pred.linkedin || null;
   }
 
-  const labels = slots.map(s =>
+  const labels  = slots.map(s =>
     s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
   );
+  const ytArr   = slots.map(s => s.yt);
+  const ttArr   = slots.map(s => s.tt);
+  const liArr   = slots.map(s => s.li);
+  const totals  = ytArr.map((v, i) => v + ttArr[i] + liArr[i]);
+  const trend   = linearRegression(totals);
   return {
     labels,
-    yt: slots.map(s => s.yt), tt: slots.map(s => s.tt), li: slots.map(s => s.li),
+    yt: ytArr, tt: ttArr, li: liArr,
     predYt, predTt, predLi, hasPred,
+    trend,
   };
 }
 
@@ -503,12 +525,13 @@ function initWowChart(data) {
     data: {
       labels: data.labels,
       datasets: [
-        { label: 'YouTube',            data: data.yt,    backgroundColor: 'rgba(255,51,51,0.75)',   stack: 'views' },
-        { label: 'TikTok',             data: data.tt,    backgroundColor: 'rgba(105,201,208,0.75)', stack: 'views' },
-        { label: 'LinkedIn',           data: data.li,    backgroundColor: 'rgba(10,102,194,0.75)',  stack: 'views' },
+        { label: 'YouTube',            data: data.yt,     backgroundColor: 'rgba(255,51,51,0.75)',   stack: 'views' },
+        { label: 'TikTok',             data: data.tt,     backgroundColor: 'rgba(105,201,208,0.75)', stack: 'views' },
+        { label: 'LinkedIn',           data: data.li,     backgroundColor: 'rgba(10,102,194,0.75)',  stack: 'views' },
         { label: 'YouTube (proj.)',    data: data.predYt, backgroundColor: 'rgba(255,51,51,0.25)',   borderColor: 'rgba(255,51,51,0.6)',   borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
         { label: 'TikTok (proj.)',     data: data.predTt, backgroundColor: 'rgba(105,201,208,0.25)', borderColor: 'rgba(105,201,208,0.6)', borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
         { label: 'LinkedIn (proj.)',   data: data.predLi, backgroundColor: 'rgba(10,102,194,0.25)',  borderColor: 'rgba(10,102,194,0.6)',  borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
+        { label: 'Trend',              data: data.trend,  type: 'line', borderColor: 'rgba(255,255,255,0.5)', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0 },
       ],
     },
     options: {
@@ -518,12 +541,13 @@ function initWowChart(data) {
         legend: {
           labels: {
             boxWidth: 12, font: { size: 12 },
-            filter: item => !item.text.includes('proj.'),
+            filter: item => !item.text.includes('proj.') && item.text !== 'Trend',
           },
         },
         tooltip: {
           callbacks: {
             label: ctx => {
+              if (ctx.dataset.label === 'Trend') return null;
               const v = ctx.parsed.y;
               if (v == null || v === 0) return null;
               const proj = ctx.dataset.label.includes('proj.');
@@ -533,7 +557,8 @@ function initWowChart(data) {
                 : ` ${name}: ${fmt(v)}`;
             },
             footer: items => {
-              const actual = items.filter(i => !i.dataset.label.includes('proj.')).reduce((s, i) => s + (i.parsed.y || 0), 0);
+              const isActual = i => !i.dataset.label.includes('proj.') && i.dataset.label !== 'Trend';
+              const actual = items.filter(isActual).reduce((s, i) => s + (i.parsed.y || 0), 0);
               const projExtra = items.filter(i => i.dataset.label.includes('proj.')).reduce((s, i) => s + (i.parsed.y || 0), 0);
               if (projExtra > 0) {
                 return [` Actual: ${fmt(actual)}`, ` Proj. total: ${fmt(actual + projExtra)}  (3-mo avg rate)`];
@@ -556,13 +581,14 @@ function renderWow(allItems) {
   if (!wowChartInstance) {
     initWowChart(data);
   } else {
-    wowChartInstance.data.labels          = data.labels;
+    wowChartInstance.data.labels           = data.labels;
     wowChartInstance.data.datasets[0].data = data.yt;
     wowChartInstance.data.datasets[1].data = data.tt;
     wowChartInstance.data.datasets[2].data = data.li;
     wowChartInstance.data.datasets[3].data = data.predYt;
     wowChartInstance.data.datasets[4].data = data.predTt;
     wowChartInstance.data.datasets[5].data = data.predLi;
+    wowChartInstance.data.datasets[6].data = data.trend;
     wowChartInstance.update('none');
   }
 }
@@ -1074,7 +1100,7 @@ function setParams(updates) {
 }
 
 function getActiveRange() {
-  return getParam('range') || 'all';
+  return getParam('range') || 'last30';
 }
 
 // ── Range Tabs ────────────────────────────────────────────────────────────────
