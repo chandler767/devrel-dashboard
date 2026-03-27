@@ -91,38 +91,6 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2026-W08",
-      "canonical_title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
-      "duration_seconds": 59,
-      "total_views": 3917,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7608600660732300558",
-          "title": "#mcp went from a side project to the industry standard for #ai #agent...",
-          "views": 1230,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7608600660732300558",
-          "published_at": "2026-02-19T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "youtube": {
-          "video_id": "tXrYPQU9rrk",
-          "title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
-          "views": 2079,
-          "url": "https://www.youtube.com/watch?v=tXrYPQU9rrk",
-          "published_at": "2026-02-19T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7430670831325937664",
-          "title": "{hashtag|\\#|MCP} went from an Anthropic side project to the industry standard for AI agent tooling in 12 months. \u00e2\u009a\u0099\u00ef\u00b8\u008f ",
-          "views": 608,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7430670831325937664/",
-          "published_at": "2026-02-20T17:53:19Z",
-          "duration_seconds": 0
-        }
-      }
-    },
-    {
       "id": "2026-W09-2",
       "canonical_title": "Why did #openai buy #openclaw? #aiagents #aitools #programming #developer",
       "duration_seconds": 79,
@@ -155,26 +123,66 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W35",
-      "canonical_title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
-      "duration_seconds": 60,
-      "total_views": 2745,
+      "id": "2026-W08",
+      "canonical_title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
+      "duration_seconds": 59,
+      "total_views": 3917,
       "platforms": {
         "tiktok": {
-          "video_id": "7543642289395043639",
-          "title": "Turn any API into a data stream ##learnprogramming##programming##codi...",
-          "views": 1393,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7543642289395043639",
-          "published_at": "2025-08-28T00:00:00Z",
+          "video_id": "7608600660732300558",
+          "title": "#mcp went from a side project to the industry standard for #ai #agent...",
+          "views": 1230,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7608600660732300558",
+          "published_at": "2026-02-19T00:00:00Z",
           "duration_seconds": 59
         },
         "youtube": {
-          "video_id": "FabK4yNEsFM",
-          "title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
-          "views": 1352,
-          "url": "https://www.youtube.com/watch?v=FabK4yNEsFM",
-          "published_at": "2025-08-28T00:00:00Z",
-          "duration_seconds": 60
+          "video_id": "tXrYPQU9rrk",
+          "title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
+          "views": 2079,
+          "url": "https://www.youtube.com/watch?v=tXrYPQU9rrk",
+          "published_at": "2026-02-19T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7430670831325937664",
+          "title": "{hashtag|\\#|MCP} went from an Anthropic side project to the industry standard for AI agent tooling in 12 months. \u00e2\u009a\u0099\u00ef\u00b8\u008f ",
+          "views": 608,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7430670831325937664/",
+          "published_at": "2026-02-20T17:53:19Z",
+          "duration_seconds": 0
+        }
+      }
+    },
+    {
+      "id": "2026-W09",
+      "canonical_title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
+      "duration_seconds": 71,
+      "total_views": 3145,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7611565011500027150",
+          "title": "#anthropic just shipped remote control for #claude code - but what\u2019s ...",
+          "views": 1371,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7611565011500027150",
+          "published_at": "2026-02-27T00:00:00Z",
+          "duration_seconds": 70
+        },
+        "youtube": {
+          "video_id": "FfnizEtJgx0",
+          "title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
+          "views": 918,
+          "url": "https://www.youtube.com/watch?v=FfnizEtJgx0",
+          "published_at": "2026-02-27T00:00:00Z",
+          "duration_seconds": 71
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7432523141517721601",
+          "title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u00e2\u0080\u0099s really coo",
+          "views": 856,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432523141517721601/",
+          "published_at": "2026-02-25T20:33:57Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -207,6 +215,30 @@ window.__devrelReport={
           "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7435743346414899201/",
           "published_at": "2026-03-06T17:49:37Z",
           "duration_seconds": 0
+        }
+      }
+    },
+    {
+      "id": "2025-W35",
+      "canonical_title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
+      "duration_seconds": 60,
+      "total_views": 2745,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7543642289395043639",
+          "title": "Turn any API into a data stream ##learnprogramming##programming##codi...",
+          "views": 1393,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7543642289395043639",
+          "published_at": "2025-08-28T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "youtube": {
+          "video_id": "FabK4yNEsFM",
+          "title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
+          "views": 1352,
+          "url": "https://www.youtube.com/watch?v=FabK4yNEsFM",
+          "published_at": "2025-08-28T00:00:00Z",
+          "duration_seconds": 60
         }
       }
     },
@@ -279,38 +311,6 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=CWcHYNhD39Q",
           "published_at": "2025-05-27T00:00:00Z",
           "duration_seconds": 49
-        }
-      }
-    },
-    {
-      "id": "2026-W09",
-      "canonical_title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
-      "duration_seconds": 71,
-      "total_views": 3145,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7611565011500027150",
-          "title": "#anthropic just shipped remote control for #claude code - but what\u2019s ...",
-          "views": 1371,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7611565011500027150",
-          "published_at": "2026-02-27T00:00:00Z",
-          "duration_seconds": 70
-        },
-        "youtube": {
-          "video_id": "FfnizEtJgx0",
-          "title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
-          "views": 918,
-          "url": "https://www.youtube.com/watch?v=FfnizEtJgx0",
-          "published_at": "2026-02-27T00:00:00Z",
-          "duration_seconds": 71
-        },
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7432523141517721601",
-          "title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u00e2\u0080\u0099s really coo",
-          "views": 856,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432523141517721601/",
-          "published_at": "2026-02-25T20:33:57Z",
-          "duration_seconds": 0
         }
       }
     },
@@ -483,54 +483,6 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W35-3",
-      "canonical_title": "Streaming AWS IOT data with MQTT. #programming #coding #data",
-      "duration_seconds": 60,
-      "total_views": 1651,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7542521055827545399",
-          "title": "Streaming @aws IOT data with MQTT. #programming #coding #data",
-          "views": 945,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7542521055827545399",
-          "published_at": "2025-08-25T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "youtube": {
-          "video_id": "k7-QynpF6Js",
-          "title": "Streaming AWS IOT data with MQTT. #programming #coding #data",
-          "views": 706,
-          "url": "https://www.youtube.com/watch?v=k7-QynpF6Js",
-          "published_at": "2025-08-25T00:00:00Z",
-          "duration_seconds": 60
-        }
-      }
-    },
-    {
-      "id": "2025-W21-2",
-      "canonical_title": "What is Agentic #ai? #coding #programming",
-      "duration_seconds": 74,
-      "total_views": 1288,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7506889163069738286",
-          "title": "Think #chatgpt is smart? Now imagine 100 of them working as a team. #...",
-          "views": 272,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7506889163069738286",
-          "published_at": "2025-05-21T00:00:00Z",
-          "duration_seconds": 74
-        },
-        "youtube": {
-          "video_id": "-IclLDuHfhg",
-          "title": "What is Agentic #ai? #coding #programming",
-          "views": 1016,
-          "url": "https://www.youtube.com/watch?v=-IclLDuHfhg",
-          "published_at": "2025-05-21T00:00:00Z",
-          "duration_seconds": 74
-        }
-      }
-    },
-    {
       "id": "2026-W10",
       "canonical_title": "What's a knowledge base? #coding #programming #aicoding",
       "duration_seconds": 70,
@@ -563,26 +515,26 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W23-3",
-      "canonical_title": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
-      "duration_seconds": 59,
-      "total_views": 1188,
+      "id": "2025-W35-3",
+      "canonical_title": "Streaming AWS IOT data with MQTT. #programming #coding #data",
+      "duration_seconds": 60,
+      "total_views": 1651,
       "platforms": {
         "tiktok": {
-          "video_id": "7511862580495797546",
-          "title": "What is a Vector Store? #softwareengineer #programming #agenticai #da...",
-          "views": 287,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7511862580495797546",
-          "published_at": "2025-06-03T00:00:00Z",
+          "video_id": "7542521055827545399",
+          "title": "Streaming @aws IOT data with MQTT. #programming #coding #data",
+          "views": 945,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7542521055827545399",
+          "published_at": "2025-08-25T00:00:00Z",
           "duration_seconds": 59
         },
         "youtube": {
-          "video_id": "nCoNgVTKqB8",
-          "title": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
-          "views": 901,
-          "url": "https://www.youtube.com/watch?v=nCoNgVTKqB8",
-          "published_at": "2025-06-03T00:00:00Z",
-          "duration_seconds": 59
+          "video_id": "k7-QynpF6Js",
+          "title": "Streaming AWS IOT data with MQTT. #programming #coding #data",
+          "views": 706,
+          "url": "https://www.youtube.com/watch?v=k7-QynpF6Js",
+          "published_at": "2025-08-25T00:00:00Z",
+          "duration_seconds": 60
         }
       }
     },
@@ -619,50 +571,58 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W23-4",
-      "canonical_title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
-      "duration_seconds": 48,
-      "total_views": 1106,
+      "id": "2026-W08-2",
+      "canonical_title": "What #agent Infrastructure Actually Looks Like #programming #coding #code #aiagents",
+      "duration_seconds": 59,
+      "total_views": 1457,
       "platforms": {
         "tiktok": {
-          "video_id": "7511522361712135466",
-          "title": "What is model context protocol? ##ai##programming##softwareengineer##...",
-          "views": 186,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7511522361712135466",
-          "published_at": "2025-06-03T00:00:00Z",
-          "duration_seconds": 47
+          "video_id": "7608262781221063950",
+          "title": "Nobody shows you this part of AI agents \ud83d\udc40 #ai #agent  #mcp #techexpla...",
+          "views": 364,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7608262781221063950",
+          "published_at": "2026-02-18T00:00:00Z",
+          "duration_seconds": 59
         },
         "youtube": {
-          "video_id": "jC-Z6Z7qMlU",
-          "title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
-          "views": 920,
-          "url": "https://www.youtube.com/watch?v=jC-Z6Z7qMlU",
-          "published_at": "2025-06-03T00:00:00Z",
-          "duration_seconds": 48
+          "video_id": "qHFgtFmkG9g",
+          "title": "What #agent Infrastructure Actually Looks Like #programming #coding #code #aiagents",
+          "views": 507,
+          "url": "https://www.youtube.com/watch?v=qHFgtFmkG9g",
+          "published_at": "2026-02-18T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7429984111391584259",
+          "title": "Everyone's talking about AI agents. Almost nobody is showing what the infrastructure underneath them looks like. \u00f0\u009f\u0094\u008e ",
+          "views": 586,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7429984111391584259/",
+          "published_at": "2026-02-18T20:24:29Z",
+          "duration_seconds": 0
         }
       }
     },
     {
-      "id": "2025-W33",
-      "canonical_title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
-      "duration_seconds": 60,
-      "total_views": 1075,
+      "id": "2025-W21-2",
+      "canonical_title": "What is Agentic #ai? #coding #programming",
+      "duration_seconds": 74,
+      "total_views": 1288,
       "platforms": {
         "tiktok": {
-          "video_id": "7538938925600050446",
-          "title": "Why run a zoo when you can run Redpanda? #programming #programminghum...",
-          "views": 868,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7538938925600050446",
-          "published_at": "2025-08-15T00:00:00Z",
-          "duration_seconds": 8
+          "video_id": "7506889163069738286",
+          "title": "Think #chatgpt is smart? Now imagine 100 of them working as a team. #...",
+          "views": 272,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7506889163069738286",
+          "published_at": "2025-05-21T00:00:00Z",
+          "duration_seconds": 74
         },
         "youtube": {
-          "video_id": "XXZSqUgHvNg",
-          "title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
-          "views": 207,
-          "url": "https://www.youtube.com/watch?v=XXZSqUgHvNg",
-          "published_at": "2025-08-14T00:00:00Z",
-          "duration_seconds": 60
+          "video_id": "-IclLDuHfhg",
+          "title": "What is Agentic #ai? #coding #programming",
+          "views": 1016,
+          "url": "https://www.youtube.com/watch?v=-IclLDuHfhg",
+          "published_at": "2025-05-21T00:00:00Z",
+          "duration_seconds": 74
         }
       }
     },
@@ -694,38 +654,6 @@ window.__devrelReport={
           "views": 241,
           "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7442647845142405120/",
           "published_at": "2026-03-25T19:05:51Z",
-          "duration_seconds": 0
-        }
-      }
-    },
-    {
-      "id": "2026-W08-2",
-      "canonical_title": "What #agent Infrastructure Actually Looks Like #programming #coding #code #aiagents",
-      "duration_seconds": 59,
-      "total_views": 1457,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7608262781221063950",
-          "title": "Nobody shows you this part of AI agents \ud83d\udc40 #ai #agent  #mcp #techexpla...",
-          "views": 364,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7608262781221063950",
-          "published_at": "2026-02-18T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "youtube": {
-          "video_id": "qHFgtFmkG9g",
-          "title": "What #agent Infrastructure Actually Looks Like #programming #coding #code #aiagents",
-          "views": 507,
-          "url": "https://www.youtube.com/watch?v=qHFgtFmkG9g",
-          "published_at": "2026-02-18T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7429984111391584259",
-          "title": "Everyone's talking about AI agents. Almost nobody is showing what the infrastructure underneath them looks like. \u00f0\u009f\u0094\u008e ",
-          "views": 586,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7429984111391584259/",
-          "published_at": "2026-02-18T20:24:29Z",
           "duration_seconds": 0
         }
       }
@@ -795,6 +723,78 @@ window.__devrelReport={
       }
     },
     {
+      "id": "2025-W23-3",
+      "canonical_title": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
+      "duration_seconds": 59,
+      "total_views": 1188,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7511862580495797546",
+          "title": "What is a Vector Store? #softwareengineer #programming #agenticai #da...",
+          "views": 287,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7511862580495797546",
+          "published_at": "2025-06-03T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "youtube": {
+          "video_id": "nCoNgVTKqB8",
+          "title": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
+          "views": 901,
+          "url": "https://www.youtube.com/watch?v=nCoNgVTKqB8",
+          "published_at": "2025-06-03T00:00:00Z",
+          "duration_seconds": 59
+        }
+      }
+    },
+    {
+      "id": "2025-W23-4",
+      "canonical_title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+      "duration_seconds": 48,
+      "total_views": 1106,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7511522361712135466",
+          "title": "What is model context protocol? ##ai##programming##softwareengineer##...",
+          "views": 186,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7511522361712135466",
+          "published_at": "2025-06-03T00:00:00Z",
+          "duration_seconds": 47
+        },
+        "youtube": {
+          "video_id": "jC-Z6Z7qMlU",
+          "title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+          "views": 920,
+          "url": "https://www.youtube.com/watch?v=jC-Z6Z7qMlU",
+          "published_at": "2025-06-03T00:00:00Z",
+          "duration_seconds": 48
+        }
+      }
+    },
+    {
+      "id": "2025-W33",
+      "canonical_title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
+      "duration_seconds": 60,
+      "total_views": 1075,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7538938925600050446",
+          "title": "Why run a zoo when you can run Redpanda? #programming #programminghum...",
+          "views": 868,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7538938925600050446",
+          "published_at": "2025-08-15T00:00:00Z",
+          "duration_seconds": 8
+        },
+        "youtube": {
+          "video_id": "XXZSqUgHvNg",
+          "title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
+          "views": 207,
+          "url": "https://www.youtube.com/watch?v=XXZSqUgHvNg",
+          "published_at": "2025-08-14T00:00:00Z",
+          "duration_seconds": 60
+        }
+      }
+    },
+    {
       "id": "2026-W11-4",
       "canonical_title": "Does your AI strategy have the flexibility to switch to the next best model? #aistrategy #opensource",
       "duration_seconds": 74,
@@ -822,54 +822,6 @@ window.__devrelReport={
           "views": 384,
           "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7437223174443864064/",
           "published_at": "2026-03-10T19:50:01Z",
-          "duration_seconds": 0
-        }
-      }
-    },
-    {
-      "id": "2025-W17",
-      "canonical_title": "Redpanda Agentic AI: Observable MCP servers done quickly",
-      "duration_seconds": 101,
-      "total_views": 532,
-      "platforms": {
-        "youtube": {
-          "video_id": "lHKEqL5oJKU",
-          "title": "Redpanda Agentic AI: Observable MCP servers done quickly",
-          "views": 532,
-          "url": "https://www.youtube.com/watch?v=lHKEqL5oJKU",
-          "published_at": "2025-04-23T00:00:00Z",
-          "duration_seconds": 101
-        }
-      }
-    },
-    {
-      "id": "2026-W12-3",
-      "canonical_title": "Do you have an #ai strategy? #programming #coding #aiagents",
-      "duration_seconds": 59,
-      "total_views": 852,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7618668868046720269",
-          "title": "Do you have an #ai strategy? #aicoding #programming #coding #aiagents ",
-          "views": 164,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7618668868046720269",
-          "published_at": "2026-03-18T00:00:00Z",
-          "duration_seconds": 58
-        },
-        "youtube": {
-          "video_id": "wiCXuBXMhYw",
-          "title": "Do you have an #ai strategy? #programming #coding #aiagents",
-          "views": 326,
-          "url": "https://www.youtube.com/watch?v=wiCXuBXMhYw",
-          "published_at": "2026-03-18T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7440478620688642048",
-          "title": "What are the drawbacks of cheap {hashtag|\\#|ai}? It may be worse than you think\u00e2\u0080\u00a6",
-          "views": 362,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440478620688642048/",
-          "published_at": "2026-03-19T19:45:01Z",
           "duration_seconds": 0
         }
       }
@@ -907,18 +859,34 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W39",
-      "canonical_title": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programmi...",
-      "duration_seconds": 36,
-      "total_views": 295,
+      "id": "2026-W12-3",
+      "canonical_title": "Do you have an #ai strategy? #programming #coding #aiagents",
+      "duration_seconds": 59,
+      "total_views": 852,
       "platforms": {
         "tiktok": {
-          "video_id": "7553852988293516557",
-          "title": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programmi...",
-          "views": 295,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7553852988293516557",
-          "published_at": "2025-09-25T00:00:00Z",
-          "duration_seconds": 36
+          "video_id": "7618668868046720269",
+          "title": "Do you have an #ai strategy? #aicoding #programming #coding #aiagents ",
+          "views": 164,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7618668868046720269",
+          "published_at": "2026-03-18T00:00:00Z",
+          "duration_seconds": 58
+        },
+        "youtube": {
+          "video_id": "wiCXuBXMhYw",
+          "title": "Do you have an #ai strategy? #programming #coding #aiagents",
+          "views": 326,
+          "url": "https://www.youtube.com/watch?v=wiCXuBXMhYw",
+          "published_at": "2026-03-18T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7440478620688642048",
+          "title": "What are the drawbacks of cheap {hashtag|\\#|ai}? It may be worse than you think\u00e2\u0080\u00a6",
+          "views": 362,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440478620688642048/",
+          "published_at": "2026-03-19T19:45:01Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -951,6 +919,54 @@ window.__devrelReport={
           "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7443000608443219969/",
           "published_at": "2026-03-26T18:27:26Z",
           "duration_seconds": 0
+        }
+      }
+    },
+    {
+      "id": "2026-W09-3",
+      "canonical_title": "Why did @[OpenAI](urn:li:organization:11130470) buy {hashtag|\\#|OpenClaw}? ",
+      "total_views": 674,
+      "duration_seconds": 0,
+      "platforms": {
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7432885060627755009",
+          "title": "Why did @[OpenAI](urn:li:organization:11130470) buy {hashtag|\\#|OpenClaw}? ",
+          "views": 674,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432885060627755009/",
+          "published_at": "2026-02-26T20:31:56Z",
+          "duration_seconds": 0
+        }
+      }
+    },
+    {
+      "id": "2025-W17",
+      "canonical_title": "Redpanda Agentic AI: Observable MCP servers done quickly",
+      "duration_seconds": 101,
+      "total_views": 532,
+      "platforms": {
+        "youtube": {
+          "video_id": "lHKEqL5oJKU",
+          "title": "Redpanda Agentic AI: Observable MCP servers done quickly",
+          "views": 532,
+          "url": "https://www.youtube.com/watch?v=lHKEqL5oJKU",
+          "published_at": "2025-04-23T00:00:00Z",
+          "duration_seconds": 101
+        }
+      }
+    },
+    {
+      "id": "2025-W39",
+      "canonical_title": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programmi...",
+      "duration_seconds": 36,
+      "total_views": 295,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7553852988293516557",
+          "title": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programmi...",
+          "views": 295,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7553852988293516557",
+          "published_at": "2025-09-25T00:00:00Z",
+          "duration_seconds": 36
         }
       }
     },
