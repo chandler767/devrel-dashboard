@@ -1,6 +1,0 @@
-window.__devrelReport={
-  "report_id": "2026-03-26T14-03-14Z",
-  "generated_at": "2026-03-26T14:03:14Z",
-  "video_groups": null,
-  "unmatched": null
-};
