@@ -571,7 +571,11 @@ function applyWowPredVisibility() {
     const platVisible = wowChartInstance.isDatasetVisible(i - 3);
     wowChartInstance.setDatasetVisibility(i, showWowPred && platVisible);
   });
+  // Trend line (dataset 6) and stat label follow predictions toggle
+  wowChartInstance.setDatasetVisibility(6, showWowPred);
   wowChartInstance.update('none');
+  const statEl = document.getElementById('wow-trend-stat');
+  if (statEl) statEl.hidden = !showWowPred;
 }
 
 function updateWowTrend() {
