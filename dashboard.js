@@ -526,6 +526,11 @@ function initWowChart(data) {
             boxWidth: 12, font: { size: 12 },
             filter: item => !item.text.includes('proj.'),
           },
+          onClick: (e, legendItem, legend) => {
+            Chart.defaults.plugins.legend.onClick.call(legend.chart, e, legendItem, legend);
+            applyWowPredVisibility();
+            updateWowTrend();
+          },
         },
         tooltip: {
           filter: item => item.dataset.label !== 'Trend',
@@ -561,8 +566,36 @@ function initWowChart(data) {
 
 function applyWowPredVisibility() {
   if (!wowChartInstance) return;
-  [3, 4, 5].forEach(i => wowChartInstance.setDatasetVisibility(i, showWowPred));
+  // Proj. datasets (3=YT, 4=TT, 5=LI) mirror their platform dataset visibility
+  [3, 4, 5].forEach(i => {
+    const platVisible = wowChartInstance.isDatasetVisible(i - 3);
+    wowChartInstance.setDatasetVisibility(i, showWowPred && platVisible);
+  });
   wowChartInstance.update('none');
+}
+
+function updateWowTrend() {
+  if (!wowChartInstance) return;
+  const chart  = wowChartInstance;
+  const n      = chart.data.labels.length;
+  const totals = Array.from({ length: n }, (_, i) => {
+    let sum = 0;
+    for (const di of [0, 1, 2]) {
+      if (chart.isDatasetVisible(di)) sum += chart.data.datasets[di].data[i] || 0;
+    }
+    return sum;
+  });
+  const trend = linearRegression(totals);
+  const slope = trend.length >= 2
+    ? Math.round((trend[trend.length - 1] - trend[0]) / (trend.length - 1))
+    : 0;
+  chart.data.datasets[6].data = trend;
+  chart.update('none');
+  const statEl = document.getElementById('wow-trend-stat');
+  if (statEl) {
+    statEl.textContent = 'Trend  ' + (slope >= 0 ? '+' : '') + fmt(slope) + ' additional views / wk';
+    statEl.className   = 'wow-trend-stat ' + (slope >= 0 ? 'positive' : 'negative');
+  }
 }
 
 function renderWow(allItems, reportDate) {
@@ -591,13 +624,7 @@ function renderWow(allItems, reportDate) {
     wowChartInstance.update('none');
   }
   applyWowPredVisibility();
-
-  const statEl = document.getElementById('wow-trend-stat');
-  if (statEl) {
-    const s = data.trendSlope;
-    statEl.textContent = 'Trend  ' + (s >= 0 ? '+' : '') + fmt(s) + ' additional views / wk';
-    statEl.className   = 'wow-trend-stat ' + (s >= 0 ? 'positive' : 'negative');
-  }
+  updateWowTrend();
 }
 
 // ── Summary ───────────────────────────────────────────────────────────────────
