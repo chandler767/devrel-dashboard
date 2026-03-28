@@ -26,6 +26,7 @@ type ytdlpVideo struct {
 // with the given platform name. Works for any public URL yt-dlp supports.
 func ytdlpFetch(platform, url string) ([]internal.Video, error) {
 	cmd := exec.Command("yt-dlp", "--dump-json", "--quiet", "--no-warnings", url)
+	cmd.Stderr = os.Stderr
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return nil, fmt.Errorf("%s: pipe: %w", platform, err)

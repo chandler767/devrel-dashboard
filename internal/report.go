@@ -101,7 +101,7 @@ func updateIndex(reportID, fileName string, generatedAt time.Time) error {
 
 	newEntry := ReportIndexEntry{
 		ID:          reportID,
-		File:        fileName,
+		File:        filepath.Join(reportsDir, fileName),
 		GeneratedAt: generatedAt.Format(time.RFC3339),
 	}
 
@@ -149,7 +149,7 @@ func LoadAllKnownVideoIDs() map[string]bool {
 	}
 
 	for _, entry := range index.Reports {
-		reportData, err := os.ReadFile(filepath.Join(reportsDir, entry.File))
+		reportData, err := os.ReadFile(entry.File)
 		if err != nil {
 			continue // deleted or missing — skip
 		}
@@ -183,8 +183,7 @@ func LoadPreviousReport() (*Report, error) {
 		return nil, nil
 	}
 	for _, prev := range index.Reports {
-		reportPath := filepath.Join(reportsDir, prev.File)
-		reportData, err := os.ReadFile(reportPath)
+		reportData, err := os.ReadFile(prev.File)
 		if os.IsNotExist(err) {
 			continue // file was deleted; try the next one
 		}

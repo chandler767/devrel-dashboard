@@ -91,6 +91,7 @@ func main() {
 			wg.Add(1)
 			go func() {
 				defer wg.Done()
+				fmt.Printf("Fetching %s...\n", j.name)
 				v, e := j.fn()
 				ch <- tagged{j.name, fetchResult{v, e}}
 			}()
@@ -310,6 +311,10 @@ func approveNewVideos(videos []internal.Video, known, rejected map[string]bool) 
 		fmt.Print("  Include? [y/n] ")
 
 		ch := readKey()
+		if ch == "\x03" { // Ctrl+C in raw mode
+			fmt.Println("\nAborted.")
+			os.Exit(130)
+		}
 		fmt.Println(ch) // echo the key
 		if strings.ToLower(ch) == "y" {
 			out = append(out, v)
