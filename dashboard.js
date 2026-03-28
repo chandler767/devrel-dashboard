@@ -421,26 +421,32 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   const cutoff   = new Date(thisWeek);
   cutoff.setDate(cutoff.getDate() - (numWeeks - 1) * 7);
 
-  // Build week slots
+  // Build week slots — each slot also stores per-platform projItems for immature videos
+  const weekEnd = new Date(thisWeek);
+  weekEnd.setDate(thisWeek.getDate() + 7);
+  const daysRemainingInWeek = Math.max(0, (weekEnd.getTime() - now) / msPerDay);
+
   const slots = Array.from({ length: numWeeks }, (_, i) => {
     const start = new Date(cutoff);
     start.setDate(cutoff.getDate() + i * 7);
     const end = new Date(start);
     end.setDate(start.getDate() + 7);
-    return { start, end, yt: 0, tt: 0, li: 0 };
+    const isCurrentWeek = i === numWeeks - 1;
+    return {
+      start, end, yt: 0, tt: 0, li: 0, isCurrentWeek,
+      projItems: { youtube: [], tiktok: [], linkedin: [] },
+    };
   });
 
   // Reference pool: videos 7–90 days old → views-per-day baseline per platform
-  // Current-week pool: videos published since the start of this week
-  const refPool  = { youtube: { views: 0, days: 0 }, tiktok: { views: 0, days: 0 }, linkedin: { views: 0, days: 0 } };
-  const cwPool   = { youtube: { views: 0, items: [] }, tiktok: { views: 0, items: [] }, linkedin: { views: 0, items: [] } };
+  const refPool = { youtube: { views: 0, days: 0 }, tiktok: { views: 0, days: 0 }, linkedin: { views: 0, days: 0 } };
 
   for (const item of allItems) {
     if (!item.publishedAt) continue;
     const pub     = new Date(item.publishedAt);
     const ageDays = (now - pub.getTime()) / msPerDay;
 
-    // Slot assignment (actual views)
+    // Slot assignment (actual views) + collect projItems for videos < 30 days old
     if (pub >= cutoff) {
       for (const slot of slots) {
         if (pub >= slot.start && pub < slot.end) {
@@ -449,6 +455,9 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
             if (p.platform === 'youtube')  slot.yt += v;
             if (p.platform === 'tiktok')   slot.tt += v;
             if (p.platform === 'linkedin') slot.li += v;
+            if (ageDays < 30 && slot.projItems[p.platform]) {
+              slot.projItems[p.platform].push({ views: v, ageDays });
+            }
           }
           break;
         }
@@ -462,50 +471,34 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
         if (pool) { pool.views += (p.views || 0); pool.days += ageDays; }
       }
     }
+  }
 
-    // Current-week pool (< 7 days old, published since thisWeek Monday)
-    if (pub >= thisWeek) {
-      for (const p of item.platforms) {
-        const pool = cwPool[p.platform];
-        if (pool) { pool.views += (p.views || 0); pool.items.push({ views: p.views || 0, ageDays }); }
+  // Compute per-slot projections for any slot with immature videos (< 30 days old).
+  // Current week is also capped at daysRemainingInWeek so we don't project past end of week.
+  // Own velocity is used as fallback; clamped to 2× reference rate when available.
+  for (const slot of slots) {
+    for (const [plat, items] of Object.entries(slot.projItems)) {
+      if (items.length === 0) continue;
+      const ref    = refPool[plat];
+      const refVpd = ref.days > 0 ? ref.views / ref.days : 0;
+      let additional = 0;
+      for (const v of items) {
+        const toMaturity = 30 - v.ageDays;
+        const cap        = slot.isCurrentWeek ? Math.min(toMaturity, daysRemainingInWeek) : toMaturity;
+        const remaining  = Math.max(0, cap);
+        if (remaining === 0) continue;
+        const ownVpd = v.views / Math.max(v.ageDays, 0.25);
+        const vpd    = refVpd > 0 ? Math.min(ownVpd, refVpd * 2) : ownVpd;
+        additional  += vpd * remaining;
       }
+      slot['pred_' + plat] = Math.round(additional);
     }
   }
 
-  // Compute predictions: for each current-week video, estimate views it will gain
-  // for the remaining days of the week using the 3-month reference velocity (views/day).
-  // If no reference data exists, fall back to the video's own current rate.
-  // Cap remaining at daysRemainingInWeek so late-week projections don't overcount.
-  const weekEnd = new Date(thisWeek);
-  weekEnd.setDate(thisWeek.getDate() + 7);
-  const daysRemainingInWeek = Math.max(0, (weekEnd.getTime() - now) / msPerDay);
-
-  const pred = { youtube: 0, tiktok: 0, linkedin: 0 };
-  for (const [plat, cw] of Object.entries(cwPool)) {
-    if (cw.items.length === 0) continue;
-    const ref     = refPool[plat];
-    const refVpd  = ref.days > 0 ? ref.views / ref.days : 0; // historical views-per-day
-    let additional = 0;
-    for (const v of cw.items) {
-      const remaining = Math.max(0, Math.min(7 - v.ageDays, daysRemainingInWeek));
-      if (remaining === 0) continue;
-      // Own rate as fallback; clamp to 2× reference when reference is available
-      const ownVpd = v.views / Math.max(v.ageDays, 0.25);
-      const vpd    = refVpd > 0 ? Math.min(ownVpd, refVpd * 2) : ownVpd;
-      additional  += vpd * remaining;
-    }
-    pred[plat] = Math.round(additional);
-  }
-
-  const hasPred = pred.youtube > 0 || pred.tiktok > 0 || pred.linkedin > 0;
-  const predYt  = Array(numWeeks).fill(null);
-  const predTt  = Array(numWeeks).fill(null);
-  const predLi  = Array(numWeeks).fill(null);
-  if (hasPred) {
-    predYt[numWeeks - 1] = pred.youtube || null;
-    predTt[numWeeks - 1] = pred.tiktok  || null;
-    predLi[numWeeks - 1] = pred.linkedin || null;
-  }
+  const predYt = slots.map(s => s.pred_youtube || null);
+  const predTt = slots.map(s => s.pred_tiktok  || null);
+  const predLi = slots.map(s => s.pred_linkedin || null);
+  const hasPred = predYt.some(v => v) || predTt.some(v => v) || predLi.some(v => v);
 
   const labels  = slots.map(s =>
     s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
