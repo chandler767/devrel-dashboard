@@ -23,7 +23,7 @@ let trendChartInstance = null;
 let wowChartInstance   = null;
 let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
-let showWowPred        = false; // whether projection bars are visible in WoW chart
+let showWowPred        = true;  // whether projection bars are visible in WoW chart
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
