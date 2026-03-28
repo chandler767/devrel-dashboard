@@ -1398,6 +1398,12 @@ async function init() {
   const paramID   = getParam('report');
   const currentID = allReportEntries.find(e => e.id === paramID) ? paramID : allReportEntries[0].id;
   renderReportSelector(allReportEntries, currentID);
+
+  // Stamp the report ID into the URL so a copied link always points to the right report
+  const initUrl = new URL(window.location.href);
+  initUrl.searchParams.set('report', currentID);
+  window.history.replaceState({}, '', initUrl.toString());
+
   await loadAndRender(currentID);
 
   // Notify if the user arrived with a ?report= link pointing at a known-but-older report
@@ -1406,7 +1412,7 @@ async function init() {
       'You\'re viewing an older report.',
       'View latest',
       () => {
-        setParams({ report: null });
+        setParams({ report: newestID });
         const sel = document.getElementById('report-select');
         if (sel) sel.value = newestID;
         loadAndRender(newestID);
