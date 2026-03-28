@@ -23,7 +23,7 @@ let trendChartInstance = null;
 let wowChartInstance   = null;
 let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
-let showWowPred        = true;  // whether projection bars are visible in WoW chart
+let showWowPred        = false; // whether projection bars are visible in WoW chart
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
@@ -575,6 +575,7 @@ function renderWow(allItems, reportDate) {
       btn.addEventListener('click', () => {
         showWowPred = !showWowPred;
         btn.classList.toggle('active', showWowPred);
+        btn.textContent = showWowPred ? 'Predictions: on' : 'Predictions: off';
         applyWowPredVisibility();
       });
     }
@@ -1153,12 +1154,12 @@ function initRangeTabs() {
 // ── Trend Toggle ──────────────────────────────────────────────────────────────
 
 function initTrendToggle() {
-  document.querySelectorAll('.trend-toggle-btn').forEach(btn => {
+  document.querySelectorAll('.trend-toggle-btn[data-grouping]').forEach(btn => {
     btn.addEventListener('click', () => {
       const grouping = btn.dataset.grouping;
       if (grouping === trendGrouping) return;
       trendGrouping = grouping;
-      document.querySelectorAll('.trend-toggle-btn').forEach(b => {
+      document.querySelectorAll('.trend-toggle-btn[data-grouping]').forEach(b => {
         b.classList.toggle('active', b.dataset.grouping === grouping);
       });
       // Scale type change requires destroying and recreating the chart
