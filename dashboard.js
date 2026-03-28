@@ -1385,7 +1385,9 @@ async function init() {
     return;
   }
 
-  allReportEntries = (index.reports || []).slice(); // newest-first, matching Go's prepend order
+  allReportEntries = (index.reports || []).slice().sort((a, b) =>
+    new Date(b.generated_at) - new Date(a.generated_at)
+  );
   if (!allReportEntries.length) {
     document.getElementById('video-groups').innerHTML =
       '<p class="state-message">No reports yet. Run: <code>go run ./cmd/fetch --skip-linkedin</code></p>';
