@@ -545,9 +545,9 @@ function initWowChart(data) {
           },
         },
         tooltip: {
+          filter: item => item.dataset.label !== 'Trend',
           callbacks: {
             label: ctx => {
-              if (ctx.dataset.label === 'Trend') return null;
               const v = ctx.parsed.y;
               if (v == null || v === 0) return null;
               const proj = ctx.dataset.label.includes('proj.');
