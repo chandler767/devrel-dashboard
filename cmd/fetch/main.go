@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -50,62 +51,106 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Warning: could not load previous report: %v\n", err)
 	}
 
-	known := internal.LoadAllKnownVideoIDs()
+	known    := internal.LoadAllKnownVideoIDs()
+	rejected := internal.LoadRejectedVideoIDs()
+
+	// ── Concurrent platform fetches ───────────────────────────────────────────
+
+	type fetchResult struct {
+		videos []internal.Video
+		err    error
+	}
+
+	type job struct {
+		name string
+		fn   func() ([]internal.Video, error)
+	}
+
+	var jobs []job
+	if !*skipYT {
+		jobs = append(jobs, job{"youtube", platforms.YouTubeFetch})
+	}
+	if !*skipTT {
+		jobs = append(jobs, job{"tiktok", platforms.TikTokFetch})
+	}
+	if !*skipLI {
+		jobs = append(jobs, job{"linkedin", platforms.LinkedInFetch})
+	}
+
+	results := make(map[string]fetchResult, len(jobs))
+	if len(jobs) > 0 {
+		fmt.Printf("Fetching from %d platform(s) concurrently...\n", len(jobs))
+		type tagged struct {
+			name string
+			fetchResult
+		}
+		ch := make(chan tagged, len(jobs))
+		var wg sync.WaitGroup
+		for _, j := range jobs {
+			j := j
+			wg.Add(1)
+			go func() {
+				defer wg.Done()
+				v, e := j.fn()
+				ch <- tagged{j.name, fetchResult{v, e}}
+			}()
+		}
+		wg.Wait()
+		close(ch)
+		for r := range ch {
+			results[r.name] = r.fetchResult
+		}
+	}
 
 	var allVideos []internal.Video
 
-	if !*skipYT {
-		fmt.Println("Fetching YouTube videos...")
-		videos, err := platforms.YouTubeFetch()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "YouTube error: %v\n", err)
+	if r, ok := results["youtube"]; ok {
+		if r.err != nil {
+			fmt.Fprintf(os.Stderr, "YouTube error: %v\n", r.err)
 			if carried := carryForwardSkipped([]string{"youtube"}, prevReport); len(carried) > 0 {
 				fmt.Printf("  Carried forward %d YouTube video(s) from previous report (fetch failed)\n", len(carried))
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			fmt.Printf("  Found %d YouTube videos\n", len(videos))
-			allVideos = append(allVideos, videos...)
+			fmt.Printf("YouTube: %d video(s)\n", len(r.videos))
+			allVideos = append(allVideos, r.videos...)
 		}
 	}
 
-	if !*skipTT {
-		fmt.Println("Fetching TikTok videos...")
-		videos, err := platforms.TikTokFetch()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "TikTok error: %v\n", err)
+	if r, ok := results["tiktok"]; ok {
+		if r.err != nil {
+			fmt.Fprintf(os.Stderr, "TikTok error: %v\n", r.err)
 			if carried := carryForwardSkipped([]string{"tiktok"}, prevReport); len(carried) > 0 {
 				fmt.Printf("  Carried forward %d TikTok video(s) from previous report (fetch failed)\n", len(carried))
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			fmt.Printf("  Found %d TikTok videos\n", len(videos))
-			videos, backfilled := internal.BackfillMissingTikTokVideos(videos, prevReport)
+			videos, backfilled := internal.BackfillMissingTikTokVideos(r.videos, prevReport)
+			fmt.Printf("TikTok: %d video(s)", len(r.videos))
 			if backfilled > 0 {
-				fmt.Printf("  Backfilled %d TikTok video(s) from previous report (yt-dlp miss)\n", backfilled)
+				fmt.Printf(" (+%d backfilled)", backfilled)
 			}
+			fmt.Println()
 			allVideos = append(allVideos, videos...)
 		}
 	}
 
-	if !*skipLI {
-		fmt.Println("Fetching LinkedIn videos...")
-		videos, err := platforms.LinkedInFetch()
-		if err != nil {
-			fmt.Fprintf(os.Stderr, "LinkedIn error: %v\n", err)
+	if r, ok := results["linkedin"]; ok {
+		if r.err != nil {
+			fmt.Fprintf(os.Stderr, "LinkedIn error: %v\n", r.err)
 			if carried := carryForwardSkipped([]string{"linkedin"}, prevReport); len(carried) > 0 {
 				fmt.Printf("  Carried forward %d LinkedIn video(s) from previous report (fetch failed)\n", len(carried))
 				allVideos = append(allVideos, carried...)
 			}
-		} else if len(videos) == 0 {
-			fmt.Println("  LinkedIn returned 0 videos (likely rate-limited) — carrying forward from previous report")
+		} else if len(r.videos) == 0 {
+			fmt.Println("LinkedIn: 0 videos (likely rate-limited) — carrying forward from previous report")
 			if carried := carryForwardSkipped([]string{"linkedin"}, prevReport); len(carried) > 0 {
 				fmt.Printf("  Carried forward %d LinkedIn video(s)\n", len(carried))
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			fmt.Printf("  Found %d LinkedIn videos\n", len(videos))
-			allVideos = append(allVideos, videos...)
+			fmt.Printf("LinkedIn: %d video(s)\n", len(r.videos))
+			allVideos = append(allVideos, r.videos...)
 		}
 	}
 
@@ -143,7 +188,7 @@ func main() {
 
 	// Interactive approval for new videos (skipped in dry-run mode)
 	if !*dryRun {
-		allVideos = approveNewVideos(allVideos, known)
+		allVideos = approveNewVideos(allVideos, known, rejected)
 	}
 
 	fmt.Printf("\nGrouping %d videos across platforms...\n", len(allVideos))
@@ -241,13 +286,17 @@ func filterSince(videos []internal.Video, cutoff time.Time, known map[string]boo
 // approveNewVideos prompts for each video not seen in the previous report.
 // Known videos pass through automatically without prompting.
 // Reads a single keypress (no Enter required): y=include, n=skip.
-func approveNewVideos(videos []internal.Video, known map[string]bool) []internal.Video {
+func approveNewVideos(videos []internal.Video, known, rejected map[string]bool) []internal.Video {
 	var out []internal.Video
 	newCount := 0
 	for _, v := range videos {
-		if known[v.Platform+":"+v.ID] {
+		key := v.Platform + ":" + v.ID
+		if known[key] {
 			out = append(out, v)
 			continue
+		}
+		if rejected[key] {
+			continue // silently skip previously rejected videos
 		}
 		newCount++
 		fmt.Printf("\n  New %s video:\n", v.Platform)
@@ -264,6 +313,10 @@ func approveNewVideos(videos []internal.Video, known map[string]bool) []internal
 		fmt.Println(ch) // echo the key
 		if strings.ToLower(ch) == "y" {
 			out = append(out, v)
+		} else {
+			if err := internal.SaveRejectedVideoID(v.Platform, v.ID); err != nil {
+				fmt.Fprintf(os.Stderr, "  warning: could not save rejection: %v\n", err)
+			}
 		}
 	}
 	if newCount == 0 {
