@@ -536,22 +536,21 @@ function initWowChart(data) {
         { label: 'YouTube (proj.)',    data: data.predYt, backgroundColor: 'rgba(255,51,51,0.25)',   borderColor: 'rgba(255,51,51,0.6)',   borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
         { label: 'TikTok (proj.)',     data: data.predTt, backgroundColor: 'rgba(105,201,208,0.25)', borderColor: 'rgba(105,201,208,0.6)', borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
         { label: 'LinkedIn (proj.)',   data: data.predLi, backgroundColor: 'rgba(10,102,194,0.25)',  borderColor: 'rgba(10,102,194,0.6)',  borderWidth: 1, borderDash: [4,3], stack: 'views', pointStyle: false },
-        { label: 'Trend',              data: data.trend,  type: 'line', borderColor: 'rgba(255,255,255,0.5)', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0 },
+        { label: 'Trend',              data: data.trend,  type: 'line', borderColor: 'rgba(255,255,255,0.5)', borderWidth: 2, borderDash: [6,3], pointRadius: 0, pointHoverRadius: 0, pointHitRadius: 0, fill: false, tension: 0 },
       ],
     },
     options: {
       responsive: true, maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
+      interaction: { mode: 'index', intersect: true },
       plugins: {
         legend: {
           labels: {
             boxWidth: 12, font: { size: 12 },
-            filter: item => !item.text.includes('proj.') && item.text !== 'Trend',
+            filter: item => !item.text.includes('proj.'),
           },
         },
         tooltip: {
           filter: item => item.dataset.label !== 'Trend',
-          intersect: true,
           callbacks: {
             label: ctx => {
               const v = ctx.parsed.y;
@@ -601,7 +600,7 @@ function renderWow(allItems, reportDate) {
   const statEl = document.getElementById('wow-trend-stat');
   if (statEl) {
     const s = data.trendSlope;
-    statEl.textContent = (s >= 0 ? '+' : '') + fmt(s) + ' views / wk';
+    statEl.textContent = 'Trend  ' + (s >= 0 ? '+' : '') + fmt(s) + ' additional views / wk';
     statEl.className   = 'wow-trend-stat ' + (s >= 0 ? 'positive' : 'negative');
   }
 }

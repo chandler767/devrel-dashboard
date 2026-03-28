@@ -620,6 +620,25 @@ main {
   height: 260px;
 }
 
+.wow-section .trend-chart-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.wow-section .trend-chart-container canvas {
+  flex: 1;
+  min-height: 240px;
+}
+
+.wow-section #wow-trend-stat {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .trend-chart-container .trend-toggle {
   position: absolute;
   top: 10px;
