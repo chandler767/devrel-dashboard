@@ -424,18 +424,13 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   cutoff.setDate(cutoff.getDate() - (numWeeks - 1) * 7);
 
   // Build week slots — each slot also stores per-platform projItems for immature videos
-  const weekEnd = new Date(thisWeek);
-  weekEnd.setDate(thisWeek.getDate() + 7);
-  const daysRemainingInWeek = Math.max(0, (weekEnd.getTime() - now) / msPerDay);
-
   const slots = Array.from({ length: numWeeks }, (_, i) => {
     const start = new Date(cutoff);
     start.setDate(cutoff.getDate() + i * 7);
     const end = new Date(start);
     end.setDate(start.getDate() + 7);
-    const isCurrentWeek = i === numWeeks - 1;
     return {
-      start, end, yt: 0, tt: 0, li: 0, isCurrentWeek,
+      start, end, yt: 0, tt: 0, li: 0,
       projItems: { youtube: [], tiktok: [], linkedin: [] },
     };
   });
@@ -465,8 +460,8 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   }
 
   // Compute per-slot projections using the empirical power-law decay curve.
-  // For a video at age D with V views: projected_additional = V * ((T/D)^α - 1)
-  // where T = target age (30 days, or end-of-week for the current slot).
+  // All slots project uniformly to day 30 so bars are directly comparable.
+  // For a video at age D with V views: projected_additional = V * ((30/D)^α - 1)
   for (const slot of slots) {
     for (const [plat, items] of Object.entries(slot.projItems)) {
       if (items.length === 0) continue;
@@ -474,11 +469,7 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
       let additional = 0;
       for (const v of items) {
         if (v.views <= 0 || v.ageDays <= 0) continue;
-        const targetAge = slot.isCurrentWeek
-          ? Math.min(30, v.ageDays + daysRemainingInWeek)
-          : 30;
-        if (targetAge <= v.ageDays) continue;
-        additional += v.views * (Math.pow(targetAge / v.ageDays, α) - 1);
+        additional += v.views * (Math.pow(30 / v.ageDays, α) - 1);
       }
       slot['pred_' + plat] = Math.round(additional);
     }
