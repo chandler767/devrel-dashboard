@@ -621,18 +621,15 @@ main {
 }
 
 .wow-section .trend-chart-container {
-  display: flex;
-  flex-direction: column;
-  height: auto;
-}
-
-.wow-section .trend-chart-container canvas {
-  flex: 1;
-  min-height: 240px;
+  height: 310px;
+  padding-bottom: 44px;
 }
 
 .wow-section #wow-trend-stat {
-  margin-top: 10px;
+  position: absolute;
+  bottom: 12px;
+  left: 20px;
+  right: 20px;
   padding-top: 8px;
   border-top: 1px solid var(--border);
   font-size: 13px;
