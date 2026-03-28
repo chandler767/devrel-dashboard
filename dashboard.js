@@ -475,6 +475,11 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   // Compute predictions: for each current-week video, estimate views it will gain
   // for the remaining days of the week using the 3-month reference velocity (views/day).
   // If no reference data exists, fall back to the video's own current rate.
+  // Cap remaining at daysRemainingInWeek so late-week projections don't overcount.
+  const weekEnd = new Date(thisWeek);
+  weekEnd.setDate(thisWeek.getDate() + 7);
+  const daysRemainingInWeek = Math.max(0, (weekEnd.getTime() - now) / msPerDay);
+
   const pred = { youtube: 0, tiktok: 0, linkedin: 0 };
   for (const [plat, cw] of Object.entries(cwPool)) {
     if (cw.items.length === 0) continue;
@@ -482,7 +487,7 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
     const refVpd  = ref.days > 0 ? ref.views / ref.days : 0; // historical views-per-day
     let additional = 0;
     for (const v of cw.items) {
-      const remaining = Math.max(0, 7 - v.ageDays);
+      const remaining = Math.max(0, Math.min(7 - v.ageDays, daysRemainingInWeek));
       if (remaining === 0) continue;
       // Own rate as fallback; clamp to 2× reference when reference is available
       const ownVpd = v.views / Math.max(v.ageDays, 0.25);
