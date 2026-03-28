@@ -1249,7 +1249,7 @@ async function init() {
     return;
   }
 
-  allReportEntries = index.reports || [];
+  allReportEntries = (index.reports || []).slice().reverse();
   if (!allReportEntries.length) {
     document.getElementById('video-groups').innerHTML =
       '<p class="state-message">No reports yet. Run: <code>go run ./cmd/fetch --skip-linkedin</code></p>';
