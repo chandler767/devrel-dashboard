@@ -22,6 +22,7 @@ let chartInstance      = null;
 let trendChartInstance = null;
 let wowChartInstance   = null;
 let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
+let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
@@ -438,9 +439,6 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
     };
   });
 
-  // Reference pool: videos 7–90 days old → views-per-day baseline per platform
-  const refPool = { youtube: { views: 0, days: 0 }, tiktok: { views: 0, days: 0 }, linkedin: { views: 0, days: 0 } };
-
   for (const item of allItems) {
     if (!item.publishedAt) continue;
     const pub     = new Date(item.publishedAt);
@@ -463,33 +461,23 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
         }
       }
     }
-
-    // Reference pool (7–90 days old)
-    if (ageDays >= 7 && ageDays <= 90) {
-      for (const p of item.platforms) {
-        const pool = refPool[p.platform];
-        if (pool) { pool.views += (p.views || 0); pool.days += ageDays; }
-      }
-    }
   }
 
-  // Compute per-slot projections for any slot with immature videos (< 30 days old).
-  // Current week is also capped at daysRemainingInWeek so we don't project past end of week.
-  // Own velocity is used as fallback; clamped to 2× reference rate when available.
+  // Compute per-slot projections using the empirical power-law decay curve.
+  // For a video at age D with V views: projected_additional = V * ((T/D)^α - 1)
+  // where T = target age (30 days, or end-of-week for the current slot).
   for (const slot of slots) {
     for (const [plat, items] of Object.entries(slot.projItems)) {
       if (items.length === 0) continue;
-      const ref    = refPool[plat];
-      const refVpd = ref.days > 0 ? ref.views / ref.days : 0;
+      const α = (decayCurve?.[plat]) ?? 0.35;
       let additional = 0;
       for (const v of items) {
-        const toMaturity = 30 - v.ageDays;
-        const cap        = slot.isCurrentWeek ? Math.min(toMaturity, daysRemainingInWeek) : toMaturity;
-        const remaining  = Math.max(0, cap);
-        if (remaining === 0) continue;
-        const ownVpd = v.views / Math.max(v.ageDays, 0.25);
-        const vpd    = refVpd > 0 ? Math.min(ownVpd, refVpd * 2) : ownVpd;
-        additional  += vpd * remaining;
+        if (v.views <= 0 || v.ageDays <= 0) continue;
+        const targetAge = slot.isCurrentWeek
+          ? Math.min(30, v.ageDays + daysRemainingInWeek)
+          : 30;
+        if (targetAge <= v.ageDays) continue;
+        additional += v.views * (Math.pow(targetAge / v.ageDays, α) - 1);
       }
       slot['pred_' + plat] = Math.round(additional);
     }
@@ -1235,6 +1223,58 @@ async function loadAndRender(reportID) {
   }
 }
 
+// ── View Decay Curve ──────────────────────────────────────────────────────────
+// Fits a per-platform power-law exponent α from historical report data.
+// For a video at age D with V views, projected views at age T = V * (T/D)^α.
+
+async function computeDecayCurve(entries) {
+  const msPerDay   = 86400000;
+  const timeSeries = {}; // "platform:videoId" → [{ageDays, views}, ...]
+
+  await Promise.all(entries.map(async entry => {
+    try {
+      const report = await loadData(entry.file);
+      const reportDate = new Date(entry.generated_at);
+      for (const group of report.video_groups || []) {
+        for (const [plat, pd] of Object.entries(group.platforms || {})) {
+          if (!pd.published_at || !pd.video_id || pd.views == null) continue;
+          const ageDays = (reportDate - new Date(pd.published_at)) / msPerDay;
+          if (ageDays < 0.5) continue;
+          const key = plat + ':' + pd.video_id;
+          (timeSeries[key] ??= []).push({ ageDays, views: pd.views });
+        }
+      }
+    } catch (_) {}
+  }));
+
+  const buckets = { youtube: [], tiktok: [], linkedin: [] };
+
+  for (const [key, pts] of Object.entries(timeSeries)) {
+    const plat = key.split(':')[0];
+    if (!buckets[plat]) continue;
+    pts.sort((a, b) => a.ageDays - b.ageDays);
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p1 = pts[i], p2 = pts[i + 1];
+      if (p2.ageDays - p1.ageDays < 3)  continue; // too close — noisy ratio
+      if (p1.views <= 0 || p2.views <= p1.views) continue;
+      const α = Math.log(p2.views / p1.views) / Math.log(p2.ageDays / p1.ageDays);
+      if (α >= 0.05 && α <= 1.5) buckets[plat].push(α);
+    }
+  }
+
+  const median = arr => {
+    if (arr.length < 5) return 0.35; // conservative fallback
+    const s = [...arr].sort((a, b) => a - b);
+    return s[Math.floor(s.length / 2)];
+  };
+
+  return {
+    youtube:  median(buckets.youtube),
+    tiktok:   median(buckets.tiktok),
+    linkedin: median(buckets.linkedin),
+  };
+}
+
 async function init() {
   initRangeTabs();
   initTrendToggle();
@@ -1270,6 +1310,12 @@ async function init() {
   const currentID = allReportEntries.find(e => e.id === paramID) ? paramID : allReportEntries[0].id;
   renderReportSelector(allReportEntries, currentID);
   await loadAndRender(currentID);
+
+  // Fit decay curve in the background; re-render WoW once ready
+  computeDecayCurve(allReportEntries).then(curve => {
+    decayCurve = curve;
+    if (currentReport) renderWow(buildUnifiedList(currentReport), currentReport.generated_at);
+  });
 }
 
 window.addEventListener('DOMContentLoaded', init);
