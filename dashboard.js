@@ -1398,12 +1398,18 @@ async function init() {
   renderReportSelector(allReportEntries, currentID);
   await loadAndRender(currentID);
 
-  // Notify if the user arrived with a ?report= link pointing at an older report
-  if (paramID && newestID && paramID !== newestID) {
+  // Notify if the user arrived with a ?report= link pointing at a known-but-older report
+  if (paramID && newestID && paramID !== newestID && allReportEntries.find(e => e.id === paramID)) {
     showUpdateNotice(
       'You\'re viewing an older report.',
       'View latest',
-      () => { setParams({ report: null }); loadAndRender(newestID); document.querySelector('.update-notice')?.remove(); }
+      () => {
+        setParams({ report: null });
+        const sel = document.getElementById('report-select');
+        if (sel) sel.value = newestID;
+        loadAndRender(newestID);
+        document.querySelector('.update-notice')?.remove();
+      }
     );
   }
 
