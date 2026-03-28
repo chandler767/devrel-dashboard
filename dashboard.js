@@ -865,7 +865,7 @@ function startReportPolling() {
       if (!res.ok) return;
       const data = await res.json();
       const newest  = (data.reports || [])[0];
-      const current = allReportEntries[allReportEntries.length - 1];
+      const current = allReportEntries[0];
       if (newest && current && newest.id !== current.id) {
         notified = true;
         showUpdateNotice('A new report is available.', 'Reload', () => location.reload());
@@ -1385,7 +1385,7 @@ async function init() {
     return;
   }
 
-  allReportEntries = (index.reports || []).slice().reverse();
+  allReportEntries = (index.reports || []).slice(); // newest-first, matching Go's prepend order
   if (!allReportEntries.length) {
     document.getElementById('video-groups').innerHTML =
       '<p class="state-message">No reports yet. Run: <code>go run ./cmd/fetch --skip-linkedin</code></p>';
