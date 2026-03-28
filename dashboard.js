@@ -524,9 +524,10 @@ function initWowChart(data) {
         legend: {
           labels: {
             boxWidth: 12, font: { size: 12 },
-            filter: item => !item.text.includes('proj.'),
+            filter: item => !item.text.includes('proj.') && (showWowPred || item.text !== 'Trend'),
           },
           onClick: (e, legendItem, legend) => {
+            if (legendItem.datasetIndex === 6) return; // Trend is controlled by predictions toggle
             Chart.defaults.plugins.legend.onClick.call(legend.chart, e, legendItem, legend);
             applyWowPredVisibility();
             updateWowTrend();
