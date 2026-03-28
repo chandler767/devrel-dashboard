@@ -573,6 +573,14 @@ main {
 
 #selected-heading { margin-bottom: 14px; }
 
+.wow-trend-stat {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.wow-trend-stat.positive { color: #4ade80; }
+.wow-trend-stat.negative { color: #f87171; }
+
 .trend-toggle { display: flex; gap: 4px; }
 
 .trend-toggle-btn {

@@ -402,7 +402,7 @@ function linearRegression(values) {
 
 // ── Week-over-Week Chart ──────────────────────────────────────────────────────
 
-function buildWeekOverWeekData(allItems, numWeeks = 12) {
+function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   // Align to Monday-based weeks
   const startOfMonday = d => {
     const day = d.getDay(); // 0=Sun
@@ -413,9 +413,11 @@ function buildWeekOverWeekData(allItems, numWeeks = 12) {
     return mon;
   };
 
-  const now      = Date.now();
+  // Anchor to the report date so the rightmost column is always the report's week
+  const anchor   = reportDate ? new Date(reportDate) : new Date();
+  const now      = anchor.getTime();
   const msPerDay = 86400000;
-  const thisWeek = startOfMonday(new Date());
+  const thisWeek = startOfMonday(anchor);
   const cutoff   = new Date(thisWeek);
   cutoff.setDate(cutoff.getDate() - (numWeeks - 1) * 7);
 
@@ -507,12 +509,15 @@ function buildWeekOverWeekData(allItems, numWeeks = 12) {
   const ttArr   = slots.map(s => s.tt);
   const liArr   = slots.map(s => s.li);
   const totals  = ytArr.map((v, i) => v + ttArr[i] + liArr[i]);
-  const trend   = linearRegression(totals);
+  const trend      = linearRegression(totals);
+  const trendSlope = trend.length >= 2
+    ? Math.round((trend[trend.length - 1] - trend[0]) / (trend.length - 1))
+    : 0;
   return {
     labels,
     yt: ytArr, tt: ttArr, li: liArr,
     predYt, predTt, predLi, hasPred,
-    trend,
+    trend, trendSlope,
   };
 }
 
@@ -546,6 +551,7 @@ function initWowChart(data) {
         },
         tooltip: {
           filter: item => item.dataset.label !== 'Trend',
+          intersect: true,
           callbacks: {
             label: ctx => {
               const v = ctx.parsed.y;
@@ -576,8 +582,8 @@ function initWowChart(data) {
   });
 }
 
-function renderWow(allItems) {
-  const data = buildWeekOverWeekData(allItems);
+function renderWow(allItems, reportDate) {
+  const data = buildWeekOverWeekData(allItems, 12, reportDate);
   if (!wowChartInstance) {
     initWowChart(data);
   } else {
@@ -590,6 +596,13 @@ function renderWow(allItems) {
     wowChartInstance.data.datasets[5].data = data.predLi;
     wowChartInstance.data.datasets[6].data = data.trend;
     wowChartInstance.update('none');
+  }
+
+  const statEl = document.getElementById('wow-trend-stat');
+  if (statEl) {
+    const s = data.trendSlope;
+    statEl.textContent = (s >= 0 ? '+' : '') + fmt(s) + ' views / wk';
+    statEl.className   = 'wow-trend-stat ' + (s >= 0 ? 'positive' : 'negative');
   }
 }
 
@@ -1048,7 +1061,7 @@ function renderReport(report, range) {
 
   const allItems  = buildUnifiedList(report);
   renderRolling(allItems);
-  renderWow(allItems);
+  renderWow(allItems, report.generated_at);
   const currItems = filterItems(allItems, range);
 
   // Previous equivalent period (date-shifted, same report) — for stat cards + chart

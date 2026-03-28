@@ -25,10 +25,6 @@
   <section class="rolling-section">
     <div class="rolling-heading-row">
       <div class="rolling-heading">Rolling 12 Month Cumulative Totals</div>
-      <div class="trend-toggle" id="trend-toggle">
-        <button class="trend-toggle-btn active" data-grouping="date">By release date</button>
-        <button class="trend-toggle-btn" data-grouping="month">By month</button>
-      </div>
     </div>
     <div class="rolling-stats">
       <div class="stat-card total">
@@ -59,6 +55,7 @@
         <div class="rolling-heading">Week over Week</div>
         <div class="wow-subheading">Total accumulated views on videos published each week — not new views gained that week</div>
       </div>
+      <div id="wow-trend-stat"></div>
     </div>
     <div class="trend-chart-container">
       <canvas id="wow-chart"></canvas>
