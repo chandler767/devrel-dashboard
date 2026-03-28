@@ -23,6 +23,7 @@ let trendChartInstance = null;
 let wowChartInstance   = null;
 let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
+let showWowPred        = true;  // whether projection bars are visible in WoW chart
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
@@ -567,10 +568,25 @@ function initWowChart(data) {
   });
 }
 
+function applyWowPredVisibility() {
+  if (!wowChartInstance) return;
+  [3, 4, 5].forEach(i => wowChartInstance.setDatasetVisibility(i, showWowPred));
+  wowChartInstance.update('none');
+}
+
 function renderWow(allItems, reportDate) {
   const data = buildWeekOverWeekData(allItems, 12, reportDate);
-  if (!wowChartInstance) {
+  const isNew = !wowChartInstance;
+  if (isNew) {
     initWowChart(data);
+    const btn = document.getElementById('wow-pred-btn');
+    if (btn) {
+      btn.addEventListener('click', () => {
+        showWowPred = !showWowPred;
+        btn.classList.toggle('active', showWowPred);
+        applyWowPredVisibility();
+      });
+    }
   } else {
     wowChartInstance.data.labels           = data.labels;
     wowChartInstance.data.datasets[0].data = data.yt;
@@ -582,6 +598,7 @@ function renderWow(allItems, reportDate) {
     wowChartInstance.data.datasets[6].data = data.trend;
     wowChartInstance.update('none');
   }
+  applyWowPredVisibility();
 
   const statEl = document.getElementById('wow-trend-stat');
   if (statEl) {
