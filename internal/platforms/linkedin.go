@@ -308,8 +308,6 @@ func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, 
 // Set LINKEDIN_PERSON_URN to fetch personal video posts.
 // Set LINKEDIN_ORG_URNS (comma-separated) to fetch from LinkedIn Pages.
 func LinkedInFetch() ([]internal.Video, error) {
-	fmt.Println("  (using Community Management API with OAuth 2.0)")
-
 	accessToken, err := refreshToken()
 	if err != nil {
 		return nil, err

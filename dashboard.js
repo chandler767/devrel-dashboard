@@ -868,7 +868,7 @@ function startReportPolling() {
       const current = allReportEntries[allReportEntries.length - 1];
       if (newest && current && newest.id !== current.id) {
         notified = true;
-        showUpdateNotice();
+        showUpdateNotice('A new report is available.', 'Reload', () => location.reload());
       }
     } catch (_) {}
   };
@@ -876,15 +876,23 @@ function startReportPolling() {
   setInterval(check, INTERVAL_MS);
 }
 
-function showUpdateNotice() {
+function showUpdateNotice(msg, actionLabel, actionFn) {
+  if (document.querySelector('.update-notice')) return; // don't stack
   const bar = document.createElement('div');
   bar.className = 'notice-bar update-notice';
+  const btn = document.createElement('button');
+  btn.className = 'notice-btn';
+  btn.textContent = actionLabel;
+  btn.addEventListener('click', actionFn);
   bar.innerHTML =
-    '<span>A new report is available.</span>' +
-    '<div style="display:flex;gap:8px;align-items:center;">' +
-    '<button class="notice-btn" onclick="location.reload()">Reload</button>' +
-    '<button class="notice-close" onclick="this.closest(\'.notice-bar\').remove()">×</button>' +
-    '</div>';
+    `<span>${msg}</span>` +
+    '<div style="display:flex;gap:8px;align-items:center;flex-shrink:0;"></div>';
+  bar.querySelector('div').append(btn);
+  const close = document.createElement('button');
+  close.className = 'notice-close';
+  close.textContent = '×';
+  close.addEventListener('click', () => bar.remove());
+  bar.querySelector('div').append(close);
   document.querySelector('main').prepend(bar);
 }
 
@@ -1384,10 +1392,20 @@ async function init() {
     return;
   }
 
+  const newestID  = (index.reports || [])[0]?.id;
   const paramID   = getParam('report');
   const currentID = allReportEntries.find(e => e.id === paramID) ? paramID : allReportEntries[0].id;
   renderReportSelector(allReportEntries, currentID);
   await loadAndRender(currentID);
+
+  // Notify if the user arrived with a ?report= link pointing at an older report
+  if (paramID && newestID && paramID !== newestID) {
+    showUpdateNotice(
+      'You\'re viewing an older report.',
+      'View latest',
+      () => { setParams({ report: null }); loadAndRender(newestID); document.querySelector('.update-notice')?.remove(); }
+    );
+  }
 
   // Fit decay curve in the background; re-render WoW once ready
   computeDecayCurve(allReportEntries).then(curve => {
