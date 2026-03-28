@@ -187,38 +187,6 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W28",
-      "canonical_title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
-      "duration_seconds": 20,
-      "total_views": 3563,
-      "platforms": {
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7348828017177038848",
-          "title": "Come say hello at @[Amazon Web Services \\(AWS\\)](urn:li:organization:2382910)  summit {hashtag|\\#|nyc} - get a free t-sh",
-          "views": 1038,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348828017177038848/",
-          "published_at": "2025-07-09T21:39:03Z",
-          "duration_seconds": 0
-        },
-        "tiktok": {
-          "video_id": "7525556636392393998",
-          "title": "Did you know you can turn an #aws #s3 bucket into a #data stream? #pr...",
-          "views": 1157,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7525556636392393998",
-          "published_at": "2025-07-10T00:00:00Z",
-          "duration_seconds": 59
-        },
-        "youtube": {
-          "video_id": "IVvmR66sLXk",
-          "title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
-          "views": 1368,
-          "url": "https://www.youtube.com/watch?v=IVvmR66sLXk",
-          "published_at": "2025-07-09T00:00:00Z",
-          "duration_seconds": 20
-        }
-      }
-    },
-    {
       "id": "2025-W35",
       "canonical_title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
       "duration_seconds": 60,
@@ -246,6 +214,38 @@ window.__devrelReport={
           "views": 1352,
           "url": "https://www.youtube.com/watch?v=FabK4yNEsFM",
           "published_at": "2025-08-28T00:00:00Z",
+          "duration_seconds": 60
+        }
+      }
+    },
+    {
+      "id": "2025-W28-2",
+      "canonical_title": "Build your own #mcp server to use with #claude or another #ai #software #programming",
+      "duration_seconds": 60,
+      "total_views": 3378,
+      "platforms": {
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7348454838646583296",
+          "title": "Our DevRel lead @[Chandler Mayo](urn:li:person:lh9aKhwW23) can show you how to build your own {hashtag|\\#|mcp} server to",
+          "views": 812,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348454838646583296/",
+          "published_at": "2025-07-08T20:56:20Z",
+          "duration_seconds": 0
+        },
+        "tiktok": {
+          "video_id": "7524815218170498318",
+          "title": "It\u2019s easy to build your own #mcp server to use with #claude or anothe...",
+          "views": 989,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7524815218170498318",
+          "published_at": "2025-07-08T00:00:00Z",
+          "duration_seconds": 59
+        },
+        "youtube": {
+          "video_id": "u5w8nGzpeMA",
+          "title": "Build your own #mcp server to use with #claude or another #ai #software #programming",
+          "views": 1577,
+          "url": "https://www.youtube.com/watch?v=u5w8nGzpeMA",
+          "published_at": "2025-07-08T00:00:00Z",
           "duration_seconds": 60
         }
       }
@@ -315,34 +315,34 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W28-3",
-      "canonical_title": "@resonatehqio + Redpanda is a really cool distributed systems use case. #distributedapplications",
-      "duration_seconds": 110,
-      "total_views": 3033,
+      "id": "a353ac16",
+      "canonical_title": "Major #cursor agents update - is it enterprise ready? #aitools #programming #coding #developer",
+      "duration_seconds": 71,
+      "total_views": 2836,
       "platforms": {
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7348088403734790144",
-          "title": "Our friends at @[Resonate HQ](urn:li:organization:99146314) have a really cool use case with us.",
-          "views": 1042,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348088403734790144/",
-          "published_at": "2025-07-07T20:40:37Z",
-          "duration_seconds": 0
-        },
         "tiktok": {
-          "video_id": "7524815218170498318",
-          "title": "It\u2019s easy to build your own #mcp server to use with #claude or anothe...",
-          "views": 989,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7524815218170498318",
-          "published_at": "2025-07-08T00:00:00Z",
-          "duration_seconds": 59
+          "video_id": "7610939032578641166",
+          "title": "Cursor announced that you can now run 10 to 20 agents in parallel. Th...",
+          "views": 1088,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7610939032578641166",
+          "published_at": "2026-02-25T00:00:00Z",
+          "duration_seconds": 70
         },
         "youtube": {
-          "video_id": "fkjAvYe1KmU",
-          "title": "@resonatehqio + Redpanda is a really cool distributed systems use case. #distributedapplications",
-          "views": 1002,
-          "url": "https://www.youtube.com/watch?v=fkjAvYe1KmU",
-          "published_at": "2025-07-07T00:00:00Z",
-          "duration_seconds": 110
+          "video_id": "tvTASjgQSXc",
+          "title": "Major #cursor agents update - is it enterprise ready? #aitools #programming #coding #developer",
+          "views": 892,
+          "url": "https://www.youtube.com/watch?v=tvTASjgQSXc",
+          "published_at": "2026-02-25T00:00:00Z",
+          "duration_seconds": 71
+        },
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7432523141517721601",
+          "title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u2019s really coo",
+          "views": 856,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432523141517721601/",
+          "published_at": "2026-02-25T20:33:57Z",
+          "duration_seconds": 0
         }
       }
     },
@@ -411,17 +411,17 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2025-W28-2",
-      "canonical_title": "Build your own #mcp server to use with #claude or another #ai #software #programming",
-      "duration_seconds": 60,
-      "total_views": 2572,
+      "id": "2025-W28",
+      "canonical_title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
+      "duration_seconds": 20,
+      "total_views": 2589,
       "platforms": {
         "linkedin": {
-          "video_id": "urn:li:ugcPost:7348454838646583296",
-          "title": "Our DevRel lead @[Chandler Mayo](urn:li:person:lh9aKhwW23) can show you how to build your own {hashtag|\\#|mcp} server to",
-          "views": 812,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348454838646583296/",
-          "published_at": "2025-07-08T20:56:20Z",
+          "video_id": "urn:li:ugcPost:7348828017177038848",
+          "title": "Come say hello at @[Amazon Web Services \\(AWS\\)](urn:li:organization:2382910)  summit {hashtag|\\#|nyc} - get a free t-sh",
+          "views": 1038,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348828017177038848/",
+          "published_at": "2025-07-09T21:39:03Z",
           "duration_seconds": 0
         },
         "tiktok": {
@@ -433,12 +433,12 @@ window.__devrelReport={
           "duration_seconds": 19
         },
         "youtube": {
-          "video_id": "u5w8nGzpeMA",
-          "title": "Build your own #mcp server to use with #claude or another #ai #software #programming",
-          "views": 1577,
-          "url": "https://www.youtube.com/watch?v=u5w8nGzpeMA",
-          "published_at": "2025-07-08T00:00:00Z",
-          "duration_seconds": 60
+          "video_id": "IVvmR66sLXk",
+          "title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
+          "views": 1368,
+          "url": "https://www.youtube.com/watch?v=IVvmR66sLXk",
+          "published_at": "2025-07-09T00:00:00Z",
+          "duration_seconds": 20
         }
       }
     },
@@ -463,6 +463,38 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=CWcHYNhD39Q",
           "published_at": "2025-05-27T00:00:00Z",
           "duration_seconds": 49
+        }
+      }
+    },
+    {
+      "id": "2025-W28-3",
+      "canonical_title": "@resonatehqio + Redpanda is a really cool distributed systems use case. #distributedapplications",
+      "duration_seconds": 110,
+      "total_views": 2302,
+      "platforms": {
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7348088403734790144",
+          "title": "Our friends at @[Resonate HQ](urn:li:organization:99146314) have a really cool use case with us.",
+          "views": 1042,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7348088403734790144/",
+          "published_at": "2025-07-07T20:40:37Z",
+          "duration_seconds": 0
+        },
+        "tiktok": {
+          "video_id": "7524435867860045111",
+          "title": "Resonate + Redpanda is a really cool distributed systems use case. #s...",
+          "views": 258,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7524435867860045111",
+          "published_at": "2025-07-07T00:00:00Z",
+          "duration_seconds": 110
+        },
+        "youtube": {
+          "video_id": "fkjAvYe1KmU",
+          "title": "@resonatehqio + Redpanda is a really cool distributed systems use case. #distributedapplications",
+          "views": 1002,
+          "url": "https://www.youtube.com/watch?v=fkjAvYe1KmU",
+          "published_at": "2025-07-07T00:00:00Z",
+          "duration_seconds": 110
         }
       }
     },
@@ -543,62 +575,6 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=d4GnfKAPcKQ",
           "published_at": "2025-06-04T00:00:00Z",
           "duration_seconds": 25
-        }
-      }
-    },
-    {
-      "id": "2025-W33",
-      "canonical_title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
-      "duration_seconds": 60,
-      "total_views": 2018,
-      "platforms": {
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7361777758730866688",
-          "title": "When it comes to analytical workloads, {hashtag|\\#|JSON} can only take you so far.",
-          "views": 943,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7361777758730866688/",
-          "published_at": "2025-08-14T15:16:44Z",
-          "duration_seconds": 0
-        },
-        "tiktok": {
-          "video_id": "7538938925600050446",
-          "title": "Why run a zoo when you can run Redpanda? #programming #programminghum...",
-          "views": 868,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7538938925600050446",
-          "published_at": "2025-08-15T00:00:00Z",
-          "duration_seconds": 8
-        },
-        "youtube": {
-          "video_id": "XXZSqUgHvNg",
-          "title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
-          "views": 207,
-          "url": "https://www.youtube.com/watch?v=XXZSqUgHvNg",
-          "published_at": "2025-08-14T00:00:00Z",
-          "duration_seconds": 60
-        }
-      }
-    },
-    {
-      "id": "a353ac16",
-      "canonical_title": "Major #cursor agents update - is it enterprise ready? #aitools #programming #coding #developer",
-      "duration_seconds": 71,
-      "total_views": 1980,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7610939032578641166",
-          "title": "Cursor announced that you can now run 10 to 20 agents in parallel. Th...",
-          "views": 1088,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7610939032578641166",
-          "published_at": "2026-02-25T00:00:00Z",
-          "duration_seconds": 70
-        },
-        "youtube": {
-          "video_id": "tvTASjgQSXc",
-          "title": "Major #cursor agents update - is it enterprise ready? #aitools #programming #coding #developer",
-          "views": 892,
-          "url": "https://www.youtube.com/watch?v=tvTASjgQSXc",
-          "published_at": "2026-02-25T00:00:00Z",
-          "duration_seconds": 71
         }
       }
     },
@@ -811,6 +787,38 @@ window.__devrelReport={
       }
     },
     {
+      "id": "2025-W33",
+      "canonical_title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
+      "duration_seconds": 60,
+      "total_views": 1281,
+      "platforms": {
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7361777758730866688",
+          "title": "When it comes to analytical workloads, {hashtag|\\#|JSON} can only take you so far.",
+          "views": 943,
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7361777758730866688/",
+          "published_at": "2025-08-14T15:16:44Z",
+          "duration_seconds": 0
+        },
+        "tiktok": {
+          "video_id": "7538489164149411086",
+          "title": "Taking Redpanda data to AWS S3 with just a few lines of connector con...",
+          "views": 131,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7538489164149411086",
+          "published_at": "2025-08-14T00:00:00Z",
+          "duration_seconds": 51
+        },
+        "youtube": {
+          "video_id": "XXZSqUgHvNg",
+          "title": "Data from AWS S3 to Redpanda with just a few lines of connector config  #aws #programming #coding",
+          "views": 207,
+          "url": "https://www.youtube.com/watch?v=XXZSqUgHvNg",
+          "published_at": "2025-08-14T00:00:00Z",
+          "duration_seconds": 60
+        }
+      }
+    },
+    {
       "id": "2025-W30",
       "canonical_title": "\ud83c\udf6a Bite-size demo: Learn how to use Redpanda Connect to stream and transform CSV data from S3 into a Redpanda {hashtag",
       "duration_seconds": 0,
@@ -879,6 +887,22 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=lQsEC0D4mB8",
           "published_at": "2026-03-19T00:00:00Z",
           "duration_seconds": 79
+        }
+      }
+    },
+    {
+      "id": "2025-W28-4",
+      "canonical_title": "Did you know you can turn an #aws #s3 bucket into a #data stream? #pr...",
+      "duration_seconds": 59,
+      "total_views": 1157,
+      "platforms": {
+        "tiktok": {
+          "video_id": "7525556636392393998",
+          "title": "Did you know you can turn an #aws #s3 bucket into a #data stream? #pr...",
+          "views": 1157,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7525556636392393998",
+          "published_at": "2025-07-10T00:00:00Z",
+          "duration_seconds": 59
         }
       }
     },
@@ -1075,18 +1099,18 @@ window.__devrelReport={
       }
     },
     {
-      "id": "2026-W09-3",
-      "canonical_title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u2019s really coo",
-      "duration_seconds": 0,
-      "total_views": 856,
+      "id": "2025-W33-2",
+      "canonical_title": "Why run a zoo when you can run Redpanda? #programming #programminghum...",
+      "duration_seconds": 8,
+      "total_views": 868,
       "platforms": {
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7432523141517721601",
-          "title": "@[Cursor](urn:li:organization:105614038) announced that you can now run 10 to 20 agents in parallel. That\u2019s really coo",
-          "views": 856,
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7432523141517721601/",
-          "published_at": "2026-02-25T20:33:57Z",
-          "duration_seconds": 0
+        "tiktok": {
+          "video_id": "7538938925600050446",
+          "title": "Why run a zoo when you can run Redpanda? #programming #programminghum...",
+          "views": 868,
+          "url": "https://www.tiktok.com/@redpanda_data/video/7538938925600050446",
+          "published_at": "2025-08-15T00:00:00Z",
+          "duration_seconds": 8
         }
       }
     },
@@ -1199,38 +1223,6 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=lHKEqL5oJKU",
           "published_at": "2025-04-23T00:00:00Z",
           "duration_seconds": 101
-        }
-      }
-    },
-    {
-      "id": "2025-W28-4",
-      "canonical_title": "Resonate + Redpanda is a really cool distributed systems use case. #s...",
-      "duration_seconds": 110,
-      "total_views": 258,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7524435867860045111",
-          "title": "Resonate + Redpanda is a really cool distributed systems use case. #s...",
-          "views": 258,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7524435867860045111",
-          "published_at": "2025-07-07T00:00:00Z",
-          "duration_seconds": 110
-        }
-      }
-    },
-    {
-      "id": "2025-W33-2",
-      "canonical_title": "Taking Redpanda data to AWS S3 with just a few lines of connector con...",
-      "duration_seconds": 51,
-      "total_views": 131,
-      "platforms": {
-        "tiktok": {
-          "video_id": "7538489164149411086",
-          "title": "Taking Redpanda data to AWS S3 with just a few lines of connector con...",
-          "views": 131,
-          "url": "https://www.tiktok.com/@redpanda_data/video/7538489164149411086",
-          "published_at": "2025-08-14T00:00:00Z",
-          "duration_seconds": 51
         }
       }
     },
