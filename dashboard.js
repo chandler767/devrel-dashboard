@@ -1264,10 +1264,11 @@ async function computeDecayCurve(entries) {
     pts.sort((a, b) => a.ageDays - b.ageDays);
     for (let i = 0; i < pts.length - 1; i++) {
       const p1 = pts[i], p2 = pts[i + 1];
-      if (p2.ageDays - p1.ageDays < 3)  continue; // too close — noisy ratio
+      if (p1.ageDays < 7)              continue; // skip viral-spike phase; fit post-spike tail only
+      if (p2.ageDays - p1.ageDays < 3) continue; // too close — noisy ratio
       if (p1.views <= 0 || p2.views <= p1.views) continue;
       const α = Math.log(p2.views / p1.views) / Math.log(p2.ageDays / p1.ageDays);
-      if (α >= 0.05 && α <= 1.5) buckets[plat].push(α);
+      if (α >= 0.05 && α <= 0.7) buckets[plat].push(α); // >0.7 implies accelerating views — physically wrong
     }
   }
 
