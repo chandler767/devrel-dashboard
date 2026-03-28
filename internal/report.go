@@ -6,10 +6,13 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"strings"
 	"time"
 )
+
+var assetVersionRe = regexp.MustCompile(`(dashboard\.(js|css))(?:\?v=[^"' >]+)?`)
 
 const reportsDir = "reports"
 
@@ -260,6 +263,18 @@ func BackfillMissingTikTokVideos(current []Video, prev *Report) ([]Video, int) {
 	return current, n
 }
 
+// updateAssetVersions rewrites index.html so that dashboard.js and
+// dashboard.css carry a ?v=<version> query param, busting browser cache
+// whenever a new report (and potentially new JS/CSS) is deployed.
+func updateAssetVersions(version string) error {
+	data, err := os.ReadFile("index.html")
+	if err != nil {
+		return err
+	}
+	updated := assetVersionRe.ReplaceAllString(string(data), "${1}?v="+version)
+	return os.WriteFile("index.html", []byte(updated), 0644)
+}
+
 func gitCommitAndPush(reportID string) error {
 	// Verify we're in a git repo
 	if _, err := os.Stat(".git"); os.IsNotExist(err) {
@@ -267,8 +282,12 @@ func gitCommitAndPush(reportID string) error {
 		return nil
 	}
 
+	if err := updateAssetVersions(reportID); err != nil {
+		fmt.Printf("Warning: could not update asset versions in index.html: %v\n", err)
+	}
+
 	cmds := [][]string{
-		{"git", "add", "reports/"},
+		{"git", "add", "reports/", "index.html"},
 		{"git", "commit", "-m", "report: " + reportID},
 		{"git", "push"},
 	}

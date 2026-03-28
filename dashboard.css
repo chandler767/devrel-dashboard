@@ -492,6 +492,19 @@ main {
   flex-shrink: 0;
 }
 
+.notice-btn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.notice-btn:hover { opacity: 0.85; }
+
 /* ── Hide Button ─────────────────────────────────────── */
 .hide-btn {
   position: absolute;

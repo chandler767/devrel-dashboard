@@ -852,6 +852,42 @@ async function doMerge() {
   showNotice('manual_groups.json downloaded. Replace the file in your project folder, then re-run <code>go run ./cmd/fetch --skip-linkedin</code> to apply it.');
 }
 
+// ── Report Polling ────────────────────────────────────────────────────────────
+
+function startReportPolling() {
+  const INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+  let notified = false;
+
+  const check = async () => {
+    if (notified) return;
+    try {
+      const res = await fetch('reports/index.json?_t=' + Date.now(), { cache: 'no-cache' });
+      if (!res.ok) return;
+      const data = await res.json();
+      const newest  = (data.reports || [])[0];
+      const current = allReportEntries[allReportEntries.length - 1];
+      if (newest && current && newest.id !== current.id) {
+        notified = true;
+        showUpdateNotice();
+      }
+    } catch (_) {}
+  };
+
+  setInterval(check, INTERVAL_MS);
+}
+
+function showUpdateNotice() {
+  const bar = document.createElement('div');
+  bar.className = 'notice-bar update-notice';
+  bar.innerHTML =
+    '<span>A new report is available.</span>' +
+    '<div style="display:flex;gap:8px;align-items:center;">' +
+    '<button class="notice-btn" onclick="location.reload()">Reload</button>' +
+    '<button class="notice-close" onclick="this.closest(\'.notice-bar\').remove()">×</button>' +
+    '</div>';
+  document.querySelector('main').prepend(bar);
+}
+
 // ── Notice Bar ────────────────────────────────────────────────────────────────
 
 function showNotice(msg) {
@@ -1358,6 +1394,8 @@ async function init() {
     decayCurve = curve;
     if (currentReport) renderWow(buildUnifiedList(currentReport), currentReport.generated_at);
   });
+
+  startReportPolling();
 }
 
 window.addEventListener('DOMContentLoaded', init);
