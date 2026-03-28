@@ -656,6 +656,20 @@ main {
   z-index: 1;
 }
 
+/* ── Share Button ────────────────────────────────────── */
+.share-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.share-btn:hover { border-color: var(--accent); color: var(--text); }
+
 /* ── Export Button ───────────────────────────────────── */
 .export-btn {
   background: var(--surface2);
@@ -682,6 +696,7 @@ body.exporting .trend-toggle,
 body.exporting #hidden-bar,
 body.exporting .report-select,
 body.exporting #export-btn,
+body.exporting #share-btn,
 body.exporting .notice-bar { display: none !important; }
 
 /* ── Responsive ──────────────────────────────────────── */
@@ -690,4 +705,30 @@ body.exporting .notice-bar { display: none !important; }
   main { padding: 20px 16px 48px; }
   .video-card-header { flex-direction: column; }
   .video-meta { align-items: flex-start; flex-direction: row; gap: 10px; align-items: center; }
+
+  /* Move chart toggles out of the canvas area so they don't overlap */
+  .trend-chart-container {
+    display: flex;
+    flex-direction: column;
+    height: auto !important;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  .trend-chart-container .trend-toggle {
+    position: static;
+    align-self: flex-end;
+    margin-bottom: 8px;
+    order: -1;
+  }
+  .trend-chart-container canvas {
+    height: 200px !important;
+    flex-shrink: 0;
+  }
+  .wow-section .trend-chart-container canvas {
+    height: 220px !important;
+  }
+  .wow-section #wow-trend-stat {
+    position: static;
+    margin-top: 4px;
+  }
 }

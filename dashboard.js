@@ -1258,6 +1258,22 @@ function initMergeBar() {
 
 // ── Export to Image ───────────────────────────────────────────────────────────
 
+function initShareButton() {
+  const btn = document.getElementById('share-btn');
+  if (!btn) return;
+  btn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 2000);
+    } catch (_) {
+      // Fallback for browsers that block clipboard without user gesture
+      prompt('Copy this link:', window.location.href);
+    }
+  });
+}
+
 function initExportButton() {
   const btn = document.getElementById('export-btn');
   if (!btn) return;
@@ -1366,6 +1382,7 @@ async function init() {
   initTrendToggle();
   initMergeBar();
   initChart();
+  initShareButton();
   initExportButton();
 
   const hiddenShowBtn = document.getElementById('hidden-bar-show');
