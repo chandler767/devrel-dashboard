@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"time"
 )
@@ -214,27 +215,57 @@ func videoToUnmatched(v Video) UnmatchedVideo {
 }
 
 // splitIntoPlatformGroups divides video indices into sub-groups where each
-// sub-group has at most one video per platform. Extras spill into new sub-groups.
+// sub-group has at most one video per platform. Videos are sorted by date first
+// so that same-day videos from different platforms are preferentially grouped
+// together. This prevents TikTok videos (which may have slightly different UTC
+// dates) from drifting into adjacent groups.
 func splitIntoPlatformGroups(videos []Video, indices []int) [][]int {
+	sorted := make([]int, len(indices))
+	copy(sorted, indices)
+	sort.Slice(sorted, func(a, b int) bool {
+		return videos[sorted[a]].PublishedAt < videos[sorted[b]].PublishedAt
+	})
+
+	dayOf := func(idx int) string {
+		if len(videos[idx].PublishedAt) >= 10 {
+			return videos[idx].PublishedAt[:10]
+		}
+		return ""
+	}
+
 	var subGroups [][]int
-	for _, idx := range indices {
+	for _, idx := range sorted {
 		platform := videos[idx].Platform
-		placed := false
-		for si := range subGroups {
-			alreadyHas := false
-			for _, sIdx := range subGroups[si] {
+		day := dayOf(idx)
+
+		// Prefer a sub-group that already has a video from the same calendar day
+		// and doesn't yet have this platform. Fall back to a new sub-group rather
+		// than placing into a different-day group, so cross-day drift is avoided.
+		bestGroup := -1
+		for si, sg := range subGroups {
+			hasConflict := false
+			hasSameDay := false
+			for _, sIdx := range sg {
 				if videos[sIdx].Platform == platform {
-					alreadyHas = true
+					hasConflict = true
 					break
 				}
+				if dayOf(sIdx) == day {
+					hasSameDay = true
+				}
 			}
-			if !alreadyHas {
-				subGroups[si] = append(subGroups[si], idx)
-				placed = true
+			if hasConflict {
+				continue
+			}
+			if hasSameDay {
+				bestGroup = si
 				break
 			}
 		}
-		if !placed {
+
+		if bestGroup >= 0 {
+			subGroups[bestGroup] = append(subGroups[bestGroup], idx)
+		} else {
 			subGroups = append(subGroups, []int{idx})
 		}
 	}

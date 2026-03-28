@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"strings"
+	"time"
 
 	"github.com/devrel-dashboard/internal"
 )
@@ -17,7 +18,8 @@ type ytdlpVideo struct {
 	ViewCount  int64   `json:"view_count"`
 	Duration   float64 `json:"duration"`
 	WebpageURL string  `json:"webpage_url"`
-	UploadDate string  `json:"upload_date"` // "YYYYMMDD"
+	UploadDate string  `json:"upload_date"` // "YYYYMMDD" in UTC
+	Timestamp  int64   `json:"timestamp"`   // Unix seconds; used to recover local-timezone date
 }
 
 // ytdlpFetch runs yt-dlp against the given URL and returns videos tagged
@@ -48,7 +50,12 @@ func ytdlpFetch(platform, url string) ([]internal.Video, error) {
 		}
 
 		publishedAt := ""
-		if len(v.UploadDate) == 8 {
+		if v.Timestamp > 0 {
+			// Use local timezone so evening uploads don't roll to next UTC day.
+			// This matches what YouTube shows (creator's local date).
+			t := time.Unix(v.Timestamp, 0)
+			publishedAt = t.Format("2006-01-02") + "T00:00:00Z"
+		} else if len(v.UploadDate) == 8 {
 			publishedAt = fmt.Sprintf("%s-%s-%sT00:00:00Z",
 				v.UploadDate[0:4], v.UploadDate[4:6], v.UploadDate[6:8])
 		}
