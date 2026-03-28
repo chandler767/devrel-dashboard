@@ -330,7 +330,6 @@ func LinkedInFetch() ([]internal.Video, error) {
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "  linkedin warning: personal posts (%s): %v\n", personURN, err)
 		} else {
-			fmt.Printf("  %d personal video post(s)\n", len(posts))
 			for _, p := range posts {
 				sourcePosts = append(sourcePosts, sourcePost{post: p})
 			}
@@ -352,7 +351,6 @@ func LinkedInFetch() ([]internal.Video, error) {
 				fmt.Fprintf(os.Stderr, "  linkedin warning: org %s: %v\n", orgURN, err)
 				continue
 			}
-			fmt.Printf("  %d video post(s) from %s\n", len(posts), orgURN)
 			for _, p := range posts {
 				sourcePosts = append(sourcePosts, sourcePost{post: p, orgURN: orgURN})
 			}
