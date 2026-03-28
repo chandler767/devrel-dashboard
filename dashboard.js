@@ -843,18 +843,7 @@ function renderCard(item) {
   totalEl.className = 'video-total-views';
   totalEl.textContent = fmt(item.totalViews);
 
-  // NEW badge if published < 7 days ago; otherwise growth % if meaningful
-  const prevTotal  = item.videoIds.reduce((sum, v) => sum + (prevViewMap[`${v.platform}:${v.id}`] || 0), 0);
-  const totalBadge = isWithin7Days(item.publishedAt)
-    ? newBadge()
-    : growthEl(pctChange(item.totalViews, prevTotal || null));
-  if (totalBadge) totalEl.appendChild(totalBadge);
-
-  const durationEl = document.createElement('div');
-  durationEl.className = 'video-duration';
-  if (item.durationSeconds) durationEl.textContent = fmtDuration(item.durationSeconds);
-
-  meta.append(totalEl, durationEl);
+  meta.append(totalEl);
   header.append(titleEl, meta);
 
 
@@ -985,6 +974,13 @@ function renderVideoList(items, range) {
     return (b.totalViews || 0) - (a.totalViews || 0);
   });
 
+  // Pre-compute total views per week for the heading
+  const weekTotals = {};
+  for (const item of sorted) {
+    const wk = isoWeekKey(item.publishedAt);
+    weekTotals[wk] = (weekTotals[wk] || 0) + (item.totalViews || 0);
+  }
+
   let currentWeekKey = null;
   for (const item of sorted) {
     const weekKey = isoWeekKey(item.publishedAt);
@@ -992,7 +988,12 @@ function renderVideoList(items, range) {
       currentWeekKey = weekKey;
       const header = document.createElement('div');
       header.className = 'week-heading';
-      header.textContent = isoWeekLabel(item.publishedAt);
+      const labelSpan = document.createElement('span');
+      labelSpan.textContent = isoWeekLabel(item.publishedAt);
+      const totalSpan = document.createElement('span');
+      totalSpan.className = 'week-heading-total';
+      totalSpan.textContent = fmt(weekTotals[weekKey]);
+      header.append(labelSpan, totalSpan);
       container.appendChild(header);
     }
     container.appendChild(renderCard(item));
