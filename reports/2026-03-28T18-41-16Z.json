@@ -1211,22 +1211,6 @@
       }
     },
     {
-      "id": "2025-W17",
-      "canonical_title": "Redpanda Agentic AI: Observable MCP servers done quickly",
-      "duration_seconds": 101,
-      "total_views": 534,
-      "platforms": {
-        "youtube": {
-          "video_id": "lHKEqL5oJKU",
-          "title": "Redpanda Agentic AI: Observable MCP servers done quickly",
-          "views": 534,
-          "url": "https://www.youtube.com/watch?v=lHKEqL5oJKU",
-          "published_at": "2025-04-23T00:00:00Z",
-          "duration_seconds": 101
-        }
-      }
-    },
-    {
       "id": "2026-W13-4",
       "canonical_title": "Every dev these days #ai #code #claude #vibecoding",
       "duration_seconds": 13,
@@ -1259,5 +1243,5 @@
       }
     }
   ],
-  "unmatched": null
+  "unmatched": []
 }

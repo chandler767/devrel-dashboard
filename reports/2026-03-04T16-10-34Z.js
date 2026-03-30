@@ -34,7 +34,7 @@ window.__devrelReport={
       "platforms": {
         "tiktok": {
           "video_id": "7524815218170498318",
-          "title": "It’s easy to build your own #mcp server to use with #claude or anothe...",
+          "title": "It\u2019s easy to build your own #mcp server to use with #claude or anothe...",
           "views": 989,
           "url": "https://www.tiktok.com/@redpanda_data/video/7524815218170498318",
           "published_at": "2025-07-08T00:00:00Z",
@@ -76,13 +76,13 @@ window.__devrelReport={
     },
     {
       "id": "af25ddb9",
-      "canonical_title": "Most AI just talks. Agents act. Here’s the difference. #ai #chatgpt #programming #code #tech #coding",
+      "canonical_title": "Most AI just talks. Agents act. Here\u2019s the difference. #ai #chatgpt #programming #code #tech #coding",
       "duration_seconds": 49,
       "total_views": 2445,
       "platforms": {
         "tiktok": {
           "video_id": "7509276007283674410",
-          "title": "Most AI just talks. Agents act. Here’s the difference.#ai #chatgpt #p...",
+          "title": "Most AI just talks. Agents act. Here\u2019s the difference.#ai #chatgpt #p...",
           "views": 1123,
           "url": "https://www.tiktok.com/@redpanda_data/video/7509276007283674410",
           "published_at": "2025-05-27T00:00:00Z",
@@ -90,7 +90,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "CWcHYNhD39Q",
-          "title": "Most AI just talks. Agents act. Here’s the difference. #ai #chatgpt #programming #code #tech #coding",
+          "title": "Most AI just talks. Agents act. Here\u2019s the difference. #ai #chatgpt #programming #code #tech #coding",
           "views": 1322,
           "url": "https://www.youtube.com/watch?v=CWcHYNhD39Q",
           "published_at": "2025-05-27T00:00:00Z",
@@ -124,13 +124,13 @@ window.__devrelReport={
     },
     {
       "id": "3e80296a",
-      "canonical_title": "#anthropic just shipped remote control for #claude code. ￼#aicoding #coding #aiagents",
+      "canonical_title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
       "duration_seconds": 70,
       "total_views": 1983,
       "platforms": {
         "tiktok": {
           "video_id": "7611565011500027150",
-          "title": "#anthropic just shipped remote control for #claude code - but what’s ...",
+          "title": "#anthropic just shipped remote control for #claude code - but what\u2019s ...",
           "views": 1074,
           "url": "https://www.tiktok.com/@redpanda_data/video/7611565011500027150",
           "published_at": "2026-02-27T00:00:00Z",
@@ -138,7 +138,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "FfnizEtJgx0",
-          "title": "#anthropic just shipped remote control for #claude code. ￼#aicoding #coding #aiagents",
+          "title": "#anthropic just shipped remote control for #claude code. \ufffc#aicoding #coding #aiagents",
           "views": 909,
           "url": "https://www.youtube.com/watch?v=FfnizEtJgx0",
           "published_at": "2026-02-27T00:00:00Z",
@@ -196,7 +196,7 @@ window.__devrelReport={
     },
     {
       "id": "64beeac6",
-      "canonical_title": "You've probably heard of vibe coding, but what about vibe streaming? 🧠 #coding #AIagents #AIWeekSF",
+      "canonical_title": "You've probably heard of vibe coding, but what about vibe streaming? \ud83e\udde0 #coding #AIagents #AIWeekSF",
       "duration_seconds": 23,
       "total_views": 1770,
       "platforms": {
@@ -210,7 +210,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "JMKW-lvo_OU",
-          "title": "You've probably heard of vibe coding, but what about vibe streaming? 🧠 #coding #AIagents #AIWeekSF",
+          "title": "You've probably heard of vibe coding, but what about vibe streaming? \ud83e\udde0 #coding #AIagents #AIWeekSF",
           "views": 1562,
           "url": "https://www.youtube.com/watch?v=JMKW-lvo_OU",
           "published_at": "2025-10-16T00:00:00Z",
@@ -316,7 +316,7 @@ window.__devrelReport={
     },
     {
       "id": "cae0ee1d",
-      "canonical_title": "￼What is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+      "canonical_title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
       "duration_seconds": 47,
       "total_views": 1106,
       "platforms": {
@@ -330,7 +330,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "jC-Z6Z7qMlU",
-          "title": "￼What is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
+          "title": "\ufffcWhat is model context protocol? #ai #programming #governance #agenticai #aicompliance #coding",
           "views": 920,
           "url": "https://www.youtube.com/watch?v=jC-Z6Z7qMlU",
           "published_at": "2025-06-03T00:00:00Z",
@@ -340,7 +340,7 @@ window.__devrelReport={
     },
     {
       "id": "9c368d35",
-      "canonical_title": "You’re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
+      "canonical_title": "You\u2019re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
       "duration_seconds": 66,
       "total_views": 311,
       "platforms": {
@@ -354,7 +354,7 @@ window.__devrelReport={
         },
         "youtube": {
           "video_id": "871NOfCJDHE",
-          "title": "You’re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
+          "title": "You\u2019re overpaying for #Al by 20x by not using open-weight models. #claude #chatgpt #aicoding #coding",
           "views": 295,
           "url": "https://www.youtube.com/watch?v=871NOfCJDHE",
           "published_at": "2026-03-03T00:00:00Z",
@@ -436,7 +436,7 @@ window.__devrelReport={
     {
       "platform": "youtube",
       "video_id": "IVvmR66sLXk",
-      "title": "Come say hello at ​⁠@amazonwebservices summit NYC - booth 454. #aws",
+      "title": "Come say hello at \u200b\u2060@amazonwebservices summit NYC - booth 454. #aws",
       "views": 1367,
       "duration_seconds": 20,
       "url": "https://www.youtube.com/watch?v=IVvmR66sLXk",
@@ -445,7 +445,7 @@ window.__devrelReport={
     {
       "platform": "tiktok",
       "video_id": "7608262781221063950",
-      "title": "Nobody shows you this part of AI agents 👀 #ai #agent  #mcp #techexpla...",
+      "title": "Nobody shows you this part of AI agents \ud83d\udc40 #ai #agent  #mcp #techexpla...",
       "views": 359,
       "duration_seconds": 59,
       "url": "https://www.tiktok.com/@redpanda_data/video/7608262781221063950",
@@ -454,7 +454,7 @@ window.__devrelReport={
     {
       "platform": "youtube",
       "video_id": "tXrYPQU9rrk",
-      "title": "Introducing the Model Context Protocol￼. #coding #computerscience #aiagents #mcp",
+      "title": "Introducing the Model Context Protocol\ufffc. #coding #computerscience #aiagents #mcp",
       "views": 960,
       "duration_seconds": 59,
       "url": "https://www.youtube.com/watch?v=tXrYPQU9rrk",
@@ -472,20 +472,11 @@ window.__devrelReport={
     {
       "platform": "youtube",
       "video_id": "d4GnfKAPcKQ",
-      "title": "￼Should competitors be banned from events? #software #programming #coding #events",
+      "title": "\ufffcShould competitors be banned from events? #software #programming #coding #events",
       "views": 1693,
       "duration_seconds": 25,
       "url": "https://www.youtube.com/watch?v=d4GnfKAPcKQ",
       "published_at": "2025-06-04T00:00:00Z"
-    },
-    {
-      "platform": "youtube",
-      "video_id": "lHKEqL5oJKU",
-      "title": "Redpanda Agentic AI: Observable MCP servers done quickly",
-      "views": 524,
-      "duration_seconds": 101,
-      "url": "https://www.youtube.com/watch?v=lHKEqL5oJKU",
-      "published_at": "2025-04-23T00:00:00Z"
     }
   ]
 };
