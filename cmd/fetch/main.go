@@ -12,7 +12,9 @@ import (
 	"golang.org/x/term"
 
 	"github.com/devrel-dashboard/internal"
+	"github.com/devrel-dashboard/internal/analysis"
 	"github.com/devrel-dashboard/internal/platforms"
+	"github.com/devrel-dashboard/internal/transcripts"
 )
 
 func main() {
@@ -77,8 +79,7 @@ func main() {
 		jobs = append(jobs, job{"tiktok", func() ([]internal.Video, error) { return platforms.TikTokFetch(wc) }})
 	}
 	if !*skipLI {
-		wc := *fetchComments
-		jobs = append(jobs, job{"linkedin", func() ([]internal.Video, error) { return platforms.LinkedInFetch(wc) }})
+		jobs = append(jobs, job{"linkedin", func() ([]internal.Video, error) { return platforms.LinkedInFetch() }})
 	}
 
 	results := make(map[string]fetchResult, len(jobs))
@@ -200,12 +201,39 @@ func main() {
 	groups, unmatched := internal.Group(allVideos)
 	fmt.Printf("  %d video groups, %d unmatched\n\n", len(groups), len(unmatched))
 
-	if err := internal.SaveReport(groups, unmatched, *dryRun); err != nil {
+	reportID, err := internal.SaveReport(groups, unmatched, *dryRun)
+	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error saving report: %v\n", err)
 		os.Exit(1)
 	}
 
 	if !*dryRun {
+		store := autoFetchNewTranscripts(groups, unmatched)
+
+		if apiKey := os.Getenv("ANTHROPIC_API_KEY"); apiKey != "" {
+			fmt.Println("Generating content analysis...")
+			transcriptTexts := flattenTranscripts(store)
+			report := &internal.Report{
+				ReportID:    reportID,
+				VideoGroups: groups,
+				Unmatched:   unmatched,
+			}
+			result, err := analysis.Generate(report, transcriptTexts, apiKey)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Warning: content analysis failed: %v\n", err)
+			} else if err := analysis.Save(result); err != nil {
+				fmt.Fprintf(os.Stderr, "Warning: could not save analysis: %v\n", err)
+			} else {
+				fmt.Printf("Content analysis saved (%d chars)\n", len(result.Text))
+			}
+		} else {
+			fmt.Println("(Skipping content analysis — set ANTHROPIC_API_KEY in .env to enable)")
+		}
+
+		if err := internal.GitCommitAndPush(reportID); err != nil {
+			fmt.Fprintf(os.Stderr, "Error pushing to git: %v\n", err)
+			os.Exit(1)
+		}
 		fmt.Println("Done! Report saved and pushed to GitHub.")
 	}
 }
@@ -348,6 +376,106 @@ func approveNewVideos(videos []internal.Video, known, rejected map[string]bool) 
 		fmt.Println("  No new videos to approve.")
 	}
 	return out
+}
+
+// autoFetchNewTranscripts fetches transcripts for any YouTube/TikTok videos
+// that are not yet in the transcript store. Called automatically after a
+// successful report save so new approved videos get transcripts on first run.
+func autoFetchNewTranscripts(groups []internal.VideoGroup, unmatched []internal.UnmatchedVideo) *transcripts.Store {
+	store, err := transcripts.Load()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Warning: could not load transcript store: %v\n", err)
+		return store
+	}
+
+	// Collect new keys not yet in the store
+	seen := map[string]bool{}
+	var newKeys []string
+
+	add := func(platform, videoID string) {
+		if platform == "linkedin" {
+			return
+		}
+		k := platform + ":" + videoID
+		if !seen[k] && !store.Has(k) {
+			seen[k] = true
+			newKeys = append(newKeys, k)
+		}
+	}
+
+	for _, g := range groups {
+		for platform, pd := range g.Platforms {
+			add(platform, pd.VideoID)
+		}
+	}
+	for _, u := range unmatched {
+		add(u.Platform, u.VideoID)
+	}
+
+	if len(newKeys) == 0 {
+		return store
+	}
+
+	fmt.Printf("Fetching transcripts for %d new video(s)...\n", len(newKeys))
+	var saved int
+	for _, key := range newKeys {
+		parts := splitKey(key)
+		platform, videoID := parts[0], parts[1]
+
+		var entry transcripts.Entry
+		switch platform {
+		case "youtube":
+			entry, err = transcripts.FetchYouTube(videoID)
+		case "tiktok":
+			entry, err = transcripts.FetchTikTok(videoID)
+		default:
+			continue
+		}
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "  transcript %s: %v\n", key, err)
+			continue
+		}
+		store.Set(key, entry)
+		saved++
+		if entry.Source == "auto" || entry.Source == "manual" {
+			fmt.Printf("  ✓ %s (%d chars)\n", key, len(entry.Text))
+		} else {
+			fmt.Printf("  - %s (no captions)\n", key)
+		}
+	}
+
+	if saved > 0 {
+		if err := store.Save(); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: could not save transcript store: %v\n", err)
+		}
+	}
+	return store
+}
+
+// flattenTranscripts converts a transcript store into a plain map of
+// "platform:videoId" → text for use in the analysis prompt.
+func flattenTranscripts(store *transcripts.Store) map[string]string {
+	if store == nil {
+		return nil
+	}
+	out := make(map[string]string, len(store.Transcripts))
+	for key, entry := range store.Transcripts {
+		if entry.Text != "" {
+			out[key] = entry.Text
+		}
+	}
+	return out
+}
+
+func splitKey(key string) [2]string {
+	idx := len("youtube") // shortest platform name length as starting guess
+	for i, c := range key {
+		if c == ':' {
+			idx = i
+			break
+		}
+	}
+	return [2]string{key[:idx], key[idx+1:]}
 }
 
 // readKey reads a single keypress from stdin without requiring Enter.

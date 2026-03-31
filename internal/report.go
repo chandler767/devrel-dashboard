@@ -38,7 +38,8 @@ type ReportIndex struct {
 
 // SaveReport writes the report to reports/<id>.json, updates reports/index.json,
 // and if dryRun is false, commits and pushes to git.
-func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) error {
+// Returns the generated reportID so callers can associate follow-up files with it.
+func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) (string, error) {
 	now := time.Now().UTC()
 	reportID := now.Format("2006-01-02T15-04-05Z")
 	fileName := reportID + ".json"
@@ -57,39 +58,35 @@ func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) er
 
 	reportJSON, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
-		return fmt.Errorf("marshal report: %w", err)
+		return "", fmt.Errorf("marshal report: %w", err)
 	}
 
 	if dryRun {
 		fmt.Println(string(reportJSON))
-		return nil
+		return reportID, nil
 	}
 
 	if err := os.MkdirAll(reportsDir, 0755); err != nil {
-		return fmt.Errorf("create reports dir: %w", err)
+		return "", fmt.Errorf("create reports dir: %w", err)
 	}
 
 	reportPath := filepath.Join(reportsDir, fileName)
 	if err := os.WriteFile(reportPath, reportJSON, 0644); err != nil {
-		return fmt.Errorf("write report: %w", err)
+		return "", fmt.Errorf("write report: %w", err)
 	}
 	// JS wrapper lets the dashboard load via file:// without a local server
 	jsPath := filepath.Join(reportsDir, reportID+".js")
 	jsContent := fmt.Sprintf("window.__devrelReport=%s;", string(reportJSON))
 	if err := os.WriteFile(jsPath, []byte(jsContent), 0644); err != nil {
-		return fmt.Errorf("write report js: %w", err)
+		return "", fmt.Errorf("write report js: %w", err)
 	}
 	fmt.Printf("Wrote report: %s\n", reportPath)
 
 	if err := updateIndex(reportID, fileName, now); err != nil {
-		return fmt.Errorf("update index: %w", err)
+		return "", fmt.Errorf("update index: %w", err)
 	}
 
-	if err := gitCommitAndPush(reportID); err != nil {
-		return fmt.Errorf("git: %w", err)
-	}
-
-	return nil
+	return reportID, nil
 }
 
 func updateIndex(reportID, fileName string, generatedAt time.Time) error {
@@ -275,7 +272,9 @@ func updateAssetVersions(version string) error {
 	return os.WriteFile("index.html", []byte(updated), 0644)
 }
 
-func gitCommitAndPush(reportID string) error {
+// GitCommitAndPush stages all report, transcript, and analysis files and
+// pushes to the remote. Call this after transcripts and analysis are written.
+func GitCommitAndPush(reportID string) error {
 	// Verify we're in a git repo
 	if _, err := os.Stat(".git"); os.IsNotExist(err) {
 		fmt.Println("Warning: not a git repository; skipping commit/push")
@@ -286,8 +285,16 @@ func gitCommitAndPush(reportID string) error {
 		fmt.Printf("Warning: could not update asset versions in index.html: %v\n", err)
 	}
 
+	gitAdd := []string{"git", "add", "reports/", "index.html"}
+	// Include transcript and analysis files in the commit if they exist
+	for _, f := range []string{"transcripts.json", "transcripts.js", "analysis/"} {
+		if _, err := os.Stat(f); err == nil {
+			gitAdd = append(gitAdd, f)
+		}
+	}
+
 	cmds := [][]string{
-		{"git", "add", "reports/", "index.html"},
+		gitAdd,
 		{"git", "commit", "-m", "report: " + reportID},
 		{"git", "push"},
 	}

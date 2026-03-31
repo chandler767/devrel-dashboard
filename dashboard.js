@@ -25,14 +25,16 @@ let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
 let showWowPred        = true;  // whether projection bars are visible in WoW chart
 let activeMetric       = 'views'; // 'views' | 'likes' | 'comments' | 'shares'
+let transcriptStore    = {};    // "platform:videoId" → { text, source, ... }
+let currentAnalysis    = null;  // loaded analysis result for the current report
 
 const METRIC_LABELS = { views: 'Views', likes: 'Likes', comments: 'Comments', shares: 'Shares' };
 
 // Which engagement fields each platform actually provides.
 const PLATFORM_CAPS = {
-  youtube:  { views: true, likes: true, comments: true, shares: false, clicks: false },
-  tiktok:   { views: true, likes: true, comments: true, shares: true,  clicks: false },
-  linkedin: { views: true, likes: true, comments: true, shares: true,  clicks: true  },
+  youtube:  { views: true, likes: true, comments: true, shares: false, clicks: false, commentTexts: true  },
+  tiktok:   { views: true, likes: true, comments: true, shares: true,  clicks: false, commentTexts: false },
+  linkedin: { views: true, likes: true, comments: true, shares: true,  clicks: true,  commentTexts: false },
 };
 
 function metricVal(item, metric) {
@@ -70,7 +72,10 @@ async function loadData(jsonPath) {
   } catch (_) { /* fall through */ }
 
   const jsPath    = jsonPath.replace(/\.json$/, '.js');
-  const globalKey = jsonPath.includes('index') ? '__devrelIndex' : '__devrelReport';
+  const globalKey = jsonPath.includes('transcripts') ? '__devrelTranscripts'
+                  : jsonPath.includes('analysis/')    ? '__devrelAnalysis'
+                  : jsonPath.includes('index')        ? '__devrelIndex'
+                  : '__devrelReport';
 
   return new Promise((resolve, reject) => {
     delete window[globalKey];
@@ -221,6 +226,12 @@ function buildUnifiedList(report) {
       .sort(([a], [b]) => (PLATFORM_ORDER.indexOf(a) + 1 || 99) - (PLATFORM_ORDER.indexOf(b) + 1 || 99))
       .map(([platform, data]) => ({ platform, ...data }));
 
+    const groupTranscripts = {};
+    for (const p of platforms) {
+      const entry = transcriptStore[`${p.platform}:${p.video_id}`];
+      if (entry?.text) groupTranscripts[p.platform] = entry.text;
+    }
+
     items.push({
       canonicalTitle:  group.canonical_title || '(untitled)',
       totalViews:      group.total_views    || 0,
@@ -233,6 +244,7 @@ function buildUnifiedList(report) {
       durationSeconds: group.duration_seconds || 0,
       publishedAt,
       platforms,
+      transcripts: groupTranscripts,
       videoIds: platforms.map(p => ({ platform: p.platform, id: p.video_id })),
       cardKey:  'group:' + group.id,
     });
@@ -267,6 +279,12 @@ function buildUnifiedList(report) {
         published_at:    v.published_at,
         duration_seconds: v.duration_seconds,
       }],
+      transcripts: (() => {
+        const t = {};
+        const entry = transcriptStore[`${v.platform}:${v.video_id}`];
+        if (entry?.text) t[v.platform] = entry.text;
+        return t;
+      })(),
       videoIds: [{ platform: v.platform, id: v.video_id }],
       cardKey:  'unmatched:' + v.platform + ':' + v.video_id,
     });
@@ -1039,6 +1057,15 @@ function renderCard(item) {
   totalEl.textContent = `▶ ${fmt(item.totalViews)}`;
 
   meta.append(totalEl);
+
+  if (item.transcripts && Object.values(item.transcripts).some(t => t)) {
+    const badge = document.createElement('span');
+    badge.className = 'transcript-badge';
+    badge.title = 'Transcript available';
+    badge.textContent = 'T';
+    meta.append(badge);
+  }
+
   header.append(titleEl, meta);
 
   // Engagement strip (totals across all platforms)
@@ -1223,7 +1250,10 @@ function showCommentsModal(item, singlePlatform = null) {
   if (!hasAny) {
     const empty = document.createElement('p');
     empty.className = 'comment-empty';
-    empty.textContent = 'No comments available. Run with --fetch-comments to collect them.';
+    const unsupported = singlePlatform && !PLATFORM_CAPS[singlePlatform.platform]?.commentTexts;
+    empty.textContent = unsupported
+      ? 'Fetching comments for this platform is unsupported.'
+      : 'No comments available.';
     body.appendChild(empty);
   }
 
@@ -1357,6 +1387,11 @@ function renderReport(report, range) {
   const { curr, prev } = renderSummary(currItems, prevItems, activeMetric);
   updateChart(curr, prev);
   renderVideoList(currItems, range);
+
+  // If CI tab is currently visible, refresh it with the new analysis
+  if (!document.getElementById('tab-ci')?.hidden) {
+    renderContentIntelligence();
+  }
 }
 
 // ── Report Selector ───────────────────────────────────────────────────────────
@@ -1546,13 +1581,17 @@ async function loadAndRender(reportID) {
       ? allReportEntries[currentIdx + 1]
       : null;
 
-    const [loaded, loadedPrev] = await Promise.all([
+    const [loaded, loadedPrev, loadedTranscripts, loadedAnalysis] = await Promise.all([
       loadData(`reports/${reportID}.json`),
       prevEntry ? loadData(`reports/${prevEntry.id}.json`).catch(() => null) : Promise.resolve(null),
+      loadData('transcripts.json').catch(() => null),
+      loadData(`analysis/${reportID}.json`).catch(() => null),
     ]);
 
-    currentReport  = loaded;
-    previousReport = loadedPrev;
+    currentReport   = loaded;
+    previousReport  = loadedPrev;
+    transcriptStore = loadedTranscripts?.transcripts || {};
+    currentAnalysis = loadedAnalysis || null;
     prevViewMap    = buildPrevViewMap(previousReport);
 
     renderReport(currentReport, getActiveRange());
@@ -1624,6 +1663,8 @@ async function init() {
   initChart();
   initShareButton();
   initExportButton();
+  initTabs();
+  initContentIntelligence();
 
   const hiddenShowBtn = document.getElementById('hidden-bar-show');
   if (hiddenShowBtn) hiddenShowBtn.addEventListener('click', clearHiddenVideos);
@@ -1702,3 +1743,83 @@ window.addEventListener('popstate', () => {
   if (paramID) loadAndRender(paramID);
   else if (currentReport) renderReport(currentReport, range);
 });
+
+// ── Tab Switching ─────────────────────────────────────────────────────────────
+
+function initTabs() {
+  const tabBar = document.getElementById('tab-bar');
+  if (!tabBar) return;
+
+  const activeTab = getParam('tab') || 'stats';
+  setActiveTab(activeTab, false);
+
+  tabBar.addEventListener('click', e => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    const tab = btn.dataset.tab;
+    setActiveTab(tab, true);
+    if (tab === 'ci') renderContentIntelligence();
+  });
+}
+
+function setActiveTab(tab, pushState) {
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tab);
+  });
+  const statsEl = document.getElementById('tab-stats');
+  const ciEl    = document.getElementById('tab-ci');
+  if (statsEl) statsEl.hidden = tab !== 'stats';
+  if (ciEl)    ciEl.hidden    = tab !== 'ci';
+  if (pushState) setParams({ tab: tab === 'stats' ? null : tab });
+}
+
+// ── Content Intelligence ──────────────────────────────────────────────────────
+
+function initContentIntelligence() {
+  // No setup needed — CI tab is purely display-driven from stored analysis files.
+}
+
+function renderContentIntelligence() {
+  const metaEl    = document.getElementById('ci-meta');
+  const resultsEl = document.getElementById('ci-results');
+  if (!resultsEl) return;
+
+  if (!currentAnalysis) {
+    resultsEl.innerHTML = '<div class="ci-result-card"><h4>No analysis yet</h4><p>Add <code>ANTHROPIC_API_KEY</code> to your <code>.env</code> file and re-run <code>go run ./cmd/fetch</code> to generate analysis for this report.</p></div>';
+    if (metaEl) metaEl.textContent = '';
+    return;
+  }
+
+  if (metaEl) {
+    const date = currentAnalysis.generated_at
+      ? new Date(currentAnalysis.generated_at).toLocaleString(undefined, { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+      : '';
+    metaEl.textContent = `${currentAnalysis.video_count} videos • ${currentAnalysis.model} • ${date}`;
+  }
+
+  resultsEl.innerHTML = renderAnalysisText(currentAnalysis.text || '');
+}
+
+function renderAnalysisText(text) {
+  const sections = text.split(/^###\s+/m).filter(s => s.trim());
+  if (sections.length === 0) {
+    return `<div class="ci-result-card"><p>${escapeHTML(text)}</p></div>`;
+  }
+  return sections.map(section => {
+    const newlineIdx = section.indexOf('\n');
+    const heading = newlineIdx >= 0 ? section.slice(0, newlineIdx).trim() : section.trim();
+    const body    = newlineIdx >= 0 ? section.slice(newlineIdx + 1).trim() : '';
+    const safeBody = escapeHTML(body)
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\n/g, '<br>');
+    return `<div class="ci-result-card"><h4>${escapeHTML(heading)}</h4><p>${safeBody}</p></div>`;
+  }).join('');
+}
+
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}

@@ -22,118 +22,136 @@
 
 <main>
 
-  <!-- Metric selector — controls all charts and stats -->
-  <div class="metric-tabs" id="metric-tabs">
-    <button class="metric-tab active" data-metric="views">Views</button>
-    <button class="metric-tab" data-metric="likes">Likes</button>
-    <button class="metric-tab" data-metric="comments">Comments</button>
-    <button class="metric-tab" data-metric="shares">Shares</button>
+  <!-- Top-level tab bar -->
+  <div class="tab-bar" id="tab-bar">
+    <button class="tab-btn active" data-tab="stats">Stats</button>
+    <button class="tab-btn" data-tab="ci">Content Intelligence</button>
   </div>
 
-  <!-- Rolling 12-month stats + trend chart -->
-  <section class="rolling-section">
-    <div class="rolling-heading-row">
-      <div class="rolling-heading">Rolling 12 Month Cumulative <span id="rolling-metric-label">Views</span></div>
+  <!-- ── Stats tab ──────────────────────────────────────────────────────── -->
+  <div id="tab-stats">
+
+    <!-- Metric selector — controls all charts and stats -->
+    <div class="metric-tabs" id="metric-tabs">
+      <button class="metric-tab active" data-metric="views">Views</button>
+      <button class="metric-tab" data-metric="likes">Likes</button>
+      <button class="metric-tab" data-metric="comments">Comments</button>
+      <button class="metric-tab" data-metric="shares">Shares</button>
     </div>
-    <div class="rolling-stats">
+
+    <!-- Rolling 12-month stats + trend chart -->
+    <section class="rolling-section">
+      <div class="rolling-heading-row">
+        <div class="rolling-heading">Rolling 12 Month Cumulative <span id="rolling-metric-label">Views</span></div>
+      </div>
+      <div class="rolling-stats">
+        <div class="stat-card total">
+          <div class="stat-label">Total</div>
+          <div class="stat-value" id="rolling-total">—</div>
+        </div>
+        <div class="stat-card youtube">
+          <div class="stat-label">YouTube</div>
+          <div class="stat-value" id="rolling-yt">—</div>
+        </div>
+        <div class="stat-card tiktok">
+          <div class="stat-label">TikTok</div>
+          <div class="stat-value" id="rolling-tt">—</div>
+        </div>
+        <div class="stat-card linkedin">
+          <div class="stat-label">LinkedIn</div>
+          <div class="stat-value" id="rolling-li">—</div>
+        </div>
+      </div>
+      <div class="trend-chart-container">
+        <div class="trend-toggle" id="trend-toggle">
+          <button class="trend-toggle-btn active" data-grouping="date">By release date</button>
+          <button class="trend-toggle-btn" data-grouping="month">By month</button>
+        </div>
+        <canvas id="trend-chart"></canvas>
+      </div>
+    </section>
+
+    <!-- Week-over-week chart -->
+    <section class="wow-section">
+      <div class="rolling-heading-row">
+        <div>
+          <div class="rolling-heading">Week over Week</div>
+          <div class="wow-subheading" id="wow-subheading">Total accumulated views on videos published each week — not new views gained that week</div>
+        </div>
+      </div>
+      <div class="trend-chart-container">
+        <div class="trend-toggle wow-pred-toggle">
+          <button class="trend-toggle-btn active" id="wow-pred-btn">Predictions: on</button>
+        </div>
+        <canvas id="wow-chart"></canvas>
+        <div id="wow-trend-stat"></div>
+      </div>
+    </section>
+
+    <div class="rolling-heading" id="selected-heading">Selected Time Totals</div>
+    <!-- Summary stats -->
+    <div class="summary">
       <div class="stat-card total">
-        <div class="stat-label">Total</div>
-        <div class="stat-value" id="rolling-total">—</div>
+        <div class="stat-label">Total <span id="summary-metric-label">Views</span></div>
+        <div class="stat-value" id="total-views">—</div>
       </div>
       <div class="stat-card youtube">
         <div class="stat-label">YouTube</div>
-        <div class="stat-value" id="rolling-yt">—</div>
+        <div class="stat-value" id="yt-views">—</div>
       </div>
       <div class="stat-card tiktok">
         <div class="stat-label">TikTok</div>
-        <div class="stat-value" id="rolling-tt">—</div>
+        <div class="stat-value" id="tt-views">—</div>
       </div>
       <div class="stat-card linkedin">
         <div class="stat-label">LinkedIn</div>
-        <div class="stat-value" id="rolling-li">—</div>
+        <div class="stat-value" id="li-views">—</div>
       </div>
     </div>
-    <div class="trend-chart-container">
-      <div class="trend-toggle" id="trend-toggle">
-        <button class="trend-toggle-btn active" data-grouping="date">By release date</button>
-        <button class="trend-toggle-btn" data-grouping="month">By month</button>
-      </div>
-      <canvas id="trend-chart"></canvas>
-    </div>
-  </section>
-  <!-- Week-over-week chart -->
-  <section class="wow-section">
-    <div class="rolling-heading-row">
-      <div>
-        <div class="rolling-heading">Week over Week</div>
-        <div class="wow-subheading" id="wow-subheading">Total accumulated views on videos published each week — not new views gained that week</div>
-      </div>
-    </div>
-    <div class="trend-chart-container">
-      <div class="trend-toggle wow-pred-toggle">
-        <button class="trend-toggle-btn active" id="wow-pred-btn">Predictions: on</button>
-      </div>
-      <canvas id="wow-chart"></canvas>
-      <div id="wow-trend-stat"></div>
-    </div>
-  </section>
 
-  <div class="rolling-heading" id="selected-heading">Selected Time Totals</div>
-  <!-- Summary stats -->
-  <div class="summary">
-    <div class="stat-card total">
-      <div class="stat-label">Total <span id="summary-metric-label">Views</span></div>
-      <div class="stat-value" id="total-views">—</div>
+    <!-- Platform breakdown chart -->
+    <div class="chart-container">
+      <canvas id="views-chart"></canvas>
     </div>
-    <div class="stat-card youtube">
-      <div class="stat-label">YouTube</div>
-      <div class="stat-value" id="yt-views">—</div>
+
+    <!-- Date range filter -->
+    <div class="range-tabs" id="range-tabs">
+      <button class="range-tab" data-range="last7">Last 7 days</button>
+      <button class="range-tab active" data-range="last30">Last 30 days</button>
+      <button class="range-tab" data-range="last6mo">Last 6 months</button>
+      <button class="range-tab" data-range="last12mo">Last 12 months</button>
+      <button class="range-tab" data-range="ytd">Year to date</button>
+      <button class="range-tab" data-range="all">All time</button>
+      <button class="range-tab" data-range="custom">Custom</button>
     </div>
-    <div class="stat-card tiktok">
-      <div class="stat-label">TikTok</div>
-      <div class="stat-value" id="tt-views">—</div>
+
+    <!-- Custom date range picker (shown only when Custom is active) -->
+    <div class="custom-range" id="custom-range" hidden>
+      <label for="custom-from">From</label>
+      <input type="date" id="custom-from" />
+      <label for="custom-to">to</label>
+      <input type="date" id="custom-to" />
     </div>
-    <div class="stat-card linkedin">
-      <div class="stat-label">LinkedIn</div>
-      <div class="stat-value" id="li-views">—</div>
+
+    <!-- Hidden videos bar -->
+    <div id="hidden-bar" hidden>
+      <span id="hidden-bar-label"></span>
+      <button id="hidden-bar-show">Show all</button>
     </div>
-  </div>
 
-  <!-- Platform breakdown chart -->
-  <div class="chart-container">
-    <canvas id="views-chart"></canvas>
-  </div>
+    <!-- Video list (groups + single-platform, unified) -->
+    <div class="section-heading">Videos</div>
+    <div class="video-list" id="video-groups">
+      <p class="state-message">Loading…</p>
+    </div>
 
-  <!-- Date range filter -->
-  <div class="range-tabs" id="range-tabs">
-    <button class="range-tab" data-range="last7">Last 7 days</button>
-    <button class="range-tab active" data-range="last30">Last 30 days</button>
-    <button class="range-tab" data-range="last6mo">Last 6 months</button>
-    <button class="range-tab" data-range="last12mo">Last 12 months</button>
-    <button class="range-tab" data-range="ytd">Year to date</button>
-    <button class="range-tab" data-range="all">All time</button>
-    <button class="range-tab" data-range="custom">Custom</button>
-  </div>
+  </div><!-- /#tab-stats -->
 
-  <!-- Custom date range picker (shown only when Custom is active) -->
-  <div class="custom-range" id="custom-range" hidden>
-    <label for="custom-from">From</label>
-    <input type="date" id="custom-from" />
-    <label for="custom-to">to</label>
-    <input type="date" id="custom-to" />
-  </div>
-
-  <!-- Hidden videos bar -->
-  <div id="hidden-bar" hidden>
-    <span id="hidden-bar-label"></span>
-    <button id="hidden-bar-show">Show all</button>
-  </div>
-
-  <!-- Video list (groups + single-platform, unified) -->
-  <div class="section-heading">Videos</div>
-  <div class="video-list" id="video-groups">
-    <p class="state-message">Loading…</p>
-  </div>
+  <!-- ── Content Intelligence tab ───────────────────────────────────────── -->
+  <div id="tab-ci" hidden>
+    <div class="ci-meta" id="ci-meta"></div>
+    <div id="ci-results" class="ci-results"></div>
+  </div><!-- /#tab-ci -->
 
 </main>
 

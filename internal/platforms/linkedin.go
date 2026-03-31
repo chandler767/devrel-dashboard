@@ -335,38 +335,6 @@ func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]liEngag
 	return out, nil
 }
 
-// fetchPostComments fetches up to n comments for a post, returned as "Author: text" strings.
-func (c *liClient) fetchPostComments(postURN string, n int) []string {
-	params := url.Values{"count": {fmt.Sprintf("%d", n)}}
-	body, err := c.get("/rest/socialActions/"+url.PathEscape(postURN)+"/comments", params)
-	if err != nil {
-		return nil
-	}
-	var result struct {
-		Elements []struct {
-			Actor   string `json:"actor"`
-			Message struct {
-				Text string `json:"text"`
-			} `json:"message"`
-		} `json:"elements"`
-	}
-	if err := json.Unmarshal(body, &result); err != nil {
-		return nil
-	}
-	out := make([]string, 0, len(result.Elements))
-	for _, el := range result.Elements {
-		text := strings.TrimSpace(el.Message.Text)
-		if text == "" {
-			continue
-		}
-		if el.Actor != "" {
-			out = append(out, el.Actor+": "+text)
-		} else {
-			out = append(out, text)
-		}
-	}
-	return out
-}
 
 // ── LinkedInFetch ─────────────────────────────────────────────────────────────
 
@@ -375,8 +343,7 @@ func (c *liClient) fetchPostComments(postURN string, n int) []string {
 // LINKEDIN_CLIENT_SECRET, and LINKEDIN_REFRESH_TOKEN are set).
 // Set LINKEDIN_PERSON_URN to fetch personal video posts.
 // Set LINKEDIN_ORG_URNS (comma-separated) to fetch from LinkedIn Pages.
-// Pass withComments=true to also fetch comment text (one extra API call per post).
-func LinkedInFetch(withComments bool) ([]internal.Video, error) {
+func LinkedInFetch() ([]internal.Video, error) {
 	accessToken, err := refreshToken()
 	if err != nil {
 		return nil, err
@@ -503,10 +470,9 @@ func LinkedInFetch(withComments bool) ([]internal.Video, error) {
 
 		postURL := "https://www.linkedin.com/feed/update/" + url.PathEscape(p.ID) + "/"
 
+		// LinkedIn's socialActions/comments endpoint requires partner-tier API access
+		// (partnerApiSocialActions permission) which is not available to standard apps.
 		var commentTexts []string
-		if withComments {
-			commentTexts = client.fetchPostComments(p.ID, 20)
-		}
 
 		videos = append(videos, internal.Video{
 			Platform:        "linkedin",
