@@ -199,6 +199,7 @@ main {
   border-radius: var(--radius);
   padding: 18px 20px;
   position: relative;
+  overflow: visible;
   transition: border-color 0.15s, transform 0.1s;
 }
 
@@ -265,6 +266,7 @@ main {
   align-items: center;
   gap: 8px;
   padding: 5px 8px;
+  position: relative;
   border-radius: 6px;
   color: var(--text);
   cursor: pointer;
@@ -770,14 +772,6 @@ body.exporting .notice-bar { display: none !important; }
   .metric-tabs { margin-bottom: 16px; }
 }
 
-/* ── Video Thumbnail ─────────────────────────────────── */
-.video-thumb {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: var(--radius) var(--radius) 0 0;
-  display: block;
-}
 
 /* ── Engagement Strip ────────────────────────────────── */
 .video-engagement {
@@ -827,25 +821,6 @@ button.eng-stat:hover {
   white-space: nowrap;
 }
 
-/* ── Description ─────────────────────────────────────── */
-.video-description {
-  font-size: 12px;
-  color: var(--text-muted);
-  padding: 4px 14px 6px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.desc-toggle {
-  background: none;
-  border: none;
-  color: var(--accent);
-  font-size: 11px;
-  cursor: pointer;
-  padding: 0 0 0 4px;
-  text-decoration: underline;
-}
 
 /* ── Platform-row engagement ─────────────────────────── */
 .pv-engagement {

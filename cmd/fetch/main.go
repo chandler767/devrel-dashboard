@@ -22,7 +22,7 @@ func main() {
 	skipLI       := flag.Bool("skip-linkedin", false, "Skip fetching from LinkedIn")
 	liAuth       := flag.Bool("linkedin-auth", false, "Run one-time LinkedIn OAuth setup and exit")
 	since        := flag.String("since", "", "Only include new videos published on or after this date (YYYY-MM-DD). Already-approved videos are unaffected.")
-	fetchComments := flag.Bool("fetch-comments", false, "Fetch comment text for each video (slower; ~20 comments per video)")
+	fetchComments := flag.Bool("fetch-comments", true, "Fetch comment text for each video (slower; ~20 comments per video)")
 	flag.Parse()
 
 	if err := godotenv.Load(); err != nil {

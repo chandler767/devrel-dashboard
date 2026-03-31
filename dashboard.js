@@ -382,8 +382,20 @@ function renderRolling(allItems, metric = activeMetric) {
   // Update rolling section heading to reflect active metric
   const rollingHeading = document.getElementById('rolling-metric-label');
   if (rollingHeading) rollingHeading.textContent = METRIC_LABELS[metric] || 'Views';
+  // Hide rolling stat cards for platforms that don't support this metric
+  [['rolling-yt', 'youtube'], ['rolling-tt', 'tiktok'], ['rolling-li', 'linkedin']].forEach(([id, plat]) => {
+    const card = document.getElementById(id)?.closest('.stat-card');
+    if (card) card.hidden = !(PLATFORM_CAPS[plat]?.[metric] ?? true);
+  });
   if (!trendChartInstance) initTrendChart(data);
   else updateTrendChart(data);
+  // Hide trend chart datasets for unsupported platforms (indices: 1=YT, 2=TT, 3=LI)
+  if (trendChartInstance) {
+    [['youtube', 1], ['tiktok', 2], ['linkedin', 3]].forEach(([plat, idx]) => {
+      trendChartInstance.setDatasetVisibility(idx, PLATFORM_CAPS[plat]?.[metric] ?? true);
+    });
+    trendChartInstance.update('none');
+  }
 }
 
 
@@ -418,7 +430,16 @@ function initTrendChart(data) {
       responsive: true, maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
       plugins: {
-        legend: { labels: { boxWidth: 12, font: { size: 12 } } },
+        legend: {
+          labels: {
+            boxWidth: 12, font: { size: 12 },
+            filter: item => {
+              const platMap = { YouTube: 'youtube', TikTok: 'tiktok', LinkedIn: 'linkedin' };
+              const plat = platMap[item.text];
+              return plat ? (PLATFORM_CAPS[plat]?.[activeMetric] ?? true) : true;
+            },
+          },
+        },
         tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${fmt(ctx.parsed.y)}` } },
       },
       scales: {
@@ -583,7 +604,13 @@ function initWowChart(data) {
         legend: {
           labels: {
             boxWidth: 12, font: { size: 12 },
-            filter: item => !item.text.includes('proj.') && (showWowPred || item.text !== 'Trend'),
+            filter: item => {
+              if (item.text.includes('proj.')) return false;
+              if (item.text === 'Trend') return activeMetric !== 'views' || showWowPred;
+              const platMap = { YouTube: 'youtube', TikTok: 'tiktok', LinkedIn: 'linkedin' };
+              const plat = platMap[item.text];
+              return plat ? (PLATFORM_CAPS[plat]?.[activeMetric] ?? true) : true;
+            },
           },
           onClick: (e, legendItem, legend) => {
             if (legendItem.datasetIndex === 6) return; // Trend is controlled by predictions toggle
@@ -631,11 +658,11 @@ function applyWowPredVisibility() {
     const platVisible = wowChartInstance.isDatasetVisible(i - 3);
     wowChartInstance.setDatasetVisibility(i, showWowPred && platVisible);
   });
-  // Trend line (dataset 6) and stat label follow predictions toggle
-  wowChartInstance.setDatasetVisibility(6, showWowPred);
+  // Trend line: always visible for non-views; for views follows predictions toggle
+  wowChartInstance.setDatasetVisibility(6, activeMetric !== 'views' || showWowPred);
   wowChartInstance.update('none');
   const statEl = document.getElementById('wow-trend-stat');
-  if (statEl) statEl.hidden = !showWowPred || activeMetric !== 'views';
+  if (statEl) statEl.hidden = activeMetric === 'views' && !showWowPred;
 }
 
 function updateWowTrend() {
@@ -657,7 +684,7 @@ function updateWowTrend() {
   chart.update('none');
   const statEl = document.getElementById('wow-trend-stat');
   if (statEl) {
-    statEl.hidden = activeMetric !== 'views';
+    statEl.hidden = false;
     statEl.textContent = 'Trend  ' + (slope >= 0 ? '+' : '') + fmt(slope) + ' additional ' + (METRIC_LABELS[activeMetric] || 'views').toLowerCase() + ' / wk';
     statEl.className   = 'wow-trend-stat ' + (slope >= 0 ? 'positive' : 'negative');
   }
@@ -697,6 +724,14 @@ function renderWow(allItems, reportDate, metric = activeMetric) {
     wowChartInstance.data.datasets[6].data = data.trend;
     wowChartInstance.update('none');
   }
+  // Hide WoW datasets for platforms that don't support this metric
+  // Indices: 0=YT, 1=TT, 2=LI, 3=YT pred, 4=TT pred, 5=LI pred, 6=Trend
+  if (wowChartInstance) {
+    [['youtube', 0], ['tiktok', 1], ['linkedin', 2]].forEach(([plat, idx]) => {
+      wowChartInstance.setDatasetVisibility(idx, PLATFORM_CAPS[plat]?.[metric] ?? true);
+    });
+    wowChartInstance.update('none');
+  }
   applyWowPredVisibility();
   updateWowTrend();
 }
@@ -726,6 +761,12 @@ function renderSummary(currItems, prevItems, metric = activeMetric) {
     const badge = growthEl(pctChange(c, p));
     if (badge && card) card.appendChild(badge);
   }
+
+  // Hide summary stat cards for platforms that don't support this metric
+  [['yt-views', 'youtube'], ['tt-views', 'tiktok'], ['li-views', 'linkedin']].forEach(([id, plat]) => {
+    const card = document.getElementById(id)?.closest('.stat-card');
+    if (card) card.hidden = !(PLATFORM_CAPS[plat]?.[metric] ?? true);
+  });
 
   // Update summary section label
   const summaryMetricLabel = document.getElementById('summary-metric-label');
@@ -770,11 +811,6 @@ function initChart() {
 function updateChart(curr, prev) {
   if (!chartInstance) return;
 
-  // Labels = bar groups. One group per platform so each bar shows current vs previous stacked.
-  // Layout: X-axis = [YouTube, TikTok, LinkedIn]
-  // Dataset per "series" where each dataset has one value per bar group.
-  // We use Chart.js stack groups so current and previous sit side-by-side (not stacked on each other).
-
   const YT  = 'rgba(255,51,51,0.85)';
   const TT  = 'rgba(105,201,208,0.85)';
   const LI  = 'rgba(10,102,194,0.85)';
@@ -782,29 +818,31 @@ function updateChart(curr, prev) {
   const TTf = 'rgba(105,201,208,0.35)';
   const LIf = 'rgba(10,102,194,0.35)';
 
-  // Grouped bar: each platform is a bar group, each group has up to 2 bars (curr / prev)
-  // We model this as: datasets = platforms, labels = ['Current', 'Previous']
-  //   OR labels = platforms, datasets = [Current, Previous]
-  // The latter is easier to read.
+  // Only include platforms that support the active metric
+  const allPlatforms = [
+    { key: 'youtube',  label: 'YouTube',  currVal: curr.youtube,  prevVal: prev?.youtube,  color: YT,  colorFade: YTf },
+    { key: 'tiktok',   label: 'TikTok',   currVal: curr.tiktok,   prevVal: prev?.tiktok,   color: TT,  colorFade: TTf },
+    { key: 'linkedin', label: 'LinkedIn', currVal: curr.linkedin, prevVal: prev?.linkedin, color: LI,  colorFade: LIf },
+  ];
+  const visible = allPlatforms.filter(p => PLATFORM_CAPS[p.key]?.[activeMetric] ?? true);
 
+  chartInstance.data.labels = visible.map(p => p.label);
   const datasets = [
     {
       label: 'Current period',
-      data: [curr.youtube, curr.tiktok, curr.linkedin],
-      backgroundColor: [YT, TT, LI],
+      data: visible.map(p => p.currVal),
+      backgroundColor: visible.map(p => p.color),
       borderRadius: 4,
     },
   ];
-
   if (prev) {
     datasets.push({
       label: 'Previous period',
-      data: [prev.youtube, prev.tiktok, prev.linkedin],
-      backgroundColor: [YTf, TTf, LIf],
+      data: visible.map(p => p.prevVal),
+      backgroundColor: visible.map(p => p.colorFade),
       borderRadius: 4,
     });
   }
-
   chartInstance.data.datasets = datasets;
   chartInstance.update('none');
 }
@@ -984,15 +1022,6 @@ function renderCard(item) {
   const card = document.createElement('div');
   card.className = 'video-card';
 
-  // Thumbnail
-  if (item.thumbnail) {
-    const img = document.createElement('img');
-    img.className = 'video-thumb';
-    img.src = item.thumbnail;
-    img.alt = '';
-    img.loading = 'lazy';
-    card.appendChild(img);
-  }
 
   // Header: date + total metric value
   const header = document.createElement('div');
@@ -1019,7 +1048,7 @@ function renderCard(item) {
   const engDefs = [
     { key: 'views',    icon: '▶',  val: item.totalViews    },
     { key: 'likes',    icon: '♥',  val: item.totalLikes    },
-    { key: 'comments', icon: '◉',  val: item.totalComments, clickable: true },
+    { key: 'comments', icon: '◉',  val: item.totalComments },
     { key: 'shares',   icon: '⬆',  val: item.totalShares   },
   ];
   // Only show a metric if at least one platform in the group supports it
@@ -1027,19 +1056,10 @@ function renderCard(item) {
   for (const def of engDefs) {
     const supported = supportedPlatforms.some(pl => (PLATFORM_CAPS[pl] || {})[def.key]);
     if (!supported) continue;
-    if (def.clickable) {
-      const btn = document.createElement('button');
-      btn.className = 'eng-stat eng-comments-btn';
-      btn.title = 'View comments';
-      btn.innerHTML = `${def.icon} <span>${fmt(def.val)}</span>`;
-      btn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item); });
-      engRow.appendChild(btn);
-    } else {
-      const span = document.createElement('span');
-      span.className = 'eng-stat';
-      span.textContent = `${def.icon} ${fmt(def.val)}`;
-      engRow.appendChild(span);
-    }
+    const span = document.createElement('span');
+    span.className = 'eng-stat';
+    span.textContent = `${def.icon} ${fmt(def.val)}`;
+    engRow.appendChild(span);
   }
 
   // Tags
@@ -1056,31 +1076,6 @@ function renderCard(item) {
     }
   }
 
-  // Description
-  let descEl = null;
-  if (item.description) {
-    descEl = document.createElement('div');
-    descEl.className = 'video-description collapsed';
-    const preview = item.description.length > 200
-      ? item.description.slice(0, 200) + '…'
-      : item.description;
-    const textSpan = document.createElement('span');
-    textSpan.className = 'video-description-text';
-    textSpan.textContent = preview;
-    descEl.appendChild(textSpan);
-    if (item.description.length > 200) {
-      const toggle = document.createElement('button');
-      toggle.className = 'desc-toggle';
-      toggle.textContent = 'more';
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const expanded = descEl.classList.toggle('expanded');
-        textSpan.textContent = expanded ? item.description : preview;
-        toggle.textContent = expanded ? 'less' : 'more';
-      });
-      descEl.appendChild(toggle);
-    }
-  }
 
   // Platform version rows
   const local = isLocalMode();
@@ -1159,7 +1154,6 @@ function renderCard(item) {
 
   card.append(header, engRow);
   if (tagsEl) card.appendChild(tagsEl);
-  if (descEl) card.appendChild(descEl);
   card.appendChild(versions);
 
   // Hide button
