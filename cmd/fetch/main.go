@@ -16,12 +16,13 @@ import (
 )
 
 func main() {
-	dryRun := flag.Bool("dry-run", false, "Print the report JSON to stdout without writing files or committing")
-	skipYT := flag.Bool("skip-youtube", false, "Skip fetching from YouTube")
-	skipTT := flag.Bool("skip-tiktok", false, "Skip fetching from TikTok")
-	skipLI := flag.Bool("skip-linkedin", false, "Skip fetching from LinkedIn")
-	liAuth := flag.Bool("linkedin-auth", false, "Run one-time LinkedIn OAuth setup and exit")
-	since  := flag.String("since", "", "Only include new videos published on or after this date (YYYY-MM-DD). Already-approved videos are unaffected.")
+	dryRun       := flag.Bool("dry-run", false, "Print the report JSON to stdout without writing files or committing")
+	skipYT       := flag.Bool("skip-youtube", false, "Skip fetching from YouTube")
+	skipTT       := flag.Bool("skip-tiktok", false, "Skip fetching from TikTok")
+	skipLI       := flag.Bool("skip-linkedin", false, "Skip fetching from LinkedIn")
+	liAuth       := flag.Bool("linkedin-auth", false, "Run one-time LinkedIn OAuth setup and exit")
+	since        := flag.String("since", "", "Only include new videos published on or after this date (YYYY-MM-DD). Already-approved videos are unaffected.")
+	fetchComments := flag.Bool("fetch-comments", false, "Fetch comment text for each video (slower; ~20 comments per video)")
 	flag.Parse()
 
 	if err := godotenv.Load(); err != nil {
@@ -68,13 +69,16 @@ func main() {
 
 	var jobs []job
 	if !*skipYT {
-		jobs = append(jobs, job{"youtube", platforms.YouTubeFetch})
+		wc := *fetchComments
+		jobs = append(jobs, job{"youtube", func() ([]internal.Video, error) { return platforms.YouTubeFetch(wc) }})
 	}
 	if !*skipTT {
-		jobs = append(jobs, job{"tiktok", platforms.TikTokFetch})
+		wc := *fetchComments
+		jobs = append(jobs, job{"tiktok", func() ([]internal.Video, error) { return platforms.TikTokFetch(wc) }})
 	}
 	if !*skipLI {
-		jobs = append(jobs, job{"linkedin", platforms.LinkedInFetch})
+		wc := *fetchComments
+		jobs = append(jobs, job{"linkedin", func() ([]internal.Video, error) { return platforms.LinkedInFetch(wc) }})
 	}
 
 	results := make(map[string]fetchResult, len(jobs))
@@ -233,6 +237,14 @@ func carryForwardSkipped(skipped []string, prev *internal.Report) []internal.Vid
 				ID:              pd.VideoID,
 				Title:           pd.Title,
 				Views:           pd.Views,
+				Likes:           pd.Likes,
+				Comments:        pd.Comments,
+				Shares:          pd.Shares,
+				Clicks:          pd.Clicks,
+				CommentTexts:    pd.CommentTexts,
+				Thumbnail:       pd.Thumbnail,
+				Description:     pd.Description,
+				Tags:            pd.Tags,
 				DurationSeconds: pd.DurationSeconds,
 				URL:             pd.URL,
 				PublishedAt:     pd.PublishedAt,
@@ -253,6 +265,14 @@ func carryForwardSkipped(skipped []string, prev *internal.Report) []internal.Vid
 			ID:              u.VideoID,
 			Title:           u.Title,
 			Views:           u.Views,
+			Likes:           u.Likes,
+			Comments:        u.Comments,
+			Shares:          u.Shares,
+			Clicks:          u.Clicks,
+			CommentTexts:    u.CommentTexts,
+			Thumbnail:       u.Thumbnail,
+			Description:     u.Description,
+			Tags:            u.Tags,
 			DurationSeconds: u.DurationSeconds,
 			URL:             u.URL,
 			PublishedAt:     u.PublishedAt,

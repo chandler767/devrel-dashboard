@@ -24,6 +24,34 @@ let wowChartInstance   = null;
 let trendGrouping      = 'date'; // 'month' (time scale) | 'date' (ordinal)
 let decayCurve         = null;  // { youtube, tiktok, linkedin } — power-law α per platform
 let showWowPred        = true;  // whether projection bars are visible in WoW chart
+let activeMetric       = 'views'; // 'views' | 'likes' | 'comments' | 'shares'
+
+const METRIC_LABELS = { views: 'Views', likes: 'Likes', comments: 'Comments', shares: 'Shares' };
+
+// Which engagement fields each platform actually provides.
+const PLATFORM_CAPS = {
+  youtube:  { views: true, likes: true, comments: true, shares: false, clicks: false },
+  tiktok:   { views: true, likes: true, comments: true, shares: true,  clicks: false },
+  linkedin: { views: true, likes: true, comments: true, shares: true,  clicks: true  },
+};
+
+function metricVal(item, metric) {
+  switch (metric) {
+    case 'likes':    return item.totalLikes    || 0;
+    case 'comments': return item.totalComments || 0;
+    case 'shares':   return item.totalShares   || 0;
+    default:         return item.totalViews    || 0;
+  }
+}
+
+function platformMetricVal(p, metric) {
+  switch (metric) {
+    case 'likes':    return p.likes    || 0;
+    case 'comments': return p.comments || 0;
+    case 'shares':   return p.shares   || 0;
+    default:         return p.views    || 0;
+  }
+}
 
 // ── Local Mode Detection ──────────────────────────────────────────────────────
 
@@ -124,12 +152,12 @@ function filterItemsByBounds(items, start, end) {
   });
 }
 
-function sumTotals(items) {
+function sumTotals(items, metric = 'views') {
   const t = { total: 0, youtube: 0, tiktok: 0, linkedin: 0 };
   for (const item of items) {
-    t.total += item.totalViews;
+    t.total += metricVal(item, metric);
     for (const p of item.platforms) {
-      if (p.platform in t) t[p.platform] += p.views || 0;
+      if (p.platform in t) t[p.platform] += platformMetricVal(p, metric);
     }
   }
   return t;
@@ -195,7 +223,13 @@ function buildUnifiedList(report) {
 
     items.push({
       canonicalTitle:  group.canonical_title || '(untitled)',
-      totalViews:      group.total_views || 0,
+      totalViews:      group.total_views    || 0,
+      totalLikes:      group.total_likes    || 0,
+      totalComments:   group.total_comments || 0,
+      totalShares:     group.total_shares   || 0,
+      thumbnail:       group.thumbnail      || null,
+      description:     group.description    || '',
+      tags:            group.tags           || [],
       durationSeconds: group.duration_seconds || 0,
       publishedAt,
       platforms,
@@ -207,14 +241,28 @@ function buildUnifiedList(report) {
   for (const v of (report.unmatched || [])) {
     items.push({
       canonicalTitle:  v.title || '(untitled)',
-      totalViews:      v.views || 0,
+      totalViews:      v.views    || 0,
+      totalLikes:      v.likes    || 0,
+      totalComments:   v.comments || 0,
+      totalShares:     v.shares   || 0,
+      thumbnail:       v.thumbnail    || null,
+      description:     v.description  || '',
+      tags:            v.tags         || [],
       durationSeconds: v.duration_seconds || 0,
       publishedAt:     v.published_at || null,
       platforms: [{
         platform:        v.platform,
         video_id:        v.video_id,
         title:           v.title,
-        views:           v.views,
+        views:           v.views    || 0,
+        likes:           v.likes    || 0,
+        comments:        v.comments || 0,
+        shares:          v.shares   || 0,
+        clicks:          v.clicks   || 0,
+        comment_texts:   v.comment_texts || [],
+        thumbnail:       v.thumbnail    || null,
+        description:     v.description  || '',
+        tags:            v.tags         || [],
         url:             v.url,
         published_at:    v.published_at,
         duration_seconds: v.duration_seconds,
@@ -256,7 +304,7 @@ function filterItems(items, range) {
 
 // ── Rolling 12-Month Stats + Trend Chart ─────────────────────────────────────
 
-function buildRolling12MonthData(allItems) {
+function buildRolling12MonthData(allItems, metric = 'views') {
   const now    = new Date();
   const cutoff = new Date(now.getFullYear(), now.getMonth() - 11, 1);
 
@@ -271,9 +319,9 @@ function buildRolling12MonthData(allItems) {
     const key = item.publishedAt.slice(0, 10);
     if (!byDate.has(key)) byDate.set(key, { total: 0, yt: 0, tt: 0, li: 0 });
     const b = byDate.get(key);
-    b.total += item.totalViews;
+    b.total += metricVal(item, metric);
     for (const p of item.platforms) {
-      const v = p.views || 0;
+      const v = platformMetricVal(p, metric);
       if (p.platform === 'youtube')  b.yt += v;
       if (p.platform === 'tiktok')   b.tt += v;
       if (p.platform === 'linkedin') b.li += v;
@@ -326,11 +374,14 @@ function buildRolling12MonthData(allItems) {
   return { labels, totals, yt, tt, li, tData, ytData, ttData, liData, sums: { total: cumTotal, yt: cumYt, tt: cumTt, li: cumLi } };
 }
 
-function renderRolling(allItems) {
-  const data = buildRolling12MonthData(allItems);
+function renderRolling(allItems, metric = activeMetric) {
+  const data = buildRolling12MonthData(allItems, metric);
   const ids  = ['rolling-total', 'rolling-yt', 'rolling-tt', 'rolling-li'];
   const vals = [data.sums.total, data.sums.yt, data.sums.tt, data.sums.li];
   ids.forEach((id, i) => { const el = document.getElementById(id); if (el) el.textContent = fmt(vals[i]); });
+  // Update rolling section heading to reflect active metric
+  const rollingHeading = document.getElementById('rolling-metric-label');
+  if (rollingHeading) rollingHeading.textContent = METRIC_LABELS[metric] || 'Views';
   if (!trendChartInstance) initTrendChart(data);
   else updateTrendChart(data);
 }
@@ -404,7 +455,7 @@ function linearRegression(values) {
 
 // ── Week-over-Week Chart ──────────────────────────────────────────────────────
 
-function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
+function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate, metric = 'views') {
   // Align to Monday-based weeks
   const startOfMonday = d => {
     const day = d.getDay(); // 0=Sun
@@ -440,23 +491,44 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
     const pub     = new Date(item.publishedAt);
     const ageDays = (now - pub.getTime()) / msPerDay;
 
-    // Slot assignment (actual views) + collect projItems for videos < 30 days old
+    // Slot assignment + collect projItems for videos < 30 days old (projections only apply to views)
     if (pub >= cutoff) {
       for (const slot of slots) {
         if (pub >= slot.start && pub < slot.end) {
           for (const p of item.platforms) {
-            const v = p.views || 0;
+            const v = platformMetricVal(p, metric);
             if (p.platform === 'youtube')  slot.yt += v;
             if (p.platform === 'tiktok')   slot.tt += v;
             if (p.platform === 'linkedin') slot.li += v;
-            if (ageDays < 30 && slot.projItems[p.platform]) {
-              slot.projItems[p.platform].push({ views: v, ageDays });
+            if (metric === 'views' && ageDays < 30 && slot.projItems[p.platform]) {
+              slot.projItems[p.platform].push({ views: p.views || 0, ageDays });
             }
           }
           break;
         }
       }
     }
+  }
+
+  const labels = slots.map(s =>
+    s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+  );
+  const ytArr = slots.map(s => s.yt);
+  const ttArr = slots.map(s => s.tt);
+  const liArr = slots.map(s => s.li);
+  const totals = ytArr.map((v, i) => v + ttArr[i] + liArr[i]);
+  const trend = linearRegression(totals);
+  const trendSlope = trend.length >= 2
+    ? Math.round((trend[trend.length - 1] - trend[0]) / (trend.length - 1))
+    : 0;
+
+  // Projections only apply to views
+  if (metric !== 'views') {
+    return {
+      labels, yt: ytArr, tt: ttArr, li: liArr,
+      predYt: slots.map(() => null), predTt: slots.map(() => null), predLi: slots.map(() => null),
+      hasPred: false, trend, trendSlope,
+    };
   }
 
   // Compute per-slot projections using the empirical power-law decay curve.
@@ -480,22 +552,9 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate) {
   const predLi = slots.map(s => s.pred_linkedin || null);
   const hasPred = predYt.some(v => v) || predTt.some(v => v) || predLi.some(v => v);
 
-  const labels  = slots.map(s =>
-    s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
-  );
-  const ytArr   = slots.map(s => s.yt);
-  const ttArr   = slots.map(s => s.tt);
-  const liArr   = slots.map(s => s.li);
-  const totals  = ytArr.map((v, i) => v + ttArr[i] + liArr[i]);
-  const trend      = linearRegression(totals);
-  const trendSlope = trend.length >= 2
-    ? Math.round((trend[trend.length - 1] - trend[0]) / (trend.length - 1))
-    : 0;
   return {
-    labels,
-    yt: ytArr, tt: ttArr, li: liArr,
-    predYt, predTt, predLi, hasPred,
-    trend, trendSlope,
+    labels, yt: ytArr, tt: ttArr, li: liArr,
+    predYt, predTt, predLi, hasPred, trend, trendSlope,
   };
 }
 
@@ -576,7 +635,7 @@ function applyWowPredVisibility() {
   wowChartInstance.setDatasetVisibility(6, showWowPred);
   wowChartInstance.update('none');
   const statEl = document.getElementById('wow-trend-stat');
-  if (statEl) statEl.hidden = !showWowPred;
+  if (statEl) statEl.hidden = !showWowPred || activeMetric !== 'views';
 }
 
 function updateWowTrend() {
@@ -598,13 +657,23 @@ function updateWowTrend() {
   chart.update('none');
   const statEl = document.getElementById('wow-trend-stat');
   if (statEl) {
-    statEl.textContent = 'Trend  ' + (slope >= 0 ? '+' : '') + fmt(slope) + ' additional views / wk';
+    statEl.hidden = activeMetric !== 'views';
+    statEl.textContent = 'Trend  ' + (slope >= 0 ? '+' : '') + fmt(slope) + ' additional ' + (METRIC_LABELS[activeMetric] || 'views').toLowerCase() + ' / wk';
     statEl.className   = 'wow-trend-stat ' + (slope >= 0 ? 'positive' : 'negative');
   }
 }
 
-function renderWow(allItems, reportDate) {
-  const data = buildWeekOverWeekData(allItems, 12, reportDate);
+function renderWow(allItems, reportDate, metric = activeMetric) {
+  const data = buildWeekOverWeekData(allItems, 12, reportDate, metric);
+  // Predictions toggle only makes sense for views
+  const predBtn = document.getElementById('wow-pred-btn');
+  if (predBtn) predBtn.hidden = metric !== 'views';
+  // Update subheading to reflect active metric
+  const subEl = document.getElementById('wow-subheading');
+  if (subEl) {
+    const label = METRIC_LABELS[metric]?.toLowerCase() || metric;
+    subEl.textContent = `Total accumulated ${label} on videos published each week — not new ${label} gained that week`;
+  }
   const isNew = !wowChartInstance;
   if (isNew) {
     initWowChart(data);
@@ -634,9 +703,9 @@ function renderWow(allItems, reportDate) {
 
 // ── Summary ───────────────────────────────────────────────────────────────────
 
-function renderSummary(currItems, prevItems) {
-  const curr = sumTotals(currItems);
-  const prev = prevItems ? sumTotals(prevItems) : null;
+function renderSummary(currItems, prevItems, metric = activeMetric) {
+  const curr = sumTotals(currItems, metric);
+  const prev = prevItems ? sumTotals(prevItems, metric) : null;
 
   const pairs = [
     { id: 'total-views', curr: curr.total,    prev: prev?.total    },
@@ -657,6 +726,10 @@ function renderSummary(currItems, prevItems) {
     const badge = growthEl(pctChange(c, p));
     if (badge && card) card.appendChild(badge);
   }
+
+  // Update summary section label
+  const summaryMetricLabel = document.getElementById('summary-metric-label');
+  if (summaryMetricLabel) summaryMetricLabel.textContent = METRIC_LABELS[metric] || 'Views';
 
   return { curr, prev };
 }
@@ -911,7 +984,17 @@ function renderCard(item) {
   const card = document.createElement('div');
   card.className = 'video-card';
 
-  // Header: title + total views + duration
+  // Thumbnail
+  if (item.thumbnail) {
+    const img = document.createElement('img');
+    img.className = 'video-thumb';
+    img.src = item.thumbnail;
+    img.alt = '';
+    img.loading = 'lazy';
+    card.appendChild(img);
+  }
+
+  // Header: date + total metric value
   const header = document.createElement('div');
   header.className = 'video-card-header';
 
@@ -924,11 +1007,80 @@ function renderCard(item) {
 
   const totalEl = document.createElement('div');
   totalEl.className = 'video-total-views';
-  totalEl.textContent = fmt(item.totalViews);
+  totalEl.textContent = `▶ ${fmt(item.totalViews)}`;
 
   meta.append(totalEl);
   header.append(titleEl, meta);
 
+  // Engagement strip (totals across all platforms)
+  const engRow = document.createElement('div');
+  engRow.className = 'video-engagement';
+
+  const engDefs = [
+    { key: 'views',    icon: '▶',  val: item.totalViews    },
+    { key: 'likes',    icon: '♥',  val: item.totalLikes    },
+    { key: 'comments', icon: '◉',  val: item.totalComments, clickable: true },
+    { key: 'shares',   icon: '⬆',  val: item.totalShares   },
+  ];
+  // Only show a metric if at least one platform in the group supports it
+  const supportedPlatforms = item.platforms.map(p => p.platform);
+  for (const def of engDefs) {
+    const supported = supportedPlatforms.some(pl => (PLATFORM_CAPS[pl] || {})[def.key]);
+    if (!supported) continue;
+    if (def.clickable) {
+      const btn = document.createElement('button');
+      btn.className = 'eng-stat eng-comments-btn';
+      btn.title = 'View comments';
+      btn.innerHTML = `${def.icon} <span>${fmt(def.val)}</span>`;
+      btn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item); });
+      engRow.appendChild(btn);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'eng-stat';
+      span.textContent = `${def.icon} ${fmt(def.val)}`;
+      engRow.appendChild(span);
+    }
+  }
+
+  // Tags
+  let tagsEl = null;
+  if (item.tags && item.tags.length > 0) {
+    tagsEl = document.createElement('div');
+    tagsEl.className = 'video-tags';
+    const displayTags = item.tags.slice(0, 8);
+    for (const tag of displayTags) {
+      const chip = document.createElement('span');
+      chip.className = 'tag-chip';
+      chip.textContent = '#' + tag;
+      tagsEl.appendChild(chip);
+    }
+  }
+
+  // Description
+  let descEl = null;
+  if (item.description) {
+    descEl = document.createElement('div');
+    descEl.className = 'video-description collapsed';
+    const preview = item.description.length > 200
+      ? item.description.slice(0, 200) + '…'
+      : item.description;
+    const textSpan = document.createElement('span');
+    textSpan.className = 'video-description-text';
+    textSpan.textContent = preview;
+    descEl.appendChild(textSpan);
+    if (item.description.length > 200) {
+      const toggle = document.createElement('button');
+      toggle.className = 'desc-toggle';
+      toggle.textContent = 'more';
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const expanded = descEl.classList.toggle('expanded');
+        textSpan.textContent = expanded ? item.description : preview;
+        toggle.textContent = expanded ? 'less' : 'more';
+      });
+      descEl.appendChild(toggle);
+    }
+  }
 
   // Platform version rows
   const local = isLocalMode();
@@ -936,14 +1088,14 @@ function renderCard(item) {
   versions.className = local ? 'platform-versions local' : 'platform-versions';
 
   for (const p of item.platforms) {
-    // Use a div so we can put a <button> inside without invalid HTML nesting
+    const caps = PLATFORM_CAPS[p.platform] || {};
     const row = document.createElement('div');
     row.className = 'platform-version-row';
     row.dataset.href = p.url || '';
 
-    // Clicking the row (but not the button) opens the link
     row.addEventListener('click', (e) => {
       if (e.target.closest('.pv-select-btn')) return;
+      if (e.target.closest('.pv-engagement')) return;
       if (p.url) window.open(p.url, '_blank', 'noopener,noreferrer');
     });
 
@@ -956,7 +1108,9 @@ function renderCard(item) {
 
     const pvTitle = document.createElement('span');
     pvTitle.className = 'pv-title';
-    pvTitle.textContent = p.title || '';
+    // NEW badge goes at the start of the title cell, before the title text
+    if (isWithin7Days(p.published_at)) pvTitle.appendChild(newBadge());
+    pvTitle.appendChild(document.createTextNode(p.title || ''));
 
     const pvDate = document.createElement('span');
     pvDate.className = 'pv-date';
@@ -964,18 +1118,29 @@ function renderCard(item) {
 
     const pvViews = document.createElement('span');
     pvViews.className = 'pv-views';
-    pvViews.textContent = fmt(p.views);
+    pvViews.textContent = `▶ ${fmt(p.views)}`;
 
-    // NEW badge if published < 7 days ago; otherwise growth % if meaningful
     const prevPlatformViews = prevViewMap[`${p.platform}:${p.video_id}`] ?? null;
-    const pvBadge = isWithin7Days(p.published_at)
-      ? newBadge()
-      : growthEl(pctChange(p.views || 0, prevPlatformViews));
-    if (pvBadge) pvViews.appendChild(pvBadge);
+    if (!isWithin7Days(p.published_at)) {
+      const pvGrowth = growthEl(pctChange(p.views || 0, prevPlatformViews));
+      if (pvGrowth) pvViews.appendChild(pvGrowth);
+    }
 
-    row.append(dot, nameEl, pvTitle, pvDate, pvViews);
+    // Per-platform engagement mini-stats (only fields the platform supports)
+    const pvEng = document.createElement('span');
+    pvEng.className = 'pv-engagement';
+    if (caps.likes)    pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `♥ ${fmt(p.likes || 0)}` }));
+    if (caps.comments) {
+      const pvCommentBtn = document.createElement('button');
+      pvCommentBtn.className = 'pv-comment-btn';
+      pvCommentBtn.textContent = `◉ ${fmt(p.comments || 0)}`;
+      pvCommentBtn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item, p); });
+      pvEng.appendChild(pvCommentBtn);
+    }
+    if (caps.shares)   pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `⬆ ${fmt(p.shares || 0)}` }));
 
-    // Per-row select button (local mode only)
+    row.append(dot, nameEl, pvTitle, pvDate, pvViews, pvEng);
+
     if (local) {
       const pvBtn = document.createElement('button');
       pvBtn.className   = 'pv-select-btn';
@@ -992,7 +1157,10 @@ function renderCard(item) {
     versions.appendChild(row);
   }
 
-  card.append(header, versions);
+  card.append(header, engRow);
+  if (tagsEl) card.appendChild(tagsEl);
+  if (descEl) card.appendChild(descEl);
+  card.appendChild(versions);
 
   // Hide button
   const hideBtn = document.createElement('button');
@@ -1007,7 +1175,6 @@ function renderCard(item) {
   });
   card.appendChild(hideBtn);
 
-  // Card-level select button (local mode only) — selects all platform versions at once
   if (local) {
     const btn = document.createElement('button');
     btn.className   = 'select-btn';
@@ -1020,6 +1187,60 @@ function renderCard(item) {
   }
 
   return card;
+}
+
+// ── Comments Modal ────────────────────────────────────────────────────────────
+
+function showCommentsModal(item, singlePlatform = null) {
+  const modal = document.getElementById('comments-modal');
+  const titleEl = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+  if (!modal || !body) return;
+
+  const platformLabel = singlePlatform ? (PLATFORM_LABELS[singlePlatform.platform] || singlePlatform.platform) : null;
+  if (titleEl) titleEl.textContent = (item.canonicalTitle || 'Comments') + (platformLabel ? ` — ${platformLabel}` : '');
+  body.innerHTML = '';
+
+  // Show only the selected platform, or all platforms if none specified
+  const platforms = singlePlatform ? [singlePlatform] : item.platforms;
+  let hasAny = false;
+  for (const p of platforms) {
+    const texts = p.comment_texts || [];
+    if (texts.length === 0) continue;
+    hasAny = true;
+
+    if (!singlePlatform) {
+      const platformHeader = document.createElement('div');
+      platformHeader.className = 'comment-platform-header';
+      const dot = document.createElement('span');
+      dot.className = `platform-dot ${PLATFORM_COLORS[p.platform] || 'unknown'}`;
+      platformHeader.append(dot, PLATFORM_LABELS[p.platform] || p.platform);
+      body.appendChild(platformHeader);
+    }
+
+    for (const text of texts) {
+      const div = document.createElement('div');
+      div.className = 'comment-item';
+      div.textContent = text;
+      body.appendChild(div);
+    }
+  }
+
+  if (!hasAny) {
+    const empty = document.createElement('p');
+    empty.className = 'comment-empty';
+    empty.textContent = 'No comments available. Run with --fetch-comments to collect them.';
+    body.appendChild(empty);
+  }
+
+  modal.hidden = false;
+}
+
+function initCommentsModal() {
+  const modal = document.getElementById('comments-modal');
+  if (!modal) return;
+  document.getElementById('modal-close')?.addEventListener('click', () => { modal.hidden = true; });
+  modal.addEventListener('click', (e) => { if (e.target === modal) modal.hidden = true; });
 }
 
 // ── Video List ────────────────────────────────────────────────────────────────
@@ -1057,7 +1278,7 @@ function renderVideoList(items, range) {
     return (b.totalViews || 0) - (a.totalViews || 0);
   });
 
-  // Pre-compute total views per week for the heading
+  // Pre-compute total views per week for the heading (always views, not activeMetric)
   const weekTotals = {};
   for (const item of sorted) {
     const wk = isoWeekKey(item.publishedAt);
@@ -1075,7 +1296,7 @@ function renderVideoList(items, range) {
       labelSpan.textContent = isoWeekLabel(item.publishedAt);
       const totalSpan = document.createElement('span');
       totalSpan.className = 'week-heading-total';
-      totalSpan.textContent = fmt(weekTotals[weekKey]);
+      totalSpan.textContent = `▶ ${fmt(weekTotals[weekKey])}`;
       header.append(labelSpan, totalSpan);
       container.appendChild(header);
     }
@@ -1130,8 +1351,8 @@ function renderReport(report, range) {
   }
 
   const allItems  = buildUnifiedList(report);
-  renderRolling(allItems);
-  renderWow(allItems, report.generated_at);
+  renderRolling(allItems, activeMetric);
+  renderWow(allItems, report.generated_at, activeMetric);
   const currItems = filterItems(allItems, range);
 
   // Previous equivalent period (date-shifted, same report) — for stat cards + chart
@@ -1139,7 +1360,7 @@ function renderReport(report, range) {
   const bounds = previousRangeBounds(range);
   if (bounds) prevItems = filterItemsByBounds(allItems, bounds.start, bounds.end);
 
-  const { curr, prev } = renderSummary(currItems, prevItems);
+  const { curr, prev } = renderSummary(currItems, prevItems, activeMetric);
   updateChart(curr, prev);
   renderVideoList(currItems, range);
 }
@@ -1241,6 +1462,29 @@ function initTrendToggle() {
       // Scale type change requires destroying and recreating the chart
       if (trendChartInstance) { trendChartInstance.destroy(); trendChartInstance = null; }
       if (currentReport) renderRolling(buildUnifiedList(currentReport));
+    });
+  });
+}
+
+// ── Metric Tabs ───────────────────────────────────────────────────────────────
+
+function syncMetricTabs(metric) {
+  document.querySelectorAll('.metric-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.metric === metric);
+  });
+}
+
+function initMetricTabs() {
+  syncMetricTabs(activeMetric);
+  document.querySelectorAll('.metric-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const m = tab.dataset.metric;
+      if (m === activeMetric) return;
+      activeMetric = m;
+      syncMetricTabs(m);
+      // Destroy trend chart so it re-initialises with correct data
+      if (trendChartInstance) { trendChartInstance.destroy(); trendChartInstance = null; }
+      if (currentReport) renderReport(currentReport, getActiveRange());
     });
   });
 }
@@ -1379,8 +1623,10 @@ async function computeDecayCurve(entries) {
 
 async function init() {
   initRangeTabs();
+  initMetricTabs();
   initTrendToggle();
   initMergeBar();
+  initCommentsModal();
   initChart();
   initShareButton();
   initExportButton();

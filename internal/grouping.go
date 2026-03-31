@@ -29,6 +29,14 @@ type Video struct {
 	Title           string
 	Author          string // optional; populated where available (e.g. LinkedIn)
 	Views           int64
+	Likes           int64
+	Comments        int64
+	Shares          int64
+	Clicks          int64    // LinkedIn only
+	CommentTexts    []string // top ~20 comments as "Author: text" strings
+	Thumbnail       string
+	Description     string
+	Tags            []string
 	DurationSeconds int
 	URL             string
 	PublishedAt     string
@@ -36,12 +44,20 @@ type Video struct {
 
 // PlatformData holds per-platform data within a VideoGroup.
 type PlatformData struct {
-	VideoID         string `json:"video_id"`
-	Title           string `json:"title"`
-	Views           int64  `json:"views"`
-	URL             string `json:"url"`
-	PublishedAt     string `json:"published_at"`
-	DurationSeconds int    `json:"duration_seconds"`
+	VideoID         string   `json:"video_id"`
+	Title           string   `json:"title"`
+	Views           int64    `json:"views"`
+	Likes           int64    `json:"likes"`
+	Comments        int64    `json:"comments"`
+	Shares          int64    `json:"shares"`
+	Clicks          int64    `json:"clicks,omitempty"`
+	CommentTexts    []string `json:"comment_texts,omitempty"`
+	Thumbnail       string   `json:"thumbnail,omitempty"`
+	Description     string   `json:"description,omitempty"`
+	Tags            []string `json:"tags,omitempty"`
+	URL             string   `json:"url"`
+	PublishedAt     string   `json:"published_at"`
+	DurationSeconds int      `json:"duration_seconds"`
 }
 
 // VideoGroup represents a single video that may exist on multiple platforms.
@@ -50,19 +66,33 @@ type VideoGroup struct {
 	CanonicalTitle  string                  `json:"canonical_title"`
 	DurationSeconds int                     `json:"duration_seconds"`
 	TotalViews      int64                   `json:"total_views"`
+	TotalLikes      int64                   `json:"total_likes"`
+	TotalComments   int64                   `json:"total_comments"`
+	TotalShares     int64                   `json:"total_shares"`
+	Thumbnail       string                  `json:"thumbnail,omitempty"`
+	Description     string                  `json:"description,omitempty"`
+	Tags            []string                `json:"tags,omitempty"`
 	Platforms       map[string]PlatformData `json:"platforms"`
 }
 
 // UnmatchedVideo is a video that could not be assigned to a week group
 // (e.g. missing or unparseable publish date).
 type UnmatchedVideo struct {
-	Platform        string `json:"platform"`
-	VideoID         string `json:"video_id"`
-	Title           string `json:"title"`
-	Views           int64  `json:"views"`
-	DurationSeconds int    `json:"duration_seconds"`
-	URL             string `json:"url"`
-	PublishedAt     string `json:"published_at"`
+	Platform        string   `json:"platform"`
+	VideoID         string   `json:"video_id"`
+	Title           string   `json:"title"`
+	Views           int64    `json:"views"`
+	Likes           int64    `json:"likes"`
+	Comments        int64    `json:"comments"`
+	Shares          int64    `json:"shares"`
+	Clicks          int64    `json:"clicks,omitempty"`
+	CommentTexts    []string `json:"comment_texts,omitempty"`
+	Thumbnail       string   `json:"thumbnail,omitempty"`
+	Description     string   `json:"description,omitempty"`
+	Tags            []string `json:"tags,omitempty"`
+	DurationSeconds int      `json:"duration_seconds"`
+	URL             string   `json:"url"`
+	PublishedAt     string   `json:"published_at"`
 }
 
 // loadManualGroups reads manual_groups.json if it exists; returns empty slice otherwise.
@@ -155,42 +185,77 @@ func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 }
 
 // buildVideoGroup assembles a VideoGroup from a slice of video indices.
-// Canonical title prefers YouTube, then TikTok, then first available.
+// Canonical title/thumbnail/description prefer YouTube, then TikTok, then first available.
 // Duration prefers YouTube, then TikTok (LinkedIn reports 0).
+// Tags are the deduplicated union across all platforms.
 func buildVideoGroup(videos []Video, indices []int) VideoGroup {
 	group := VideoGroup{Platforms: map[string]PlatformData{}}
-	var totalViews int64
-	var canonicalTitle string
+	var totalViews, totalLikes, totalComments, totalShares int64
+	var canonicalTitle, canonicalThumbnail, canonicalDescription string
 	var canonicalPriority int // 1=youtube, 2=tiktok, 3=other
+	tagSet := map[string]bool{}
 
 	for _, idx := range indices {
 		v := videos[idx]
 		totalViews += v.Views
+		totalLikes += v.Likes
+		totalComments += v.Comments
+		totalShares += v.Shares
 
 		switch {
 		case v.Platform == "youtube":
 			canonicalTitle = v.Title
+			canonicalThumbnail = v.Thumbnail
+			canonicalDescription = v.Description
 			canonicalPriority = 1
 		case v.Platform == "tiktok" && canonicalPriority != 1:
 			canonicalTitle = v.Title
+			canonicalThumbnail = v.Thumbnail
+			canonicalDescription = v.Description
 			canonicalPriority = 2
 		case canonicalPriority == 0:
 			canonicalTitle = v.Title
+			canonicalThumbnail = v.Thumbnail
+			canonicalDescription = v.Description
 			canonicalPriority = 3
+		}
+
+		for _, tag := range v.Tags {
+			tagSet[tag] = true
 		}
 
 		group.Platforms[v.Platform] = PlatformData{
 			VideoID:         v.ID,
 			Title:           v.Title,
 			Views:           v.Views,
+			Likes:           v.Likes,
+			Comments:        v.Comments,
+			Shares:          v.Shares,
+			Clicks:          v.Clicks,
+			CommentTexts:    v.CommentTexts,
+			Thumbnail:       v.Thumbnail,
+			Description:     v.Description,
+			Tags:            v.Tags,
 			URL:             v.URL,
 			PublishedAt:     v.PublishedAt,
 			DurationSeconds: v.DurationSeconds,
 		}
 	}
 
+	// Deduplicated union of tags
+	var tags []string
+	for tag := range tagSet {
+		tags = append(tags, tag)
+	}
+
 	group.CanonicalTitle = canonicalTitle
 	group.TotalViews = totalViews
+	group.TotalLikes = totalLikes
+	group.TotalComments = totalComments
+	group.TotalShares = totalShares
+	group.Thumbnail = canonicalThumbnail
+	group.Description = canonicalDescription
+	group.Tags = tags
 
 	if pd, ok := group.Platforms["youtube"]; ok {
 		group.DurationSeconds = pd.DurationSeconds
@@ -208,6 +273,14 @@ func videoToUnmatched(v Video) UnmatchedVideo {
 		VideoID:         v.ID,
 		Title:           v.Title,
 		Views:           v.Views,
+		Likes:           v.Likes,
+		Comments:        v.Comments,
+		Shares:          v.Shares,
+		Clicks:          v.Clicks,
+		CommentTexts:    v.CommentTexts,
+		Thumbnail:       v.Thumbnail,
+		Description:     v.Description,
+		Tags:            v.Tags,
 		DurationSeconds: v.DurationSeconds,
 		URL:             v.URL,
 		PublishedAt:     v.PublishedAt,

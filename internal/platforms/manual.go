@@ -37,7 +37,7 @@ func ManualFetch() ([]internal.Video, error) {
 	for _, entry := range entries {
 		platform := inferPlatform(entry.URL)
 		fmt.Printf("  Fetching manual video (%s): %s\n", platform, entry.URL)
-		videos, err := ytdlpFetch(platform, entry.URL)
+		videos, err := ytdlpFetch(platform, entry.URL, false)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "manual: warning: could not fetch %s: %v\n", entry.URL, err)
 			continue

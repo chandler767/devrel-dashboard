@@ -8,11 +8,14 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"regexp"
 	"strings"
 	"time"
 
 	"github.com/devrel-dashboard/internal"
 )
+
+var liHashtagRe = regexp.MustCompile(`#(\w+)`)
 
 const (
 	liAPIBase    = "https://api.linkedin.com"
@@ -35,9 +38,19 @@ type liPost struct {
 	PublishedAt int64  `json:"publishedAt"` // Unix ms
 	Content     struct {
 		Media *struct {
-			ID string `json:"id"` // "urn:li:video:..." or "urn:li:image:..."
+			ID        string `json:"id"`        // "urn:li:video:..." or "urn:li:image:..."
+			Thumbnail string `json:"thumbnail"` // thumbnail URL (may be empty)
 		} `json:"media"`
 	} `json:"content"`
+}
+
+// liEngagement holds all engagement metrics for a single post.
+type liEngagement struct {
+	Views    int64
+	Likes    int64
+	Comments int64
+	Shares   int64
+	Clicks   int64
 }
 
 // ── Client ────────────────────────────────────────────────────────────────────
@@ -211,10 +224,10 @@ func (c *liClient) fetchPosts(authorURN string) ([]liPost, error) {
 	return all, nil
 }
 
-// batchOrgPostImpressions fetches impression counts for all posts of an org in
-// a single API call. Returns a map of postURN → impressionCount.
+// batchOrgPostImpressions fetches engagement metrics for all posts of an org in
+// a single API call. Returns a map of postURN → liEngagement.
 // The RestLi List(...) syntax must not be percent-encoded, so we use getRestLi.
-func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (map[string]int64, error) {
+func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (map[string]liEngagement, error) {
 	encoded := url.Values{
 		"q":                    {"organizationalEntity"},
 		"organizationalEntity": {orgURN},
@@ -249,6 +262,10 @@ func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (ma
 			Share                string `json:"share"`
 			TotalShareStatistics struct {
 				ImpressionCount int64 `json:"impressionCount"`
+				LikeCount       int64 `json:"likeCount"`
+				CommentCount    int64 `json:"commentCount"`
+				ShareCount      int64 `json:"shareCount"`
+				ClickCount      int64 `json:"clickCount"`
 			} `json:"totalShareStatistics"`
 		} `json:"elements"`
 	}
@@ -256,22 +273,29 @@ func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (ma
 		return nil, fmt.Errorf("parse /rest/organizationalEntityShareStatistics: %w (%.400s)", err, string(body))
 	}
 
-	out := make(map[string]int64, len(result.Elements))
+	out := make(map[string]liEngagement, len(result.Elements))
 	for _, el := range result.Elements {
 		key := el.UgcPost
 		if key == "" {
 			key = el.Share
 		}
 		if key != "" {
-			out[key] = el.TotalShareStatistics.ImpressionCount
+			s := el.TotalShareStatistics
+			out[key] = liEngagement{
+				Views:    s.ImpressionCount,
+				Likes:    s.LikeCount,
+				Comments: s.CommentCount,
+				Shares:   s.ShareCount,
+				Clicks:   s.ClickCount,
+			}
 		}
 	}
 	return out, nil
 }
 
-// batchPersonalPostViews fetches impression counts for personal posts in one call.
-// Returns a map of postURN → impressionCount.
-func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, error) {
+// batchPersonalPostViews fetches engagement metrics for personal posts in one call.
+// Returns a map of postURN → liEngagement.
+func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]liEngagement, error) {
 	escaped := make([]string, len(postURNs))
 	for i, u := range postURNs {
 		escaped[i] = url.QueryEscape(u)
@@ -286,6 +310,10 @@ func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, 
 		Results map[string]struct {
 			TotalShareStatistics struct {
 				ImpressionCount int64 `json:"impressionCount"`
+				LikeCount       int64 `json:"likeCount"`
+				CommentCount    int64 `json:"commentCount"`
+				ShareCount      int64 `json:"shareCount"`
+				ClickCount      int64 `json:"clickCount"`
 			} `json:"totalShareStatistics"`
 		} `json:"results"`
 	}
@@ -293,11 +321,51 @@ func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, 
 		return nil, fmt.Errorf("parse /rest/socialMetricsV2: %w", err)
 	}
 
-	out := make(map[string]int64, len(result.Results))
+	out := make(map[string]liEngagement, len(result.Results))
 	for urn, entry := range result.Results {
-		out[urn] = entry.TotalShareStatistics.ImpressionCount
+		s := entry.TotalShareStatistics
+		out[urn] = liEngagement{
+			Views:    s.ImpressionCount,
+			Likes:    s.LikeCount,
+			Comments: s.CommentCount,
+			Shares:   s.ShareCount,
+			Clicks:   s.ClickCount,
+		}
 	}
 	return out, nil
+}
+
+// fetchPostComments fetches up to n comments for a post, returned as "Author: text" strings.
+func (c *liClient) fetchPostComments(postURN string, n int) []string {
+	params := url.Values{"count": {fmt.Sprintf("%d", n)}}
+	body, err := c.get("/rest/socialActions/"+url.PathEscape(postURN)+"/comments", params)
+	if err != nil {
+		return nil
+	}
+	var result struct {
+		Elements []struct {
+			Actor   string `json:"actor"`
+			Message struct {
+				Text string `json:"text"`
+			} `json:"message"`
+		} `json:"elements"`
+	}
+	if err := json.Unmarshal(body, &result); err != nil {
+		return nil
+	}
+	out := make([]string, 0, len(result.Elements))
+	for _, el := range result.Elements {
+		text := strings.TrimSpace(el.Message.Text)
+		if text == "" {
+			continue
+		}
+		if el.Actor != "" {
+			out = append(out, el.Actor+": "+text)
+		} else {
+			out = append(out, text)
+		}
+	}
+	return out
 }
 
 // ── LinkedInFetch ─────────────────────────────────────────────────────────────
@@ -307,7 +375,8 @@ func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]int64, 
 // LINKEDIN_CLIENT_SECRET, and LINKEDIN_REFRESH_TOKEN are set).
 // Set LINKEDIN_PERSON_URN to fetch personal video posts.
 // Set LINKEDIN_ORG_URNS (comma-separated) to fetch from LinkedIn Pages.
-func LinkedInFetch() ([]internal.Video, error) {
+// Pass withComments=true to also fetch comment text (one extra API call per post).
+func LinkedInFetch(withComments bool) ([]internal.Video, error) {
 	accessToken, err := refreshToken()
 	if err != nil {
 		return nil, err
@@ -336,10 +405,10 @@ func LinkedInFetch() ([]internal.Video, error) {
 		}
 	}
 
-	// orgImpressions maps orgURN → (postURN → impressionCount), populated in batch
-	orgImpressions := map[string]map[string]int64{}
+	// orgEngagement maps orgURN → (postURN → liEngagement), populated in batch
+	orgEngagement := map[string]map[string]liEngagement{}
 
-	// Fetch org posts, then batch-fetch their impression counts
+	// Fetch org posts, then batch-fetch their engagement metrics
 	if orgURNsStr := os.Getenv("LINKEDIN_ORG_URNS"); orgURNsStr != "" {
 		for _, orgURN := range strings.Split(orgURNsStr, ",") {
 			orgURN = strings.TrimSpace(orgURN)
@@ -355,24 +424,24 @@ func LinkedInFetch() ([]internal.Video, error) {
 				sourcePosts = append(sourcePosts, sourcePost{post: p, orgURN: orgURN})
 			}
 
-			// Batch-fetch impression counts for all posts in this org (1 API call)
+			// Batch-fetch engagement metrics for all posts in this org (1 API call)
 			postURNs := make([]string, len(posts))
 			for i, p := range posts {
 				postURNs[i] = p.ID
 			}
 			if len(postURNs) > 0 {
-				impressions, err := client.batchOrgPostImpressions(orgURN, postURNs)
+				eng, err := client.batchOrgPostImpressions(orgURN, postURNs)
 				if err != nil {
 					fmt.Fprintf(os.Stderr, "  linkedin warning: batchOrgPostImpressions(%s): %v\n", orgURN, err)
 				} else {
-					orgImpressions[orgURN] = impressions
+					orgEngagement[orgURN] = eng
 				}
 			}
 		}
 	}
 
-	// Batch-fetch personal post impression counts (1 API call total)
-	personalImpressions := map[string]int64{}
+	// Batch-fetch personal post engagement metrics (1 API call total)
+	personalEngagement := map[string]liEngagement{}
 	var personalURNs []string
 	for _, sp := range sourcePosts {
 		if sp.orgURN == "" {
@@ -383,7 +452,7 @@ func LinkedInFetch() ([]internal.Video, error) {
 		if m, err := client.batchPersonalPostViews(personalURNs); err != nil {
 			fmt.Fprintf(os.Stderr, "  linkedin warning: batchPersonalPostViews: %v\n", err)
 		} else {
-			personalImpressions = m
+			personalEngagement = m
 		}
 	}
 
@@ -391,26 +460,40 @@ func LinkedInFetch() ([]internal.Video, error) {
 	for _, sp := range sourcePosts {
 		p := sp.post
 
-		// Resolve view count from batch results
-		var views int64
+		// Resolve engagement from batch results
+		var eng liEngagement
 		if sp.orgURN != "" {
-			if m, ok := orgImpressions[sp.orgURN]; ok {
-				views = m[p.ID]
+			if m, ok := orgEngagement[sp.orgURN]; ok {
+				eng = m[p.ID]
 			}
 		} else {
-			views = personalImpressions[p.ID]
+			eng = personalEngagement[p.ID]
 		}
 
 		// Title: first line of commentary, capped at 120 chars
 		title := "(untitled)"
-		if text := strings.TrimSpace(p.Commentary); text != "" {
-			if idx := strings.IndexByte(text, '\n'); idx > 0 {
-				text = text[:idx]
+		commentary := strings.TrimSpace(p.Commentary)
+		if commentary != "" {
+			firstLine := commentary
+			if idx := strings.IndexByte(firstLine, '\n'); idx > 0 {
+				firstLine = firstLine[:idx]
 			}
-			if len(text) > 120 {
-				text = text[:120]
+			if len(firstLine) > 120 {
+				firstLine = firstLine[:120]
 			}
-			title = text
+			title = firstLine
+		}
+
+		// Extract hashtags from full commentary
+		var tags []string
+		for _, match := range liHashtagRe.FindAllStringSubmatch(commentary, -1) {
+			tags = append(tags, match[1])
+		}
+
+		// Thumbnail from media content
+		thumbnail := ""
+		if p.Content.Media != nil {
+			thumbnail = p.Content.Media.Thumbnail
 		}
 
 		publishedAt := ""
@@ -420,12 +503,25 @@ func LinkedInFetch() ([]internal.Video, error) {
 
 		postURL := "https://www.linkedin.com/feed/update/" + url.PathEscape(p.ID) + "/"
 
+		var commentTexts []string
+		if withComments {
+			commentTexts = client.fetchPostComments(p.ID, 20)
+		}
+
 		videos = append(videos, internal.Video{
 			Platform:        "linkedin",
 			ID:              p.ID,
 			Title:           title,
 			Author:          p.Author,
-			Views:           views,
+			Views:           eng.Views,
+			Likes:           eng.Likes,
+			Comments:        eng.Comments,
+			Shares:          eng.Shares,
+			Clicks:          eng.Clicks,
+			CommentTexts:    commentTexts,
+			Thumbnail:       thumbnail,
+			Description:     commentary,
+			Tags:            tags,
 			DurationSeconds: 0, // not available from posts API
 			URL:             postURL,
 			PublishedAt:     publishedAt,

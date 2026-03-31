@@ -140,6 +140,9 @@ main {
 /* Badge inside pv-views stays inline */
 .pv-views .growth-badge { font-size: 10px; margin-left: 5px; }
 
+/* Badge inside pv-title (NEW tag) sits before the title text */
+.pv-title .growth-badge { font-size: 10px; margin-left: 0; margin-right: 6px; vertical-align: middle; }
+
 /* Badge inside video-total-views stays inline */
 .video-total-views .growth-badge { font-size: 12px; }
 
@@ -258,7 +261,7 @@ main {
 
 .platform-version-row {
   display: grid;
-  grid-template-columns: 10px 64px 1fr auto auto;
+  grid-template-columns: 10px 64px 1fr auto auto auto;
   align-items: center;
   gap: 8px;
   padding: 5px 8px;
@@ -270,7 +273,7 @@ main {
 }
 
 .platform-versions.local .platform-version-row {
-  grid-template-columns: 10px 64px 1fr auto auto auto;
+  grid-template-columns: 10px 64px 1fr auto auto auto auto;
 }
 
 .platform-version-row:hover { background: var(--surface2); }
@@ -294,8 +297,8 @@ main {
 
 .pv-name  { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .pv-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pv-date  { font-size: 12px; color: var(--text-muted); white-space: nowrap; }
-.pv-views { font-size: 13px; font-weight: 700; text-align: right; white-space: nowrap; }
+.pv-date  { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.pv-views { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: right; white-space: nowrap; }
 
 /* ── Select Buttons (local mode) ─────────────────────── */
 
@@ -395,6 +398,37 @@ main {
 }
 
 .merge-cancel-btn:hover { border-color: var(--text-muted); color: var(--text); }
+
+/* ── Metric Tabs ─────────────────────────────────────── */
+.metric-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.metric-tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.metric-tab:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.metric-tab.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
 
 /* ── Date Range Tabs ─────────────────────────────────── */
 .range-tabs {
@@ -691,9 +725,11 @@ body.exporting .select-btn,
 body.exporting .pv-select-btn,
 body.exporting #merge-bar,
 body.exporting .range-tabs,
+body.exporting .metric-tabs,
 body.exporting .custom-range,
 body.exporting .trend-toggle,
 body.exporting #hidden-bar,
+body.exporting .modal-overlay,
 body.exporting .report-select,
 body.exporting #export-btn,
 body.exporting #share-btn,
@@ -731,4 +767,201 @@ body.exporting .notice-bar { display: none !important; }
     position: static;
     margin-top: 4px;
   }
+  .metric-tabs { margin-bottom: 16px; }
+}
+
+/* ── Video Thumbnail ─────────────────────────────────── */
+.video-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: var(--radius) var(--radius) 0 0;
+  display: block;
+}
+
+/* ── Engagement Strip ────────────────────────────────── */
+.video-engagement {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 6px 14px 4px;
+  flex-wrap: wrap;
+}
+
+.eng-stat {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+button.eng-stat {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+button.eng-stat:hover {
+  color: var(--accent);
+}
+
+/* ── Tags ────────────────────────────────────────────── */
+.video-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 4px 14px 2px;
+}
+
+.tag-chip {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* ── Description ─────────────────────────────────────── */
+.video-description {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 4px 14px 6px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.desc-toggle {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0 0 0 4px;
+  text-decoration: underline;
+}
+
+/* ── Platform-row engagement ─────────────────────────── */
+.pv-engagement {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.pv-engagement span {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.pv-comment-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.pv-comment-btn:hover { color: var(--accent); }
+
+/* ── Comments Modal ──────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 560px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.modal-title {
+  font-size: 14px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+  flex-shrink: 0;
+}
+
+.modal-close:hover { color: var(--text); }
+
+.modal-body {
+  overflow-y: auto;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.comment-platform-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 8px;
+}
+
+.comment-platform-header:first-child { margin-top: 0; }
+
+.comment-item {
+  font-size: 13px;
+  color: var(--text);
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.comment-empty {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 24px 0;
 }
