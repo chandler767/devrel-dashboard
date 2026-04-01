@@ -1058,13 +1058,7 @@ function renderCard(item) {
 
   meta.append(totalEl);
 
-  if (item.transcripts && Object.values(item.transcripts).some(t => t)) {
-    const badge = document.createElement('span');
-    badge.className = 'transcript-badge';
-    badge.title = 'Transcript available';
-    badge.textContent = 'T';
-    meta.append(badge);
-  }
+
 
   header.append(titleEl, meta);
 

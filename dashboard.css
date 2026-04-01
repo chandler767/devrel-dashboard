@@ -1161,21 +1161,6 @@ button.eng-stat:hover {
   text-align: center;
 }
 
-/* Transcript badge on video cards */
-.transcript-badge {
-  display: inline-block;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 1px 5px;
-  border-radius: 3px;
-  color: var(--tt);
-  background: rgba(105, 201, 208, 0.15);
-  letter-spacing: 0.5px;
-  vertical-align: middle;
-  margin-left: 6px;
-  cursor: default;
-}
-
 /* Hide CI tab from screenshot exports */
 body.exporting #tab-ci { display: none !important; }
 
