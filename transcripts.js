@@ -1,6 +1,6 @@
 window.__devrelTranscripts={
   "version": 1,
-  "updated_at": "2026-03-31T22:37:24Z",
+  "updated_at": "2026-04-01T14:51:42Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -396,6 +396,12 @@ window.__devrelTranscripts={
       "fetched_at": "2026-03-31T22:35:40Z",
       "lang": "en",
       "text": "Kind: captions Language: en If you're building anything with AI agents, you need to know about MCP. And here's why. For MCP, every agent needed a custom integration for every tool and data source that it used. Five agents, 10 tools, that's 50 integrations and that doesn't scale. QMCP or model context protocol. It provides a universal way for agents to discover and use tools. Build the tool once and any agent can use it. Enthropic created it and within a year Google, OpenAI, Microsoft, AWS, they all were using it and now it's under the Linux Foundation. Recently, I built an MCP server with two tools [music] just to give my agent some new abilities. And I had my agent using them within minutes. That's the power of a good standard. [music] It just gets out of the way. If you're evaluating agent architecture right now, MCP isn't optional. It's a new requirement. I'll [music] link to a fulllength version of this video on YouTube if you want to learn",
+      "source": "auto"
+    },
+    "youtube:tZMcfe7iONI": {
+      "fetched_at": "2026-04-01T14:51:42Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Do you know what your AI agents actually did today? Because 80% of organizations have already caught their agents doing something risky. Most of them didn't catch it in time. [music] It's called agentic drift. AI agents gradually moving away from what you told them to do. Not meticulously, just naturally. They access data they shouldn't, make decisions you never approved, and create compliance violations you won't find until an auditor does. Now, here's the kicker. [music] The EU AI acts high-risk rules kick in August 2026. Penalties up to 35 million or 7% of global revenue. If you haven't started preparing, you're already behind. This is why governance as a code is blowing up right now. Instead of policies buried in a PDF nobody reads, you write them as executable code. Automated guardrails that run alongside your agents in real time. version [music] controlled, testable, auditable. Google didn't spend 32 billion on whiz for fun. Governance at scale is the bet right now. [music] If your AI agents don't have codified rules, they're making their own, and that should scare you. Drop your take below. Wakeup call or old news? [music] Hit follow so you don't miss the next",
       "source": "auto"
     },
     "youtube:tvTASjgQSXc": {
