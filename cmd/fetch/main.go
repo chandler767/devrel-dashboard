@@ -388,37 +388,39 @@ func autoFetchNewTranscripts(groups []internal.VideoGroup, unmatched []internal.
 		return store
 	}
 
-	// Collect new keys not yet in the store
+	// Collect new video refs (key + URL) not yet in the store
+	type ref struct{ key, url string }
 	seen := map[string]bool{}
-	var newKeys []string
+	var newRefs []ref
 
-	add := func(platform, videoID string) {
-		if platform == "linkedin" {
+	add := func(platform, videoID, url string) {
+		if platform == "linkedin" || platform == "tiktok" {
 			return
 		}
 		k := platform + ":" + videoID
 		if !seen[k] && !store.Has(k) {
 			seen[k] = true
-			newKeys = append(newKeys, k)
+			newRefs = append(newRefs, ref{k, url})
 		}
 	}
 
 	for _, g := range groups {
 		for platform, pd := range g.Platforms {
-			add(platform, pd.VideoID)
+			add(platform, pd.VideoID, pd.URL)
 		}
 	}
 	for _, u := range unmatched {
-		add(u.Platform, u.VideoID)
+		add(u.Platform, u.VideoID, u.URL)
 	}
 
-	if len(newKeys) == 0 {
+	if len(newRefs) == 0 {
 		return store
 	}
 
-	fmt.Printf("Fetching transcripts for %d new video(s)...\n", len(newKeys))
+	fmt.Printf("Fetching transcripts for %d new video(s)...\n", len(newRefs))
 	var saved int
-	for _, key := range newKeys {
+	for _, r := range newRefs {
+		key := r.key
 		parts := splitKey(key)
 		platform, videoID := parts[0], parts[1]
 
@@ -427,7 +429,11 @@ func autoFetchNewTranscripts(groups []internal.VideoGroup, unmatched []internal.
 		case "youtube":
 			entry, err = transcripts.FetchYouTube(videoID)
 		case "tiktok":
-			entry, err = transcripts.FetchTikTok(videoID)
+			if r.url == "" {
+				fmt.Printf("  skip %s (no URL)\n", key)
+				continue
+			}
+			entry, err = transcripts.FetchTikTok(videoID, r.url)
 		default:
 			continue
 		}

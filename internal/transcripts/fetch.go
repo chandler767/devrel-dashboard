@@ -25,10 +25,11 @@ func FetchYouTube(videoID string) (Entry, error) {
 }
 
 // FetchTikTok attempts to download captions for a TikTok video via yt-dlp.
+// videoURL must be the full URL (e.g. https://www.tiktok.com/@user/video/123)
+// since the video ID alone cannot be used to construct a valid TikTok URL.
 // Many TikTok videos have no captions; Source "none" is the common case.
-func FetchTikTok(videoID string) (Entry, error) {
-	url := fmt.Sprintf("https://www.tiktok.com/video/%s", videoID)
-	return fetchViaYTDLP("tiktok", videoID, url)
+func FetchTikTok(videoID, videoURL string) (Entry, error) {
+	return fetchViaYTDLP("tiktok", videoID, videoURL)
 }
 
 func fetchViaYTDLP(platform, videoID, url string) (Entry, error) {

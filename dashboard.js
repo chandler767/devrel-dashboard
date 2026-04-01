@@ -1552,9 +1552,11 @@ function initExportButton() {
   if (!btn) return;
   btn.addEventListener('click', async () => {
     if (!window.html2canvas) return;
-    document.body.classList.add('exporting');
+    const onCI = !document.getElementById('tab-ci')?.hidden;
+    if (!onCI) document.body.classList.add('exporting');
     try {
-      const canvas = await html2canvas(document.body, {
+      const target = onCI ? document.getElementById('tab-ci') : document.body;
+      const canvas = await html2canvas(target, {
         backgroundColor: '#0f1117',
         scale: 2,
         useCORS: true,
@@ -1562,7 +1564,7 @@ function initExportButton() {
       });
       const a = document.createElement('a');
       a.href = canvas.toDataURL('image/png');
-      a.download = 'devrel-dashboard.png';
+      a.download = onCI ? 'devrel-content-intelligence.png' : 'devrel-dashboard.png';
       a.click();
     } finally {
       document.body.classList.remove('exporting');
@@ -1801,18 +1803,19 @@ function renderContentIntelligence() {
 }
 
 function renderAnalysisText(text) {
-  const sections = text.split(/^###\s+/m).filter(s => s.trim());
+  // Strip top-level h1 title if present (e.g. "# DevRel Short-Form Video Analysis")
+  const stripped = text.replace(/^#\s+[^\n]*\n*/m, '').trim();
+
+  // Split on h2 headings (##) — these are the main sections
+  const sections = stripped.split(/^##\s+/m).filter(s => s.trim());
   if (sections.length === 0) {
-    return `<div class="ci-result-card"><p>${escapeHTML(text)}</p></div>`;
+    return `<div class="ci-result-card">${marked.parse(stripped)}</div>`;
   }
   return sections.map(section => {
     const newlineIdx = section.indexOf('\n');
     const heading = newlineIdx >= 0 ? section.slice(0, newlineIdx).trim() : section.trim();
     const body    = newlineIdx >= 0 ? section.slice(newlineIdx + 1).trim() : '';
-    const safeBody = escapeHTML(body)
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\n/g, '<br>');
-    return `<div class="ci-result-card"><h4>${escapeHTML(heading)}</h4><p>${safeBody}</p></div>`;
+    return `<div class="ci-result-card"><h4>${escapeHTML(heading)}</h4>${marked.parse(body)}</div>`;
   }).join('');
 }
 

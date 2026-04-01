@@ -142,11 +142,19 @@ func buildPrompt(groups []internal.VideoGroup, unmatched []internal.UnmatchedVid
 		var platforms []string
 		var commentTexts []string
 		var transcript string
-		for platform, pd := range g.Platforms {
-			platforms = append(platforms, platform)
+		// Prefer YouTube transcript — it represents the shared script for all
+		// platform versions of this video (TikTok/LinkedIn are the same content).
+		for _, preferredPlatform := range []string{"youtube", "tiktok", "linkedin"} {
+			pd, ok := g.Platforms[preferredPlatform]
+			if !ok {
+				continue
+			}
+			platforms = append(platforms, preferredPlatform)
 			commentTexts = append(commentTexts, pd.CommentTexts...)
-			if t := transcripts[platform+":"+pd.VideoID]; t != "" && transcript == "" {
-				transcript = t
+			if transcript == "" {
+				if t := transcripts[preferredPlatform+":"+pd.VideoID]; t != "" {
+					transcript = t
+				}
 			}
 		}
 		publishedDates := make([]string, 0, len(g.Platforms))
@@ -199,7 +207,7 @@ func buildPrompt(groups []internal.VideoGroup, unmatched []internal.UnmatchedVid
 	}
 
 	var sb strings.Builder
-	fmt.Fprintf(&sb, "I have %d short-form DevRel videos. Please analyze them and provide insights in exactly these four sections:\n\n", len(entries))
+	fmt.Fprintf(&sb, "I have %d short-form DevRel videos, each posted across multiple platforms (YouTube, TikTok, LinkedIn). The videos grouped together are the same content — view/like/comment counts are aggregated across platforms. YouTube transcripts represent the script for all platform versions of that video.\n\nPlease analyze them and provide insights in exactly these four sections:\n\n", len(entries))
 	sb.WriteString("### Top Topics & Themes\nList the most common subjects across these videos. Note which topics correlate with higher view counts.\n\n")
 	sb.WriteString("### Title & Hook Patterns\nIdentify specific words, phrases, or structural patterns in titles that correlate with better performance. What makes a good hook for this audience?\n\n")
 	sb.WriteString("### Viewer Questions & Requests\nExtract recurring questions, requests, or pain points from the comments. Group by theme.\n\n")
@@ -228,7 +236,7 @@ func buildPrompt(groups []internal.VideoGroup, unmatched []internal.UnmatchedVid
 			fmt.Fprintf(&sb, "Description: %s\n", desc)
 		}
 		if transcript != "" {
-			fmt.Fprintf(&sb, "Transcript: %s\n", transcript)
+			fmt.Fprintf(&sb, "Transcript (YouTube/shared script): %s\n", transcript)
 		} else {
 			sb.WriteString("Transcript: none\n")
 		}

@@ -1103,6 +1103,55 @@ button.eng-stat:hover {
   font-size: 13px;
   line-height: 1.7;
   color: var(--text);
+  margin-bottom: 8px;
+}
+.ci-result-card ul,
+.ci-result-card ol {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text);
+  padding-left: 20px;
+  margin-bottom: 8px;
+}
+.ci-result-card li {
+  margin-bottom: 4px;
+}
+.ci-result-card strong {
+  color: var(--text);
+  font-weight: 600;
+}
+.ci-result-card h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 12px 0 4px;
+}
+.ci-result-card table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+.ci-result-card th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text2);
+  border-bottom: 1px solid var(--border);
+  padding: 4px 8px 4px 0;
+}
+.ci-result-card td {
+  padding: 5px 8px 5px 0;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.ci-result-card tr:last-child td {
+  border-bottom: none;
+}
+.ci-result-card hr {
+  display: none;
 }
 
 .ci-spinner {
