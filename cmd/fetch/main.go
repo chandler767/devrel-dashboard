@@ -18,13 +18,14 @@ import (
 )
 
 func main() {
-	dryRun       := flag.Bool("dry-run", false, "Print the report JSON to stdout without writing files or committing")
-	skipYT       := flag.Bool("skip-youtube", false, "Skip fetching from YouTube")
-	skipTT       := flag.Bool("skip-tiktok", false, "Skip fetching from TikTok")
-	skipLI       := flag.Bool("skip-linkedin", false, "Skip fetching from LinkedIn")
-	liAuth       := flag.Bool("linkedin-auth", false, "Run one-time LinkedIn OAuth setup and exit")
-	since        := flag.String("since", "", "Only include new videos published on or after this date (YYYY-MM-DD). Already-approved videos are unaffected.")
-	fetchComments := flag.Bool("fetch-comments", true, "Fetch comment text for each video (slower; ~20 comments per video)")
+	dryRun         := flag.Bool("dry-run", false, "Print the report JSON to stdout without writing files or committing")
+	skipYT         := flag.Bool("skip-youtube", false, "Skip fetching from YouTube")
+	skipTT         := flag.Bool("skip-tiktok", false, "Skip fetching from TikTok")
+	skipLI         := flag.Bool("skip-linkedin", false, "Skip fetching from LinkedIn")
+	liAuth         := flag.Bool("linkedin-auth", false, "Run one-time LinkedIn OAuth setup and exit")
+	since          := flag.String("since", "", "Only include new videos published on or after this date (YYYY-MM-DD). Already-approved videos are unaffected.")
+	fetchComments  := flag.Bool("fetch-comments", true, "Fetch comment text for each video (slower; ~20 comments per video)")
+	keepDuplicates := flag.Bool("keep-duplicates", false, "Keep existing reports from the same AM/PM window instead of replacing them")
 	flag.Parse()
 
 	if err := godotenv.Load(); err != nil {
@@ -211,7 +212,7 @@ func main() {
 	groups, unmatched := internal.Group(allVideos)
 	fmt.Printf("  %d video groups, %d unmatched\n\n", len(groups), len(unmatched))
 
-	reportID, err := internal.SaveReport(groups, unmatched, *dryRun)
+	reportID, err := internal.SaveReport(groups, unmatched, *dryRun, *keepDuplicates)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error saving report: %v\n", err)
 		os.Exit(1)

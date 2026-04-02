@@ -36,10 +36,22 @@ type ReportIndex struct {
 	Reports []ReportIndexEntry `json:"reports"`
 }
 
+// halfDaySlot returns a string like "2026-04-02-AM" or "2026-04-02-PM" for the
+// given UTC time, used to identify the 12-hour window a report falls into.
+func halfDaySlot(t time.Time) string {
+	half := "AM"
+	if t.UTC().Hour() >= 12 {
+		half = "PM"
+	}
+	return t.UTC().Format("2006-01-02") + "-" + half
+}
+
 // SaveReport writes the report to reports/<id>.json, updates reports/index.json,
 // and if dryRun is false, commits and pushes to git.
 // Returns the generated reportID so callers can associate follow-up files with it.
-func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) (string, error) {
+// If keepDuplicates is false (the default), any existing report in the same
+// AM/PM half-day window is deleted before the new one is written.
+func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool, keepDuplicates bool) (string, error) {
 	now := time.Now().UTC()
 	reportID := now.Format("2006-01-02T15-04-05Z")
 	fileName := reportID + ".json"
@@ -70,6 +82,13 @@ func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) (s
 		return "", fmt.Errorf("create reports dir: %w", err)
 	}
 
+	// Remove any previous report in the same half-day window unless overridden
+	if !keepDuplicates {
+		if err := removeSameSlotReports(halfDaySlot(now), reportID); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: could not clean up same-slot report: %v\n", err)
+		}
+	}
+
 	reportPath := filepath.Join(reportsDir, fileName)
 	if err := os.WriteFile(reportPath, reportJSON, 0644); err != nil {
 		return "", fmt.Errorf("write report: %w", err)
@@ -87,6 +106,61 @@ func SaveReport(groups []VideoGroup, unmatched []UnmatchedVideo, dryRun bool) (s
 	}
 
 	return reportID, nil
+}
+
+// removeSameSlotReports deletes any existing report whose ID falls in the same
+// half-day slot as the new report, then removes it from the index.
+// newReportID is excluded so we never delete the report we're about to write.
+func removeSameSlotReports(slot, newReportID string) error {
+	indexPath := filepath.Join(reportsDir, "index.json")
+	data, err := os.ReadFile(indexPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	}
+
+	var index ReportIndex
+	if err := json.Unmarshal(data, &index); err != nil {
+		return err
+	}
+
+	var keep []ReportIndexEntry
+	for _, e := range index.Reports {
+		t, err := time.Parse(time.RFC3339, e.GeneratedAt)
+		if err != nil || e.ID == newReportID {
+			keep = append(keep, e)
+			continue
+		}
+		if halfDaySlot(t) != slot {
+			keep = append(keep, e)
+			continue
+		}
+		// Same slot — delete report files and analysis files
+		fmt.Printf("Replacing same-slot report: %s\n", e.ID)
+		for _, f := range []string{
+			filepath.Join(reportsDir, e.ID+".json"),
+			filepath.Join(reportsDir, e.ID+".js"),
+			filepath.Join("analysis", e.ID+".json"),
+			filepath.Join("analysis", e.ID+".js"),
+		} {
+			if rerr := os.Remove(f); rerr != nil && !os.IsNotExist(rerr) {
+				fmt.Fprintf(os.Stderr, "  Warning: could not remove %s: %v\n", f, rerr)
+			}
+		}
+	}
+	index.Reports = keep
+
+	out, err := json.MarshalIndent(index, "", "  ")
+	if err != nil {
+		return err
+	}
+	if err := os.WriteFile(indexPath, out, 0644); err != nil {
+		return err
+	}
+	indexJS := fmt.Sprintf("window.__devrelIndex=%s;", string(out))
+	return os.WriteFile(filepath.Join(reportsDir, "index.js"), []byte(indexJS), 0644)
 }
 
 func updateIndex(reportID, fileName string, generatedAt time.Time) error {
