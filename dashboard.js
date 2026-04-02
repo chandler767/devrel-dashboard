@@ -1196,6 +1196,151 @@ function renderCard(item) {
   return card;
 }
 
+function renderDayCard(dayItems) {
+  const card = document.createElement('div');
+  card.className = 'video-card';
+
+  // Header: date on left, aggregated totals on right
+  const header = document.createElement('div');
+  header.className = 'video-card-header';
+
+  const dateLabel = document.createElement('span');
+  dateLabel.className = 'day-card-date';
+  dateLabel.textContent = dayItems[0]?.publishedAt ? fmtDate(dayItems[0].publishedAt) : 'Unknown date';
+
+  const meta = document.createElement('div');
+  meta.className = 'video-meta';
+
+  const totalViews    = dayItems.reduce((s, i) => s + (i.totalViews    || 0), 0);
+  const totalLikes    = dayItems.reduce((s, i) => s + (i.totalLikes    || 0), 0);
+  const totalComments = dayItems.reduce((s, i) => s + (i.totalComments || 0), 0);
+  const totalShares   = dayItems.reduce((s, i) => s + (i.totalShares   || 0), 0);
+  const allPlatforms  = [...new Set(dayItems.flatMap(i => i.platforms.map(p => p.platform)))];
+
+  const totalEl = document.createElement('span');
+  totalEl.className = 'video-total-views';
+  totalEl.textContent = `▶ ${fmt(totalViews)}`;
+  meta.append(totalEl);
+
+  const engDefs = [
+    { key: 'likes',    icon: '♥',  val: totalLikes    },
+    { key: 'comments', icon: '◉',  val: totalComments },
+    { key: 'shares',   icon: '⬆',  val: totalShares   },
+  ];
+  for (const def of engDefs) {
+    const supported = allPlatforms.some(pl => (PLATFORM_CAPS[pl] || {})[def.key]);
+    if (!supported) continue;
+    const span = document.createElement('span');
+    span.className = 'eng-stat';
+    span.textContent = `${def.icon} ${fmt(def.val)}`;
+    meta.append(span);
+  }
+
+  header.append(dateLabel, meta);
+  card.append(header);
+
+  // One platform-versions block containing all items as item-groups
+  const local = isLocalMode();
+  const versions = document.createElement('div');
+  versions.className = local ? 'platform-versions local' : 'platform-versions';
+
+  for (const item of dayItems) {
+    const group = document.createElement('div');
+    group.className = 'item-group';
+
+    for (const p of item.platforms) {
+      const row = document.createElement('div');
+      row.className = 'platform-version-row';
+      row.dataset.href = p.url || '';
+
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('.pv-select-btn')) return;
+        if (e.target.closest('.pv-engagement')) return;
+        if (p.url) window.open(p.url, '_blank', 'noopener,noreferrer');
+      });
+
+      const dot = document.createElement('span');
+      dot.className = `platform-dot ${PLATFORM_COLORS[p.platform] || 'unknown'}`;
+
+      const nameEl = document.createElement('span');
+      nameEl.className = 'pv-name';
+      nameEl.textContent = PLATFORM_LABELS[p.platform] || p.platform;
+
+      const pvTitle = document.createElement('span');
+      pvTitle.className = 'pv-title';
+      if (isWithin7Days(p.published_at)) pvTitle.appendChild(newBadge());
+      pvTitle.appendChild(document.createTextNode(p.title || ''));
+
+      const pvViews = document.createElement('span');
+      pvViews.className = 'pv-views';
+      pvViews.textContent = `▶ ${fmt(p.views)}`;
+      const prevPlatformViews = prevViewMap[`${p.platform}:${p.video_id}`] ?? null;
+      if (!isWithin7Days(p.published_at)) {
+        const pvGrowth = growthEl(pctChange(p.views || 0, prevPlatformViews));
+        if (pvGrowth) pvViews.appendChild(pvGrowth);
+      }
+
+      const caps = PLATFORM_CAPS[p.platform] || {};
+      const pvEng = document.createElement('span');
+      pvEng.className = 'pv-engagement';
+      if (caps.likes)    pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `♥ ${fmt(p.likes || 0)}` }));
+      if (caps.comments) {
+        const pvCommentBtn = document.createElement('button');
+        pvCommentBtn.className = 'pv-comment-btn';
+        pvCommentBtn.textContent = `◉ ${fmt(p.comments || 0)}`;
+        pvCommentBtn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item, p); });
+        pvEng.appendChild(pvCommentBtn);
+      }
+      if (caps.shares) pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `⬆ ${fmt(p.shares || 0)}` }));
+
+      row.append(dot, nameEl, pvTitle, pvViews, pvEng);
+
+      if (local) {
+        const pvBtn = document.createElement('button');
+        pvBtn.className   = 'pv-select-btn';
+        pvBtn.textContent = 'Select';
+        const rowKey = `pvrow:${p.platform}:${p.video_id}`;
+        const rowLabel = `${PLATFORM_LABELS[p.platform] || p.platform} – ${p.title || '(untitled)'}`;
+        pvBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleItemSelection(rowKey, [{ platform: p.platform, id: p.video_id }], rowLabel, row, pvBtn);
+        });
+        row.appendChild(pvBtn);
+      }
+
+      group.appendChild(row);
+    }
+
+    const hideBtn = document.createElement('button');
+    hideBtn.className   = 'hide-btn';
+    hideBtn.textContent = '×';
+    hideBtn.title       = 'Hide this video';
+    hideBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hiddenVideos.add(item.cardKey);
+      saveHiddenVideos();
+      if (currentReport) renderReport(currentReport, getActiveRange());
+    });
+    group.appendChild(hideBtn);
+
+    if (local) {
+      const btn = document.createElement('button');
+      btn.className   = 'select-btn';
+      btn.textContent = 'Select all';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleItemSelection(item.cardKey, item.videoIds, item.canonicalTitle, group, btn);
+      });
+      group.appendChild(btn);
+    }
+
+    versions.appendChild(group);
+  }
+
+  card.appendChild(versions);
+  return card;
+}
+
 // ── Comments Modal ────────────────────────────────────────────────────────────
 
 function showCommentsModal(item, singlePlatform = null) {
@@ -1298,19 +1443,28 @@ function renderVideoList(items, range) {
     dayTotals[day]  = (dayTotals[day]   || 0) + (item.totalViews || 0);
   }
 
-  let currentWeekKey = null;
-  let currentDayKey  = null;
+  // Group items by day (preserving sort order)
+  const dayGroups = [];
+  const dayGroupMap = {};
   for (const item of sorted) {
-    const weekKey = isoWeekKey(item.publishedAt);
-    const dayKey  = item.publishedAt ? item.publishedAt.slice(0, 10) : 'unknown';
+    const dayKey = item.publishedAt ? item.publishedAt.slice(0, 10) : 'unknown';
+    if (!dayGroupMap[dayKey]) {
+      dayGroupMap[dayKey] = [];
+      dayGroups.push({ dayKey, items: dayGroupMap[dayKey] });
+    }
+    dayGroupMap[dayKey].push(item);
+  }
+
+  let currentWeekKey = null;
+  for (const { items: dayItems } of dayGroups) {
+    const weekKey = isoWeekKey(dayItems[0].publishedAt);
 
     if (weekKey !== currentWeekKey) {
       currentWeekKey = weekKey;
-      currentDayKey  = null; // force day heading on first card of new week
       const header = document.createElement('div');
       header.className = 'week-heading';
       const labelSpan = document.createElement('span');
-      labelSpan.textContent = isoWeekLabel(item.publishedAt);
+      labelSpan.textContent = isoWeekLabel(dayItems[0].publishedAt);
       const totalSpan = document.createElement('span');
       totalSpan.className = 'week-heading-total';
       totalSpan.textContent = `▶ ${fmt(weekTotals[weekKey])}`;
@@ -1318,17 +1472,7 @@ function renderVideoList(items, range) {
       container.appendChild(header);
     }
 
-    if (dayKey !== currentDayKey) {
-      currentDayKey = dayKey;
-      const dayHeader = document.createElement('div');
-      dayHeader.className = 'day-heading';
-      const dayLabel = document.createElement('span');
-      dayLabel.textContent = item.publishedAt ? fmtDate(item.publishedAt) : 'Unknown date';
-      dayHeader.append(dayLabel);
-      container.appendChild(dayHeader);
-    }
-
-    container.appendChild(renderCard(item));
+    container.appendChild(renderDayCard(dayItems));
   }
 }
 

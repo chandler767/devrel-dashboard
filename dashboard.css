@@ -553,6 +553,23 @@ main {
 }
 .notice-btn:hover { opacity: 0.85; }
 
+/* ── Day Card ────────────────────────────────────────── */
+.day-card-date {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.item-group {
+  position: relative;
+}
+
+.item-group + .item-group {
+  border-top: 1px solid var(--border);
+  padding-top: 6px;
+  margin-top: 2px;
+}
+
 /* ── Hide Button ─────────────────────────────────────── */
 .hide-btn {
   position: absolute;
@@ -570,7 +587,7 @@ main {
   transition: opacity 0.15s, color 0.15s;
 }
 
-.video-card:hover .hide-btn { opacity: 1; }
+.item-group:hover .hide-btn { opacity: 1; }
 .hide-btn:hover { color: #f87171; }
 
 /* ── Hidden Bar ──────────────────────────────────────── */
