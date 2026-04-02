@@ -1129,7 +1129,20 @@ function renderCard(item) {
     pvDate.className = 'pv-date';
     pvDate.textContent = p.published_at ? fmtDateShort(p.published_at) : '';
 
-    row.append(dot, nameEl, pvTitle, pvDate);
+    const caps = PLATFORM_CAPS[p.platform] || {};
+    const pvEng = document.createElement('span');
+    pvEng.className = 'pv-engagement';
+    if (caps.likes)    pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `♥ ${fmt(p.likes || 0)}` }));
+    if (caps.comments) {
+      const pvCommentBtn = document.createElement('button');
+      pvCommentBtn.className = 'pv-comment-btn';
+      pvCommentBtn.textContent = `◉ ${fmt(p.comments || 0)}`;
+      pvCommentBtn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item, p); });
+      pvEng.appendChild(pvCommentBtn);
+    }
+    if (caps.shares) pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `⬆ ${fmt(p.shares || 0)}` }));
+
+    row.append(dot, nameEl, pvTitle, pvDate, pvEng);
 
     if (local) {
       const pvBtn = document.createElement('button');

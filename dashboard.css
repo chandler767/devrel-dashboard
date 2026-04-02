@@ -240,8 +240,9 @@ main {
 
 .video-meta {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
   gap: 2px;
   flex-shrink: 0;
 }
@@ -277,7 +278,7 @@ main {
 
 .platform-version-row {
   display: grid;
-  grid-template-columns: 10px 64px 1fr auto;
+  grid-template-columns: 10px 64px 1fr auto auto;
   align-items: center;
   gap: 8px;
   padding: 5px 8px;
@@ -290,7 +291,7 @@ main {
 }
 
 .platform-versions.local .platform-version-row {
-  grid-template-columns: 10px 64px 1fr auto auto;
+  grid-template-columns: 10px 64px 1fr auto auto auto;
 }
 
 .platform-version-row:hover { background: var(--surface2); }
@@ -835,6 +836,18 @@ button.eng-stat:hover {
   white-space: nowrap;
 }
 
+
+.pv-engagement {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.pv-engagement span {
+  font-size: 11px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
 
 .pv-comment-btn {
   background: none;
