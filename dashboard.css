@@ -248,10 +248,9 @@ main {
 }
 
 .video-total-views {
-  font-size: 22px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--green);
-  letter-spacing: -0.3px;
 }
 
 .video-duration {

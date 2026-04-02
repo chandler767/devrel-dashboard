@@ -1324,10 +1324,7 @@ function renderVideoList(items, range) {
       dayHeader.className = 'day-heading';
       const dayLabel = document.createElement('span');
       dayLabel.textContent = item.publishedAt ? fmtDate(item.publishedAt) : 'Unknown date';
-      const dayTotal = document.createElement('span');
-      dayTotal.className = 'day-heading-total';
-      dayTotal.textContent = `▶ ${fmt(dayTotals[dayKey])}`;
-      dayHeader.append(dayLabel, dayTotal);
+      dayHeader.append(dayLabel);
       container.appendChild(dayHeader);
     }
 
