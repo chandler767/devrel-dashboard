@@ -1041,13 +1041,8 @@ function renderCard(item) {
   card.className = 'video-card';
 
 
-  // Header: date + total metric value
   const header = document.createElement('div');
   header.className = 'video-card-header';
-
-  const titleEl = document.createElement('div');
-  titleEl.className = 'video-title';
-  titleEl.textContent = item.publishedAt ? fmtDate(item.publishedAt) : '(no date)';
 
   const meta = document.createElement('div');
   meta.className = 'video-meta';
@@ -1058,9 +1053,7 @@ function renderCard(item) {
 
   meta.append(totalEl);
 
-
-
-  header.append(titleEl, meta);
+  header.append(meta);
 
   // Engagement strip (totals across all platforms)
   const engRow = document.createElement('div');
@@ -1296,18 +1289,25 @@ function renderVideoList(items, range) {
     return (b.totalViews || 0) - (a.totalViews || 0);
   });
 
-  // Pre-compute total views per week for the heading (always views, not activeMetric)
+  // Pre-compute total views per week and per day
   const weekTotals = {};
+  const dayTotals  = {};
   for (const item of sorted) {
-    const wk = isoWeekKey(item.publishedAt);
-    weekTotals[wk] = (weekTotals[wk] || 0) + (item.totalViews || 0);
+    const wk  = isoWeekKey(item.publishedAt);
+    const day = item.publishedAt ? item.publishedAt.slice(0, 10) : 'unknown';
+    weekTotals[wk]  = (weekTotals[wk]  || 0) + (item.totalViews || 0);
+    dayTotals[day]  = (dayTotals[day]   || 0) + (item.totalViews || 0);
   }
 
   let currentWeekKey = null;
+  let currentDayKey  = null;
   for (const item of sorted) {
     const weekKey = isoWeekKey(item.publishedAt);
+    const dayKey  = item.publishedAt ? item.publishedAt.slice(0, 10) : 'unknown';
+
     if (weekKey !== currentWeekKey) {
       currentWeekKey = weekKey;
+      currentDayKey  = null; // force day heading on first card of new week
       const header = document.createElement('div');
       header.className = 'week-heading';
       const labelSpan = document.createElement('span');
@@ -1318,6 +1318,20 @@ function renderVideoList(items, range) {
       header.append(labelSpan, totalSpan);
       container.appendChild(header);
     }
+
+    if (dayKey !== currentDayKey) {
+      currentDayKey = dayKey;
+      const dayHeader = document.createElement('div');
+      dayHeader.className = 'day-heading';
+      const dayLabel = document.createElement('span');
+      dayLabel.textContent = item.publishedAt ? fmtDate(item.publishedAt) : 'Unknown date';
+      const dayTotal = document.createElement('span');
+      dayTotal.className = 'day-heading-total';
+      dayTotal.textContent = `▶ ${fmt(dayTotals[dayKey])}`;
+      dayHeader.append(dayLabel, dayTotal);
+      container.appendChild(dayHeader);
+    }
+
     container.appendChild(renderCard(item));
   }
 }

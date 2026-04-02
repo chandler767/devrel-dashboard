@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 	"time"
 )
@@ -106,8 +105,9 @@ func loadManualGroups() []ManualGroup {
 	return groups
 }
 
-// Group clusters videos by ISO week across platforms.
-// Manual merges from manual_groups.json are applied first and bypass week grouping.
+// Group builds a VideoGroup per video. Manual groups from manual_groups.json
+// are applied first (merging explicitly-linked videos across platforms).
+// Every remaining video becomes its own single-platform VideoGroup.
 // Videos without a parseable publish date are returned as UnmatchedVideo.
 func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 	n := len(videos)
@@ -123,7 +123,7 @@ func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 	manuallyGrouped := make(map[int]bool)
 	var groups []VideoGroup
 
-	// Apply manual groups first — they override week grouping
+	// Apply manual groups first
 	for _, mg := range loadManualGroups() {
 		if len(mg.VideoIDs) < 2 {
 			continue
@@ -143,10 +143,8 @@ func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 		groups = append(groups, g)
 	}
 
-	// Bucket remaining videos by ISO week (year + week number)
-	weekBuckets := map[string][]int{}
+	// Each remaining video becomes its own VideoGroup
 	var unmatched []UnmatchedVideo
-
 	for i, v := range videos {
 		if manuallyGrouped[i] {
 			continue
@@ -155,30 +153,13 @@ func Group(videos []Video) ([]VideoGroup, []UnmatchedVideo) {
 			unmatched = append(unmatched, videoToUnmatched(v))
 			continue
 		}
-		t, err := time.Parse(time.RFC3339, v.PublishedAt)
-		if err != nil {
+		if _, err := time.Parse(time.RFC3339, v.PublishedAt); err != nil {
 			unmatched = append(unmatched, videoToUnmatched(v))
 			continue
 		}
-		year, week := t.ISOWeek()
-		key := fmt.Sprintf("%d-W%02d", year, week)
-		weekBuckets[key] = append(weekBuckets[key], i)
-	}
-
-	// Build VideoGroups from week buckets.
-	// If multiple videos from the same platform land in the same week,
-	// they spill into numbered sub-groups (2026-W11-2, etc.).
-	for weekKey, indices := range weekBuckets {
-		subGroups := splitIntoPlatformGroups(videos, indices)
-		for si, sg := range subGroups {
-			g := buildVideoGroup(videos, sg)
-			if si == 0 {
-				g.ID = weekKey
-			} else {
-				g.ID = fmt.Sprintf("%s-%d", weekKey, si+1)
-			}
-			groups = append(groups, g)
-		}
+		g := buildVideoGroup(videos, []int{i})
+		g.ID = videoGroupID(v.Platform + ":" + v.ID)
+		groups = append(groups, g)
 	}
 
 	return groups, unmatched
@@ -287,63 +268,6 @@ func videoToUnmatched(v Video) UnmatchedVideo {
 	}
 }
 
-// splitIntoPlatformGroups divides video indices into sub-groups where each
-// sub-group has at most one video per platform. Videos are sorted by date first
-// so that same-day videos from different platforms are preferentially grouped
-// together. This prevents TikTok videos (which may have slightly different UTC
-// dates) from drifting into adjacent groups.
-func splitIntoPlatformGroups(videos []Video, indices []int) [][]int {
-	sorted := make([]int, len(indices))
-	copy(sorted, indices)
-	sort.Slice(sorted, func(a, b int) bool {
-		return videos[sorted[a]].PublishedAt < videos[sorted[b]].PublishedAt
-	})
-
-	dayOf := func(idx int) string {
-		if len(videos[idx].PublishedAt) >= 10 {
-			return videos[idx].PublishedAt[:10]
-		}
-		return ""
-	}
-
-	var subGroups [][]int
-	for _, idx := range sorted {
-		platform := videos[idx].Platform
-		day := dayOf(idx)
-
-		// Prefer a sub-group that already has a video from the same calendar day
-		// and doesn't yet have this platform. Fall back to a new sub-group rather
-		// than placing into a different-day group, so cross-day drift is avoided.
-		bestGroup := -1
-		for si, sg := range subGroups {
-			hasConflict := false
-			hasSameDay := false
-			for _, sIdx := range sg {
-				if videos[sIdx].Platform == platform {
-					hasConflict = true
-					break
-				}
-				if dayOf(sIdx) == day {
-					hasSameDay = true
-				}
-			}
-			if hasConflict {
-				continue
-			}
-			if hasSameDay {
-				bestGroup = si
-				break
-			}
-		}
-
-		if bestGroup >= 0 {
-			subGroups[bestGroup] = append(subGroups[bestGroup], idx)
-		} else {
-			subGroups = append(subGroups, []int{idx})
-		}
-	}
-	return subGroups
-}
 
 // videoGroupID generates a stable short ID from the canonical title.
 // Used only for manually-defined groups.

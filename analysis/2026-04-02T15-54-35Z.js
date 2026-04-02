@@ -1,7 +1,0 @@
-window.__devrelAnalysis={
-  "report_id": "2026-04-02T15-54-35Z",
-  "generated_at": "2026-04-02T15:54:39Z",
-  "model": "claude-haiku-4-5-20251001",
-  "video_count": 0,
-  "text": "I appreciate you wanting detailed analysis, but I'm seeing a data issue: you've indicated **0 short-form DevRel videos** in your dataset, which means there's no content for me to analyze.\n\nTo provide the four-section analysis you've requested, I'll need:\n\n1. **Video performance metrics** (view counts, likes, comments, engagement rate)\n2. **Video titles** for each piece of content\n3. **YouTube transcripts** or script summaries\n4. **Comment samples** or recurring themes from audience feedback\n5. **Platform breakdown** (which platforms each video was posted to)\n\n**Next steps:**\n- Paste your actual video data/spreadsheet into our conversation\n- Include at least 5-10 videos for meaningful pattern analysis\n- Ensure each row has: title, view count, likes, comments, transcript/script, and platform(s)\n\nOnce you share that, I can identify high-performing title patterns, topic correlations, audience pain points, and give you 5 specific, concrete recommendations tailored to your DevRel audience.\n\nReady when you are—just paste the data! 📊"
-};
