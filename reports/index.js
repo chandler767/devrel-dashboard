@@ -6,11 +6,6 @@ window.__devrelIndex={
       "generated_at": "2026-04-02T16:30:10Z"
     },
     {
-      "id": "2026-04-02T15-41-05Z",
-      "file": "reports/2026-04-02T15-41-05Z.json",
-      "generated_at": "2026-04-02T15:41:05Z"
-    },
-    {
       "id": "2026-04-01T14-51-40Z",
       "file": "reports/2026-04-01T14-51-40Z.json",
       "generated_at": "2026-04-01T14:51:40Z"
