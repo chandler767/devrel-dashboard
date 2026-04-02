@@ -1,0 +1,7 @@
+window.__devrelAnalysis={
+  "report_id": "2026-04-02T15-53-18Z",
+  "generated_at": "2026-04-02T15:53:22Z",
+  "model": "claude-haiku-4-5-20251001",
+  "video_count": 0,
+  "text": "I appreciate the detailed template, but I notice you've indicated **0 short-form DevRel videos** in your dataset. There's no video data provided for me to analyze.\n\nTo give you the actionable insights you're looking for, I'll need:\n\n1. **Video titles**\n2. **View/like/comment counts** (aggregated across platforms)\n3. **YouTube transcripts** (or script summaries)\n4. **Comment samples** (or themes from comments)\n\nOnce you share the actual video data, I can deliver analysis in those exact four sections with specific, data-backed recommendations.\n\n**In the meantime**, if you'd like, I can:\n- Provide a template for tracking this data going forward\n- Share general best practices for DevRel short-form video (common high-performers in the space)\n- Help you structure your data collection\n\nWould you like to share the video data now, or would one of those alternatives be helpful?"
+};
