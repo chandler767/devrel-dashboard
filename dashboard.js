@@ -1125,9 +1125,14 @@ function renderCard(item) {
     if (isWithin7Days(p.published_at)) pvTitle.appendChild(newBadge());
     pvTitle.appendChild(document.createTextNode(p.title || ''));
 
-    const pvDate = document.createElement('span');
-    pvDate.className = 'pv-date';
-    pvDate.textContent = p.published_at ? fmtDateShort(p.published_at) : '';
+    const pvViews = document.createElement('span');
+    pvViews.className = 'pv-views';
+    pvViews.textContent = `▶ ${fmt(p.views)}`;
+    const prevPlatformViews = prevViewMap[`${p.platform}:${p.video_id}`] ?? null;
+    if (!isWithin7Days(p.published_at)) {
+      const pvGrowth = growthEl(pctChange(p.views || 0, prevPlatformViews));
+      if (pvGrowth) pvViews.appendChild(pvGrowth);
+    }
 
     const caps = PLATFORM_CAPS[p.platform] || {};
     const pvEng = document.createElement('span');
@@ -1142,7 +1147,7 @@ function renderCard(item) {
     }
     if (caps.shares) pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `⬆ ${fmt(p.shares || 0)}` }));
 
-    row.append(dot, nameEl, pvTitle, pvDate, pvEng);
+    row.append(dot, nameEl, pvTitle, pvViews, pvEng);
 
     if (local) {
       const pvBtn = document.createElement('button');

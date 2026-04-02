@@ -315,7 +315,7 @@ main {
 
 .pv-name  { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .pv-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pv-date  { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+.pv-views { font-size: 11px; font-weight: 700; color: var(--green); text-align: right; white-space: nowrap; }
 
 /* ── Select Buttons (local mode) ─────────────────────── */
 
@@ -799,7 +799,7 @@ body.exporting .notice-bar { display: none !important; }
 
 .eng-stat {
   font-size: 13px;
-  color: var(--text-muted);
+  color: var(--green);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -809,6 +809,7 @@ button.eng-stat {
   background: none;
   border: none;
   padding: 0;
+  color: var(--green);
   cursor: pointer;
   color: var(--text-muted);
   font-size: 13px;
