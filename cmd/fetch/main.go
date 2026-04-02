@@ -118,8 +118,13 @@ func main() {
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			fmt.Printf("YouTube: %d video(s)\n", len(r.videos))
-			allVideos = append(allVideos, r.videos...)
+			videos, backfilled := internal.BackfillMissingVideos("youtube", r.videos, prevReport)
+			fmt.Printf("YouTube: %d video(s)", len(r.videos))
+			if backfilled > 0 {
+				fmt.Printf(" (+%d backfilled)", backfilled)
+			}
+			fmt.Println()
+			allVideos = append(allVideos, videos...)
 		}
 	}
 
@@ -131,7 +136,7 @@ func main() {
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			videos, backfilled := internal.BackfillMissingTikTokVideos(r.videos, prevReport)
+			videos, backfilled := internal.BackfillMissingVideos("tiktok", r.videos, prevReport)
 			fmt.Printf("TikTok: %d video(s)", len(r.videos))
 			if backfilled > 0 {
 				fmt.Printf(" (+%d backfilled)", backfilled)
@@ -155,8 +160,13 @@ func main() {
 				allVideos = append(allVideos, carried...)
 			}
 		} else {
-			fmt.Printf("LinkedIn: %d video(s)\n", len(r.videos))
-			allVideos = append(allVideos, r.videos...)
+			videos, backfilled := internal.BackfillMissingVideos("linkedin", r.videos, prevReport)
+			fmt.Printf("LinkedIn: %d video(s)", len(r.videos))
+			if backfilled > 0 {
+				fmt.Printf(" (+%d backfilled)", backfilled)
+			}
+			fmt.Println()
+			allVideos = append(allVideos, videos...)
 		}
 	}
 

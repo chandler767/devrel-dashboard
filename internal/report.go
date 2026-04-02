@@ -199,38 +199,46 @@ func LoadPreviousReport() (*Report, error) {
 	return nil, nil // all index entries point to deleted files
 }
 
-// BackfillMissingTikTokVideos guards against yt-dlp returning an incomplete
-// video list on a given run. It checks the previous report for TikTok videos
-// absent from current and re-adds them with their last-known view counts.
+// BackfillMissingVideos guards against a platform returning an incomplete
+// video list on a given run (e.g. yt-dlp pagination gaps, LinkedIn API
+// inconsistencies). It re-adds any video for the given platform from the
+// previous report that is absent from the current fetch, preserving
+// last-known metrics.
 //
 // Backfill is skipped entirely when current is empty (full fetch failure).
 // Returns the extended slice and the count of backfilled videos.
-func BackfillMissingTikTokVideos(current []Video, prev *Report) ([]Video, int) {
+func BackfillMissingVideos(platform string, current []Video, prev *Report) ([]Video, int) {
 	if len(current) == 0 || prev == nil {
 		return current, 0
 	}
 
-	// Index TikTok IDs already in this run
 	have := make(map[string]bool, len(current))
 	for _, v := range current {
-		if v.Platform == "tiktok" {
+		if v.Platform == platform {
 			have[v.ID] = true
 		}
 	}
 
 	var n int
 
-	// Recover from video_groups
 	for _, g := range prev.VideoGroups {
-		pd, ok := g.Platforms["tiktok"]
+		pd, ok := g.Platforms[platform]
 		if !ok || have[pd.VideoID] {
 			continue
 		}
 		current = append(current, Video{
-			Platform:        "tiktok",
+			Platform:        platform,
 			ID:              pd.VideoID,
 			Title:           pd.Title,
 			Views:           pd.Views,
+			Likes:           pd.Likes,
+			Comments:        pd.Comments,
+			Shares:          pd.Shares,
+			Clicks:          pd.Clicks,
+			CommentTexts:    pd.CommentTexts,
+			Thumbnail:       pd.Thumbnail,
+			Description:     pd.Description,
+			Tags:            pd.Tags,
 			DurationSeconds: pd.DurationSeconds,
 			URL:             pd.URL,
 			PublishedAt:     pd.PublishedAt,
@@ -239,16 +247,23 @@ func BackfillMissingTikTokVideos(current []Video, prev *Report) ([]Video, int) {
 		n++
 	}
 
-	// Recover from unmatched
 	for _, u := range prev.Unmatched {
-		if u.Platform != "tiktok" || have[u.VideoID] {
+		if u.Platform != platform || have[u.VideoID] {
 			continue
 		}
 		current = append(current, Video{
-			Platform:        "tiktok",
+			Platform:        platform,
 			ID:              u.VideoID,
 			Title:           u.Title,
 			Views:           u.Views,
+			Likes:           u.Likes,
+			Comments:        u.Comments,
+			Shares:          u.Shares,
+			Clicks:          u.Clicks,
+			CommentTexts:    u.CommentTexts,
+			Thumbnail:       u.Thumbnail,
+			Description:     u.Description,
+			Tags:            u.Tags,
 			DurationSeconds: u.DurationSeconds,
 			URL:             u.URL,
 			PublishedAt:     u.PublishedAt,
@@ -258,6 +273,12 @@ func BackfillMissingTikTokVideos(current []Video, prev *Report) ([]Video, int) {
 	}
 
 	return current, n
+}
+
+// BackfillMissingTikTokVideos is kept for backwards compatibility.
+// Prefer BackfillMissingVideos("tiktok", ...).
+func BackfillMissingTikTokVideos(current []Video, prev *Report) ([]Video, int) {
+	return BackfillMissingVideos("tiktok", current, prev)
 }
 
 // updateAssetVersions rewrites index.html so that dashboard.js and
