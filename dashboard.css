@@ -248,7 +248,7 @@ main {
 
 .video-total-views {
   font-size: 13px;
-  color: var(--green);
+  color: var(--text-muted);
 }
 
 .video-duration {
@@ -312,7 +312,7 @@ main {
 
 .pv-name  { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .pv-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.pv-views { font-size: 11px; font-weight: 700; color: var(--green); text-align: right; white-space: nowrap; }
+.pv-views { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: right; white-space: nowrap; }
 
 /* ── Select Buttons (local mode) ─────────────────────── */
 
@@ -570,54 +570,6 @@ main {
   margin-top: 2px;
 }
 
-/* ── Hide Button ─────────────────────────────────────── */
-.hide-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  padding: 2px 5px;
-  border-radius: 4px;
-  opacity: 0;
-  transition: opacity 0.15s, color 0.15s;
-}
-
-.item-group:hover .hide-btn { opacity: 1; }
-.hide-btn:hover { color: #f87171; }
-
-/* ── Hidden Bar ──────────────────────────────────────── */
-#hidden-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px 16px;
-  margin-bottom: 14px;
-  font-size: 13px;
-  color: var(--text-muted);
-}
-
-#hidden-bar-show {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-family: var(--font);
-  cursor: pointer;
-  transition: border-color 0.15s, color 0.15s;
-}
-
-#hidden-bar-show:hover { border-color: var(--accent); color: var(--text); }
-
 /* ── Rolling 12-Month Section ────────────────────────── */
 .rolling-section {
   margin-bottom: 32px;
@@ -751,7 +703,6 @@ main {
 .export-btn:hover { border-color: var(--accent); color: var(--text); }
 
 /* ── Export Mode (hide UI chrome) ────────────────────── */
-body.exporting .hide-btn,
 body.exporting .select-btn,
 body.exporting .pv-select-btn,
 body.exporting #merge-bar,
@@ -759,7 +710,6 @@ body.exporting .range-tabs,
 body.exporting .metric-tabs,
 body.exporting .custom-range,
 body.exporting .trend-toggle,
-body.exporting #hidden-bar,
 body.exporting .modal-overlay,
 body.exporting .report-select,
 body.exporting #export-btn,
@@ -813,7 +763,7 @@ body.exporting .notice-bar { display: none !important; }
 
 .eng-stat {
   font-size: 13px;
-  color: var(--green);
+  color: var(--text-muted);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -823,7 +773,7 @@ button.eng-stat {
   background: none;
   border: none;
   padding: 0;
-  color: var(--green);
+  color: var(--text-muted);
   cursor: pointer;
   font-size: 13px;
 }
@@ -859,7 +809,7 @@ button.eng-stat:hover {
 
 .pv-engagement span {
   font-size: 11px;
-  color: var(--green);
+  color: var(--text-muted);
   white-space: nowrap;
 }
 
@@ -868,7 +818,7 @@ button.eng-stat:hover {
   border: none;
   padding: 0;
   font-size: 11px;
-  color: var(--green);
+  color: var(--text-muted);
   white-space: nowrap;
   cursor: pointer;
 }

@@ -874,25 +874,6 @@ let   renderedItems  = [];
 
 // ── Hidden Videos ─────────────────────────────────────────────────────────────
 
-let hiddenVideos = new Set(JSON.parse(localStorage.getItem('devrel-hidden-videos') || '[]'));
-
-function saveHiddenVideos() {
-  localStorage.setItem('devrel-hidden-videos', JSON.stringify([...hiddenVideos]));
-}
-
-function updateHiddenBar(count) {
-  const bar   = document.getElementById('hidden-bar');
-  const label = document.getElementById('hidden-bar-label');
-  if (!bar) return;
-  bar.hidden = count === 0;
-  if (label) label.textContent = `${count} video${count !== 1 ? 's' : ''} hidden`;
-}
-
-function clearHiddenVideos() {
-  hiddenVideos.clear();
-  saveHiddenVideos();
-  if (currentReport) renderReport(currentReport, getActiveRange());
-}
 
 function toggleItemSelection(key, videoIds, label, el, btn) {
   if (selectionItems.has(key)) {
@@ -1169,19 +1150,6 @@ function renderCard(item) {
   if (tagsEl) card.appendChild(tagsEl);
   card.appendChild(versions);
 
-  // Hide button
-  const hideBtn = document.createElement('button');
-  hideBtn.className   = 'hide-btn';
-  hideBtn.textContent = '×';
-  hideBtn.title       = 'Hide this video';
-  hideBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    hiddenVideos.add(item.cardKey);
-    saveHiddenVideos();
-    if (currentReport) renderReport(currentReport, getActiveRange());
-  });
-  card.appendChild(hideBtn);
-
   if (local) {
     const btn = document.createElement('button');
     btn.className   = 'select-btn';
@@ -1311,18 +1279,6 @@ function renderDayCard(dayItems) {
       group.appendChild(row);
     }
 
-    const hideBtn = document.createElement('button');
-    hideBtn.className   = 'hide-btn';
-    hideBtn.textContent = '×';
-    hideBtn.title       = 'Hide this video';
-    hideBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      hiddenVideos.add(item.cardKey);
-      saveHiddenVideos();
-      if (currentReport) renderReport(currentReport, getActiveRange());
-    });
-    group.appendChild(hideBtn);
-
     if (local) {
       const btn = document.createElement('button');
       btn.className   = 'select-btn';
@@ -1407,26 +1363,19 @@ function renderVideoList(items, range) {
   container.innerHTML = '';
   clearSelection();
 
-  const visible      = items.filter(item => !hiddenVideos.has(item.cardKey));
-  const hiddenCount  = items.length - visible.length;
-  updateHiddenBar(hiddenCount);
-
   if (heading) {
-    heading.textContent = visible.length > 0 ? `Videos (${visible.length})` : 'Videos';
+    heading.textContent = items.length > 0 ? `Videos (${items.length})` : 'Videos';
   }
 
-  if (!visible.length) {
+  if (!items.length) {
     const cutoff = rangeCutoff(range);
     const since  = cutoff ? ` since ${fmtDate(cutoff.toISOString())}` : '';
-    const msg    = hiddenCount > 0 && items.length > 0
-      ? 'All videos in this range are hidden.'
-      : `No videos${since}.`;
-    container.innerHTML = `<p class="state-message">${msg}</p>`;
+    container.innerHTML = `<p class="state-message">No videos${since}.</p>`;
     return;
   }
 
   // Sort newest week first, then by views within a week
-  const sorted = [...visible].sort((a, b) => {
+  const sorted = [...items].sort((a, b) => {
     const da = a.publishedAt ? new Date(a.publishedAt) : new Date(0);
     const db = b.publishedAt ? new Date(b.publishedAt) : new Date(0);
     if (db - da !== 0) return db - da;
@@ -1815,9 +1764,6 @@ async function init() {
   initExportButton();
   initTabs();
   initContentIntelligence();
-
-  const hiddenShowBtn = document.getElementById('hidden-bar-show');
-  if (hiddenShowBtn) hiddenShowBtn.addEventListener('click', clearHiddenVideos);
 
   if (sessionStorage.getItem('mergeNotice')) {
     sessionStorage.removeItem('mergeNotice');
