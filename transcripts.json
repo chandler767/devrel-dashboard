@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-01T14:51:42Z",
+  "updated_at": "2026-04-02T15:31:05Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -420,6 +420,12 @@
       "fetched_at": "2026-03-31T22:35:54Z",
       "lang": "en",
       "text": "Kind: captions Language: en Did you know that you can use iceberg to query large amounts of data from a data stream? I'm Chandler Mayo from Red Panda Devil here. Let me show you how. In this example, we're streaming millions of messages worth of stock ticker data into a topic. With Red Panda's magical iceberg integration, you've got the ability to configure each of these topics as iceberg topics. And we've done that here. Now, we're ready to use that data. One way to do that is using data bricks. This is just a simple SQL format query to pull a specific number of tickers into a table format. We'll run this and because data bricks handles our table maintenance optimization and all these other great things, we're able to scan a very large amount of data very quickly. In our output here, we're seeing the tickers we specifically requested. And now we're ready to do some math or analysis on them. Do you want to see what else we can do with data streams? Make sure to follow or subscribe.",
+      "source": "auto"
+    },
+    "youtube:vbRJVITu9iE": {
+      "fetched_at": "2026-04-02T15:31:05Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en 97 million installs in 16 months. That's how fast the model context protocol went from experiment to industry standard. Developers never agree on anything that fast. MCP is being called the USBC of AI. One open protocol that lets your AI agents talk to any tool, your databases, your SAS apps, your internal systems. And this week it leveled up. Version two shipped with OOTH 2.1 and streamable HTTP. The two things enterprises were waiting for before going allin on Aentic AI just landed. Open AI, Google, Microsoft, they all support it now. But here's the thing nobody wants to talk about. Palo Alto's unit 42 just found three critical MCP attack vectors. The integration layer for Agentic AI is settled. MCP1. The architecture and security decisions you make in the next 90 days will define your position for years. Is MCP moving too fast for security to keep up? Drop your take in the comments and follow for the latest AI",
       "source": "auto"
     },
     "youtube:wiCXuBXMhYw": {
