@@ -137,9 +137,6 @@ main {
   font-size: 12px;
 }
 
-/* Badge inside pv-views stays inline */
-.pv-views .growth-badge { font-size: 10px; margin-left: 5px; }
-
 /* Badge inside pv-title (NEW tag) sits before the title text */
 .pv-title .growth-badge { font-size: 10px; margin-left: 0; margin-right: 6px; vertical-align: middle; }
 
@@ -280,7 +277,7 @@ main {
 
 .platform-version-row {
   display: grid;
-  grid-template-columns: 10px 64px 1fr auto auto auto;
+  grid-template-columns: 10px 64px 1fr auto;
   align-items: center;
   gap: 8px;
   padding: 5px 8px;
@@ -293,7 +290,7 @@ main {
 }
 
 .platform-versions.local .platform-version-row {
-  grid-template-columns: 10px 64px 1fr auto auto auto auto;
+  grid-template-columns: 10px 64px 1fr auto auto;
 }
 
 .platform-version-row:hover { background: var(--surface2); }
@@ -318,7 +315,6 @@ main {
 .pv-name  { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 .pv-title { font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pv-date  { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
-.pv-views { font-size: 11px; font-weight: 700; color: var(--text-muted); text-align: right; white-space: nowrap; }
 
 /* ── Select Buttons (local mode) ─────────────────────── */
 
@@ -839,20 +835,6 @@ button.eng-stat:hover {
   white-space: nowrap;
 }
 
-
-/* ── Platform-row engagement ─────────────────────────── */
-.pv-engagement {
-  display: flex;
-  gap: 8px;
-  margin-left: auto;
-  flex-shrink: 0;
-}
-
-.pv-engagement span {
-  font-size: 11px;
-  color: var(--text-muted);
-  white-space: nowrap;
-}
 
 .pv-comment-btn {
   background: none;

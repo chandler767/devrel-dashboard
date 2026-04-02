@@ -1047,34 +1047,39 @@ function renderCard(item) {
   const meta = document.createElement('div');
   meta.className = 'video-meta';
 
-  const totalEl = document.createElement('div');
+  // Views + engagement all on one line in the header
+  const supportedPlatforms = item.platforms.map(p => p.platform);
+
+  const totalEl = document.createElement('span');
   totalEl.className = 'video-total-views';
   totalEl.textContent = `▶ ${fmt(item.totalViews)}`;
-
   meta.append(totalEl);
 
-  header.append(meta);
-
-  // Engagement strip (totals across all platforms)
-  const engRow = document.createElement('div');
-  engRow.className = 'video-engagement';
-
   const engDefs = [
-    { key: 'views',    icon: '▶',  val: item.totalViews    },
     { key: 'likes',    icon: '♥',  val: item.totalLikes    },
     { key: 'comments', icon: '◉',  val: item.totalComments },
     { key: 'shares',   icon: '⬆',  val: item.totalShares   },
   ];
-  // Only show a metric if at least one platform in the group supports it
-  const supportedPlatforms = item.platforms.map(p => p.platform);
   for (const def of engDefs) {
     const supported = supportedPlatforms.some(pl => (PLATFORM_CAPS[pl] || {})[def.key]);
     if (!supported) continue;
-    const span = document.createElement('span');
-    span.className = 'eng-stat';
-    span.textContent = `${def.icon} ${fmt(def.val)}`;
-    engRow.appendChild(span);
+    if (def.key === 'comments') {
+      const btn = document.createElement('button');
+      btn.className = 'pv-comment-btn eng-stat';
+      btn.textContent = `${def.icon} ${fmt(def.val)}`;
+      // scope to first platform that has comment texts
+      const commentPlatform = item.platforms.find(p => PLATFORM_CAPS[p.platform]?.commentTexts) || item.platforms[0];
+      btn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item, commentPlatform); });
+      meta.append(btn);
+    } else {
+      const span = document.createElement('span');
+      span.className = 'eng-stat';
+      span.textContent = `${def.icon} ${fmt(def.val)}`;
+      meta.append(span);
+    }
   }
+
+  header.append(meta);
 
   // Tags
   let tagsEl = null;
@@ -1097,7 +1102,6 @@ function renderCard(item) {
   versions.className = local ? 'platform-versions local' : 'platform-versions';
 
   for (const p of item.platforms) {
-    const caps = PLATFORM_CAPS[p.platform] || {};
     const row = document.createElement('div');
     row.className = 'platform-version-row';
     row.dataset.href = p.url || '';
@@ -1125,30 +1129,7 @@ function renderCard(item) {
     pvDate.className = 'pv-date';
     pvDate.textContent = p.published_at ? fmtDateShort(p.published_at) : '';
 
-    const pvViews = document.createElement('span');
-    pvViews.className = 'pv-views';
-    pvViews.textContent = `▶ ${fmt(p.views)}`;
-
-    const prevPlatformViews = prevViewMap[`${p.platform}:${p.video_id}`] ?? null;
-    if (!isWithin7Days(p.published_at)) {
-      const pvGrowth = growthEl(pctChange(p.views || 0, prevPlatformViews));
-      if (pvGrowth) pvViews.appendChild(pvGrowth);
-    }
-
-    // Per-platform engagement mini-stats (only fields the platform supports)
-    const pvEng = document.createElement('span');
-    pvEng.className = 'pv-engagement';
-    if (caps.likes)    pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `♥ ${fmt(p.likes || 0)}` }));
-    if (caps.comments) {
-      const pvCommentBtn = document.createElement('button');
-      pvCommentBtn.className = 'pv-comment-btn';
-      pvCommentBtn.textContent = `◉ ${fmt(p.comments || 0)}`;
-      pvCommentBtn.addEventListener('click', (e) => { e.stopPropagation(); showCommentsModal(item, p); });
-      pvEng.appendChild(pvCommentBtn);
-    }
-    if (caps.shares)   pvEng.appendChild(Object.assign(document.createElement('span'), { textContent: `⬆ ${fmt(p.shares || 0)}` }));
-
-    row.append(dot, nameEl, pvTitle, pvDate, pvViews, pvEng);
+    row.append(dot, nameEl, pvTitle, pvDate);
 
     if (local) {
       const pvBtn = document.createElement('button');
@@ -1166,7 +1147,7 @@ function renderCard(item) {
     versions.appendChild(row);
   }
 
-  card.append(header, engRow);
+  card.append(header);
   if (tagsEl) card.appendChild(tagsEl);
   card.appendChild(versions);
 
