@@ -1,12 +1,12 @@
-window.__devrelReport={
-  "report_id": "2026-04-07T19-09-56Z",
-  "generated_at": "2026-04-07T19:09:56Z",
+{
+  "report_id": "2026-04-07T23-24-15Z",
+  "generated_at": "2026-04-07T23:24:15Z",
   "video_groups": [
     {
       "id": "youtube:Ajavw0yqhJ4",
       "canonical_title": "Claude Code’s source code just got leaked. #claude #anthropic #ai #artificialintelligence #tech",
       "duration_seconds": 95,
-      "total_views": 13966,
+      "total_views": 13969,
       "total_likes": 209,
       "total_comments": 20,
       "total_shares": 0,
@@ -16,7 +16,7 @@ window.__devrelReport={
         "youtube": {
           "video_id": "Ajavw0yqhJ4",
           "title": "Claude Code’s source code just got leaked. #claude #anthropic #ai #artificialintelligence #tech",
-          "views": 13966,
+          "views": 13969,
           "likes": 209,
           "comments": 20,
           "shares": 0,
@@ -54,21 +54,21 @@ window.__devrelReport={
       "id": "tiktok:7623454959861878030",
       "canonical_title": "Claude Code’s source code just got leaked. #claude #anthropic #ai #ar...",
       "duration_seconds": 94,
-      "total_views": 9597,
+      "total_views": 9598,
       "total_likes": 597,
       "total_comments": 11,
       "total_shares": 8,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYAHCHYXavTQfCcVw2DftQcwkl6jEMFAHfDI6p~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=X%2BA62qu7GcO0ENHrE7dwCFvSKyY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYAHCHYXavTQfCcVw2DftQcwkl6jEMFAHfDI6p~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=PMITNgs%2FfEswsVR0%2FDooyQfK17I%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Claude Code’s source code just got leaked. #claude #anthropic #ai #artificialintelligence #tech",
       "platforms": {
         "tiktok": {
           "video_id": "7623454959861878030",
           "title": "Claude Code’s source code just got leaked. #claude #anthropic #ai #ar...",
-          "views": 9597,
+          "views": 9598,
           "likes": 597,
           "comments": 11,
           "shares": 8,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYAHCHYXavTQfCcVw2DftQcwkl6jEMFAHfDI6p~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=X%2BA62qu7GcO0ENHrE7dwCFvSKyY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYAHCHYXavTQfCcVw2DftQcwkl6jEMFAHfDI6p~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=PMITNgs%2FfEswsVR0%2FDooyQfK17I%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Claude Code’s source code just got leaked. #claude #anthropic #ai #artificialintelligence #tech",
           "url": "https://www.tiktok.com/@redpanda_data/video/7623454959861878030",
           "published_at": "2026-03-31T00:00:00Z",
@@ -117,7 +117,7 @@ window.__devrelReport={
       "total_likes": 516,
       "total_comments": 0,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQTtQoqIAGIoeAuFuajCeLHsgHkqFQMsjGa2fC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=3JpciwLh2kft0PrSRy0yjQexjVY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQTtQoqIAGIoeAuFuajCeLHsgHkqFQMsjGa2fC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=55%2FkRMAUw0YxWn5iiQDpO45qJ98%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Why the biggest AI models aren’t always best for every use case. #techtok #aicoding #llm #coding #ai",
       "platforms": {
         "tiktok": {
@@ -127,7 +127,7 @@ window.__devrelReport={
           "likes": 516,
           "comments": 0,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQTtQoqIAGIoeAuFuajCeLHsgHkqFQMsjGa2fC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=3JpciwLh2kft0PrSRy0yjQexjVY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQTtQoqIAGIoeAuFuajCeLHsgHkqFQMsjGa2fC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=55%2FkRMAUw0YxWn5iiQDpO45qJ98%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Why the biggest AI models aren’t always best for every use case. #techtok #aicoding #llm #coding #ai",
           "url": "https://www.tiktok.com/@redpanda_data/video/7616769950576807181",
           "published_at": "2026-03-13T00:00:00Z",
@@ -143,7 +143,7 @@ window.__devrelReport={
       "total_likes": 114,
       "total_comments": 1,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/owLLqIC2QvjkK3exHefGyQaVT3s1ZGkpZCIAAH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=MlxoLCHYncj2u3V6fDxgjyMAKDw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/owLLqIC2QvjkK3exHefGyQaVT3s1ZGkpZCIAAH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=i2rw3xx4AZsfarqbPvs3GenLswA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "The EU AI Act Deadline Nobody's Ready For. #ai #aiact #ainews #technews ",
       "platforms": {
         "tiktok": {
@@ -153,7 +153,7 @@ window.__devrelReport={
           "likes": 114,
           "comments": 1,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/owLLqIC2QvjkK3exHefGyQaVT3s1ZGkpZCIAAH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=MlxoLCHYncj2u3V6fDxgjyMAKDw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/owLLqIC2QvjkK3exHefGyQaVT3s1ZGkpZCIAAH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=i2rw3xx4AZsfarqbPvs3GenLswA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "The EU AI Act Deadline Nobody's Ready For. #ai #aiact #ainews #technews ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7616386393538972942",
           "published_at": "2026-03-12T00:00:00Z",
@@ -165,21 +165,21 @@ window.__devrelReport={
       "id": "tiktok:7625673426329521421",
       "canonical_title": "Claude can now control your entire computer, but is your AI developme...",
       "duration_seconds": 77,
-      "total_views": 3825,
+      "total_views": 3833,
       "total_likes": 294,
       "total_comments": 2,
       "total_shares": 5,
-      "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oY2QIGyeILAuopBAQjZGkZIP6pqroLTn7HLeCe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=W6h0s3iPkyiQ%2FmXv3b6E8L8auWg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oY2QIGyeILAuopBAQjZGkZIP6pqroLTn7HLeCe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=URlTy0WhS%2F%2Byj%2Fssx9%2FALD4VoMs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Claude can now control your entire computer, but is your AI development a security hole? ##claude##anthropic##ai##artificialintelligence##tech",
       "platforms": {
         "tiktok": {
           "video_id": "7625673426329521421",
           "title": "Claude can now control your entire computer, but is your AI developme...",
-          "views": 3825,
+          "views": 3833,
           "likes": 294,
           "comments": 2,
           "shares": 5,
-          "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oY2QIGyeILAuopBAQjZGkZIP6pqroLTn7HLeCe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=W6h0s3iPkyiQ%2FmXv3b6E8L8auWg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oY2QIGyeILAuopBAQjZGkZIP6pqroLTn7HLeCe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=URlTy0WhS%2F%2Byj%2Fssx9%2FALD4VoMs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Claude can now control your entire computer, but is your AI development a security hole? ##claude##anthropic##ai##artificialintelligence##tech",
           "url": "https://www.tiktok.com/@redpanda_data/video/7625673426329521421",
           "published_at": "2026-04-06T00:00:00Z",
@@ -191,7 +191,7 @@ window.__devrelReport={
       "id": "youtube:b6eJB3lso1Q",
       "canonical_title": "Why did #openai buy #openclaw? #aiagents #aitools #programming #developer",
       "duration_seconds": 79,
-      "total_views": 3528,
+      "total_views": 3534,
       "total_likes": 30,
       "total_comments": 0,
       "total_shares": 0,
@@ -200,7 +200,7 @@ window.__devrelReport={
         "youtube": {
           "video_id": "b6eJB3lso1Q",
           "title": "Why did #openai buy #openclaw? #aiagents #aitools #programming #developer",
-          "views": 3528,
+          "views": 3534,
           "likes": 30,
           "comments": 0,
           "shares": 0,
@@ -208,6 +208,33 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=b6eJB3lso1Q",
           "published_at": "2026-02-26T00:00:00Z",
           "duration_seconds": 79
+        }
+      }
+    },
+    {
+      "id": "youtube:woiBFB8Turs",
+      "canonical_title": "What is an #ai agent? #coding #programming",
+      "duration_seconds": 81,
+      "total_views": 3320,
+      "total_likes": 5,
+      "total_comments": 1,
+      "total_shares": 0,
+      "thumbnail": "https://i.ytimg.com/vi/woiBFB8Turs/maxresdefault.jpg",
+      "platforms": {
+        "youtube": {
+          "video_id": "woiBFB8Turs",
+          "title": "What is an #ai agent? #coding #programming",
+          "views": 3320,
+          "likes": 5,
+          "comments": 1,
+          "shares": 0,
+          "comment_texts": [
+            "@Doms0101: It sounds like you see the gap. At Lifewood Data Technology in the Philippines we excel in AI. High quality data is the vital foundation. One thing to try is a sourcing audit. Have you tried this? Your post is informative."
+          ],
+          "thumbnail": "https://i.ytimg.com/vi/woiBFB8Turs/maxresdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=woiBFB8Turs",
+          "published_at": "2026-03-04T00:00:00Z",
+          "duration_seconds": 81
         }
       }
     },
@@ -243,7 +270,7 @@ window.__devrelReport={
       "total_likes": 180,
       "total_comments": 3,
       "total_shares": 10,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ogR7oASQFVAGpEQp6qFfEBAYOVAYWqQjReD1E7~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=FeH5zl2J6S69%2B9N8LhsBqmPg9S8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ogR7oASQFVAGpEQp6qFfEBAYOVAYWqQjReD1E7~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=9iKPsDQd6m4STF4W%2FoYDPxVOPYs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What is an #ai agent? #coding #techtok #programming ",
       "platforms": {
         "tiktok": {
@@ -253,7 +280,7 @@ window.__devrelReport={
           "likes": 180,
           "comments": 3,
           "shares": 10,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ogR7oASQFVAGpEQp6qFfEBAYOVAYWqQjReD1E7~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=FeH5zl2J6S69%2B9N8LhsBqmPg9S8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ogR7oASQFVAGpEQp6qFfEBAYOVAYWqQjReD1E7~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=9iKPsDQd6m4STF4W%2FoYDPxVOPYs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What is an #ai agent? #coding #techtok #programming ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7613431181287247135",
           "published_at": "2026-03-04T00:00:00Z",
@@ -262,37 +289,10 @@ window.__devrelReport={
       }
     },
     {
-      "id": "youtube:woiBFB8Turs",
-      "canonical_title": "What is an #ai agent? #coding #programming",
-      "duration_seconds": 81,
-      "total_views": 2583,
-      "total_likes": 5,
-      "total_comments": 1,
-      "total_shares": 0,
-      "thumbnail": "https://i.ytimg.com/vi/woiBFB8Turs/maxresdefault.jpg",
-      "platforms": {
-        "youtube": {
-          "video_id": "woiBFB8Turs",
-          "title": "What is an #ai agent? #coding #programming",
-          "views": 2583,
-          "likes": 5,
-          "comments": 1,
-          "shares": 0,
-          "comment_texts": [
-            "@Doms0101: It sounds like you see the gap. At Lifewood Data Technology in the Philippines we excel in AI. High quality data is the vital foundation. One thing to try is a sourcing audit. Have you tried this? Your post is informative."
-          ],
-          "thumbnail": "https://i.ytimg.com/vi/woiBFB8Turs/maxresdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=woiBFB8Turs",
-          "published_at": "2026-03-04T00:00:00Z",
-          "duration_seconds": 81
-        }
-      }
-    },
-    {
       "id": "youtube:tXrYPQU9rrk",
       "canonical_title": "Introducing the Model Context Protocol￼. #coding #computerscience #aiagents #mcp",
       "duration_seconds": 59,
-      "total_views": 2542,
+      "total_views": 2547,
       "total_likes": 10,
       "total_comments": 0,
       "total_shares": 0,
@@ -302,7 +302,7 @@ window.__devrelReport={
         "youtube": {
           "video_id": "tXrYPQU9rrk",
           "title": "Introducing the Model Context Protocol￼. #coding #computerscience #aiagents #mcp",
-          "views": 2542,
+          "views": 2547,
           "likes": 10,
           "comments": 0,
           "shares": 0,
@@ -322,7 +322,7 @@ window.__devrelReport={
       "total_likes": 95,
       "total_comments": 1,
       "total_shares": 0,
-      "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oUpeulIQQHATBzjeNiLkGKHJciKe6IAnGCRjBr~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7qaEQ18QyHuDmNe%2BXzbrZcig%2FVs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oUpeulIQQHATBzjeNiLkGKHJciKe6IAnGCRjBr~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=bT2J%2BEqFn88FjIcPhuD5B0uGpEc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Is AI coming for your job? Yes… but let me explain. #ai #tech #jobs #career #prediction ",
       "platforms": {
         "tiktok": {
@@ -332,7 +332,7 @@ window.__devrelReport={
           "likes": 95,
           "comments": 1,
           "shares": 0,
-          "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oUpeulIQQHATBzjeNiLkGKHJciKe6IAnGCRjBr~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7qaEQ18QyHuDmNe%2BXzbrZcig%2FVs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oUpeulIQQHATBzjeNiLkGKHJciKe6IAnGCRjBr~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=bT2J%2BEqFn88FjIcPhuD5B0uGpEc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Is AI coming for your job? Yes… but let me explain. #ai #tech #jobs #career #prediction ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7621930946136198413",
           "published_at": "2026-03-27T00:00:00Z",
@@ -449,21 +449,21 @@ window.__devrelReport={
       "id": "tiktok:7512578961075981614",
       "canonical_title": "What are data streams? #software #programming #coding",
       "duration_seconds": 31,
-      "total_views": 1499,
+      "total_views": 1500,
       "total_likes": 23,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEtACzIvtUB6ICiraJV64BAgEiBhGADHaIKT~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=1mhvJmzkvKZT%2FJyS65NZTa3QT8A%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEtACzIvtUB6ICiraJV64BAgEiBhGADHaIKT~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=NHTYcrofY%2BOjAEHRtfjeFhogK3A%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What are data streams? #software #programming #coding",
       "platforms": {
         "tiktok": {
           "video_id": "7512578961075981614",
           "title": "What are data streams? #software #programming #coding",
-          "views": 1499,
+          "views": 1500,
           "likes": 23,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEtACzIvtUB6ICiraJV64BAgEiBhGADHaIKT~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=1mhvJmzkvKZT%2FJyS65NZTa3QT8A%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEtACzIvtUB6ICiraJV64BAgEiBhGADHaIKT~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=NHTYcrofY%2BOjAEHRtfjeFhogK3A%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What are data streams? #software #programming #coding",
           "url": "https://www.tiktok.com/@redpanda_data/video/7512578961075981614",
           "published_at": "2025-06-05T00:00:00Z",
@@ -479,7 +479,7 @@ window.__devrelReport={
       "total_likes": 101,
       "total_comments": 7,
       "total_shares": 4,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8Ypf7Ca6AChBROygQFMxYSD0f2HiyDEDEBmIQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Xx%2BuePIjgPrQyQ%2FkWAaQDKm8428%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8Ypf7Ca6AChBROygQFMxYSD0f2HiyDEDEBmIQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=RH6kjXL%2Bc%2BhJyLJT%2FC1PlqPTmFM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "The 3 things you should be doing to use Claude Code better. #claude #anthropic #ai #artificialintelligence #technology",
       "platforms": {
         "tiktok": {
@@ -489,7 +489,7 @@ window.__devrelReport={
           "likes": 101,
           "comments": 7,
           "shares": 4,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8Ypf7Ca6AChBROygQFMxYSD0f2HiyDEDEBmIQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Xx%2BuePIjgPrQyQ%2FkWAaQDKm8428%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8Ypf7Ca6AChBROygQFMxYSD0f2HiyDEDEBmIQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=RH6kjXL%2Bc%2BhJyLJT%2FC1PlqPTmFM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "The 3 things you should be doing to use Claude Code better. #claude #anthropic #ai #artificialintelligence #technology",
           "url": "https://www.tiktok.com/@redpanda_data/video/7621270632948436237",
           "published_at": "2026-03-25T00:00:00Z",
@@ -501,21 +501,21 @@ window.__devrelReport={
       "id": "tiktok:7543642289395043639",
       "canonical_title": "Turn any API into a data stream ##learnprogramming##programming##codi...",
       "duration_seconds": 59,
-      "total_views": 1409,
+      "total_views": 1410,
       "total_likes": 65,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogfk0PYVGo34QgEZzj9FKEPDBe1ssQRgRxSABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=EIn7ZGzJCmZcLAzFymJ3OvApLMk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogfk0PYVGo34QgEZzj9FKEPDBe1ssQRgRxSABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=wpIi3Fy1bKwcSSKQwGyA7uJodeA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Turn any API into a data stream ##learnprogramming##programming##coding##computerscience##developer",
       "platforms": {
         "tiktok": {
           "video_id": "7543642289395043639",
           "title": "Turn any API into a data stream ##learnprogramming##programming##codi...",
-          "views": 1409,
+          "views": 1410,
           "likes": 65,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogfk0PYVGo34QgEZzj9FKEPDBe1ssQRgRxSABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=EIn7ZGzJCmZcLAzFymJ3OvApLMk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogfk0PYVGo34QgEZzj9FKEPDBe1ssQRgRxSABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=wpIi3Fy1bKwcSSKQwGyA7uJodeA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Turn any API into a data stream ##learnprogramming##programming##coding##computerscience##developer",
           "url": "https://www.tiktok.com/@redpanda_data/video/7543642289395043639",
           "published_at": "2025-08-28T00:00:00Z",
@@ -555,7 +555,7 @@ window.__devrelReport={
       "total_likes": 70,
       "total_comments": 1,
       "total_shares": 2,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocEAKI4yodBzGu1UxjAhBIaStvhMggAiouiaP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=20ME%2FNrU3EEEPTsflbpsxfxu4xk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocEAKI4yodBzGu1UxjAhBIaStvhMggAiouiaP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=cAniVUTkxUaiFhchj3hX6MebfpI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "#anthropic just shipped remote control for #claude code - but what’s missing? ##aicoding##coding##programming",
       "platforms": {
         "tiktok": {
@@ -565,7 +565,7 @@ window.__devrelReport={
           "likes": 70,
           "comments": 1,
           "shares": 2,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocEAKI4yodBzGu1UxjAhBIaStvhMggAiouiaP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=20ME%2FNrU3EEEPTsflbpsxfxu4xk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocEAKI4yodBzGu1UxjAhBIaStvhMggAiouiaP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=cAniVUTkxUaiFhchj3hX6MebfpI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "#anthropic just shipped remote control for #claude code - but what’s missing? ##aicoding##coding##programming",
           "url": "https://www.tiktok.com/@redpanda_data/video/7611565011500027150",
           "published_at": "2026-02-27T00:00:00Z",
@@ -601,7 +601,7 @@ window.__devrelReport={
       "id": "youtube:FabK4yNEsFM",
       "canonical_title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
       "duration_seconds": 60,
-      "total_views": 1354,
+      "total_views": 1355,
       "total_likes": 15,
       "total_comments": 0,
       "total_shares": 0,
@@ -610,7 +610,7 @@ window.__devrelReport={
         "youtube": {
           "video_id": "FabK4yNEsFM",
           "title": "Turn any API into a data stream #learnprogramming #programming #coding #computerscience #developer",
-          "views": 1354,
+          "views": 1355,
           "likes": 15,
           "comments": 0,
           "shares": 0,
@@ -646,6 +646,32 @@ window.__devrelReport={
       }
     },
     {
+      "id": "tiktok:7626026137373756685",
+      "canonical_title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt...",
+      "duration_seconds": 130,
+      "total_views": 1287,
+      "total_likes": 74,
+      "total_comments": 0,
+      "total_shares": 2,
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMqRg1DCMQppFm5WfSfBRGjzRudaLREFAEDywQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=yIZk2bqd%2BXe4Ks44s5%2FLGiDjVyo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "description": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #artificialintelligence #Tech",
+      "platforms": {
+        "tiktok": {
+          "video_id": "7626026137373756685",
+          "title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt...",
+          "views": 1287,
+          "likes": 74,
+          "comments": 0,
+          "shares": 2,
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMqRg1DCMQppFm5WfSfBRGjzRudaLREFAEDywQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=yIZk2bqd%2BXe4Ks44s5%2FLGiDjVyo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "description": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #artificialintelligence #Tech",
+          "url": "https://www.tiktok.com/@redpanda_data/video/7626026137373756685",
+          "published_at": "2026-04-07T00:00:00Z",
+          "duration_seconds": 130
+        }
+      }
+    },
+    {
       "id": "tiktok:7608600660732300558",
       "canonical_title": "#mcp went from a side project to the industry standard for #ai #agent...",
       "duration_seconds": 59,
@@ -653,7 +679,7 @@ window.__devrelReport={
       "total_likes": 41,
       "total_comments": 2,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocvlWIBV27AiLDcBm4gILiULuEXF5aDEPrZAi~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=0QGyPYa2WP13FKYJNRzqZ6iXkDo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocvlWIBV27AiLDcBm4gILiULuEXF5aDEPrZAi~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xjWiGNUd%2FtTA%2FVjL1%2FMkZ9TE36o%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "#mcp went from a side project to the industry standard for #ai #agents in 12 months. Here's what it is, why it won, and what it looks like to build with it. #coding #computerscience ",
       "platforms": {
         "tiktok": {
@@ -663,7 +689,7 @@ window.__devrelReport={
           "likes": 41,
           "comments": 2,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocvlWIBV27AiLDcBm4gILiULuEXF5aDEPrZAi~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=0QGyPYa2WP13FKYJNRzqZ6iXkDo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocvlWIBV27AiLDcBm4gILiULuEXF5aDEPrZAi~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xjWiGNUd%2FtTA%2FVjL1%2FMkZ9TE36o%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "#mcp went from a side project to the industry standard for #ai #agents in 12 months. Here's what it is, why it won, and what it looks like to build with it. #coding #computerscience ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7608600660732300558",
           "published_at": "2026-02-19T00:00:00Z",
@@ -728,7 +754,7 @@ window.__devrelReport={
       "total_likes": 51,
       "total_comments": 2,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/osSS9BAmoDD1eA7gBoFEgQD1EcARG6XQQ2fESC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=jIqGnqX%2FiyChdaHAZnNI%2BnXPzgo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/osSS9BAmoDD1eA7gBoFEgQD1EcARG6XQQ2fESC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=%2F%2BG0iJtN4NovtzsN1OAU2fyLC7o%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Did you know you can turn an #aws #s3 bucket into a #data stream? #programming #coding ",
       "platforms": {
         "tiktok": {
@@ -738,11 +764,38 @@ window.__devrelReport={
           "likes": 51,
           "comments": 2,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/osSS9BAmoDD1eA7gBoFEgQD1EcARG6XQQ2fESC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=jIqGnqX%2FiyChdaHAZnNI%2BnXPzgo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/osSS9BAmoDD1eA7gBoFEgQD1EcARG6XQQ2fESC~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=%2F%2BG0iJtN4NovtzsN1OAU2fyLC7o%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Did you know you can turn an #aws #s3 bucket into a #data stream? #programming #coding ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7525556636392393998",
           "published_at": "2025-07-10T00:00:00Z",
           "duration_seconds": 59
+        }
+      }
+    },
+    {
+      "id": "youtube:vbRJVITu9iE",
+      "canonical_title": "Is MCP security a joke right now? #coding #mcp #ai #tech",
+      "duration_seconds": 67,
+      "total_views": 1125,
+      "total_likes": 19,
+      "total_comments": 1,
+      "total_shares": 0,
+      "thumbnail": "https://i.ytimg.com/vi/vbRJVITu9iE/maxresdefault.jpg",
+      "platforms": {
+        "youtube": {
+          "video_id": "vbRJVITu9iE",
+          "title": "Is MCP security a joke right now? #coding #mcp #ai #tech",
+          "views": 1125,
+          "likes": 19,
+          "comments": 1,
+          "shares": 0,
+          "comment_texts": [
+            "@TrustMeBroHub: I like your content. Clear, short, straight to the point! Good job."
+          ],
+          "thumbnail": "https://i.ytimg.com/vi/vbRJVITu9iE/maxresdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=vbRJVITu9iE",
+          "published_at": "2026-04-02T00:00:00Z",
+          "duration_seconds": 67
         }
       }
     },
@@ -754,7 +807,7 @@ window.__devrelReport={
       "total_likes": 23,
       "total_comments": 2,
       "total_shares": 3,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8BRDEgHQ2oAFeEcQBsG6SF6SNumnDfkppAx37~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=0jeHR%2Fj%2B00aMbQsk3YG1n97Qfpw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8BRDEgHQ2oAFeEcQBsG6SF6SNumnDfkppAx37~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=unK5QAbNAk165%2BxYijEE6x%2BGsEo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Most AI just talks. Agents act. Here’s the difference.#ai #chatgpt #programming #code #softwareengineer #tech #llm ",
       "platforms": {
         "tiktok": {
@@ -764,38 +817,11 @@ window.__devrelReport={
           "likes": 23,
           "comments": 2,
           "shares": 3,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8BRDEgHQ2oAFeEcQBsG6SF6SNumnDfkppAx37~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=0jeHR%2Fj%2B00aMbQsk3YG1n97Qfpw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8BRDEgHQ2oAFeEcQBsG6SF6SNumnDfkppAx37~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=unK5QAbNAk165%2BxYijEE6x%2BGsEo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Most AI just talks. Agents act. Here’s the difference.#ai #chatgpt #programming #code #softwareengineer #tech #llm ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7509276007283674410",
           "published_at": "2025-05-27T00:00:00Z",
           "duration_seconds": 49
-        }
-      }
-    },
-    {
-      "id": "youtube:vbRJVITu9iE",
-      "canonical_title": "Is MCP security a joke right now? #coding #mcp #ai #tech",
-      "duration_seconds": 67,
-      "total_views": 1123,
-      "total_likes": 19,
-      "total_comments": 1,
-      "total_shares": 0,
-      "thumbnail": "https://i.ytimg.com/vi/vbRJVITu9iE/maxresdefault.jpg",
-      "platforms": {
-        "youtube": {
-          "video_id": "vbRJVITu9iE",
-          "title": "Is MCP security a joke right now? #coding #mcp #ai #tech",
-          "views": 1123,
-          "likes": 19,
-          "comments": 1,
-          "shares": 0,
-          "comment_texts": [
-            "@TrustMeBroHub: I like your content. Clear, short, straight to the point! Good job."
-          ],
-          "thumbnail": "https://i.ytimg.com/vi/vbRJVITu9iE/maxresdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=vbRJVITu9iE",
-          "published_at": "2026-04-02T00:00:00Z",
-          "duration_seconds": 67
         }
       }
     },
@@ -831,7 +857,7 @@ window.__devrelReport={
       "total_likes": 62,
       "total_comments": 1,
       "total_shares": 2,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o03fNClgTJH2jueeCaXQAjMHIPAju7Vggp8tkv~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=wiW%2FSZ217yc7DcbROqpHwXyLUzs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o03fNClgTJH2jueeCaXQAjMHIPAju7Vggp8tkv~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=2VqWU8hdzC9rsw1K3R5PgYicgvw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Cursor announced that you can now run 10 to 20 agents in parallel. That's really cool - but is it enterprise ready? What does enterprise ready look like? #aitools #aicoding #programming #coding #developer",
       "platforms": {
         "tiktok": {
@@ -841,7 +867,7 @@ window.__devrelReport={
           "likes": 62,
           "comments": 1,
           "shares": 2,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o03fNClgTJH2jueeCaXQAjMHIPAju7Vggp8tkv~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=wiW%2FSZ217yc7DcbROqpHwXyLUzs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o03fNClgTJH2jueeCaXQAjMHIPAju7Vggp8tkv~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=2VqWU8hdzC9rsw1K3R5PgYicgvw%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Cursor announced that you can now run 10 to 20 agents in parallel. That's really cool - but is it enterprise ready? What does enterprise ready look like? #aitools #aicoding #programming #coding #developer",
           "url": "https://www.tiktok.com/@redpanda_data/video/7610939032578641166",
           "published_at": "2026-02-25T00:00:00Z",
@@ -1057,7 +1083,7 @@ window.__devrelReport={
       "total_likes": 38,
       "total_comments": 4,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQQQgE9BREtQoABfbskbjY3dKMeDEBFoSczDRF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=xPDI3M4FFZUQNuDoaIvIaEODI2U%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQQQgE9BREtQoABfbskbjY3dKMeDEBFoSczDRF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=tGRuOTqzT3yU%2F42SznYIa5Dq3QY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "It’s easy to build your own #mcp server to use with #claude or another #ai #software #programming ",
       "platforms": {
         "tiktok": {
@@ -1067,7 +1093,7 @@ window.__devrelReport={
           "likes": 38,
           "comments": 4,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQQQgE9BREtQoABfbskbjY3dKMeDEBFoSczDRF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=xPDI3M4FFZUQNuDoaIvIaEODI2U%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQQQgE9BREtQoABfbskbjY3dKMeDEBFoSczDRF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=tGRuOTqzT3yU%2F42SznYIa5Dq3QY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "It’s easy to build your own #mcp server to use with #claude or another #ai #software #programming ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7524815218170498318",
           "published_at": "2025-07-08T00:00:00Z",
@@ -1111,7 +1137,7 @@ window.__devrelReport={
       "total_likes": 39,
       "total_comments": 1,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYItIABGIwnVAXB0hiiWv671je3CciqwpYtAAP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=t2Ffrvb%2FvF19b8QiJBAPD9RcjPE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYItIABGIwnVAXB0hiiWv671je3CciqwpYtAAP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xQDSBxB3F9OHgyHejYp%2FjD1IcSA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "How to use Iceberg and Databricks to query a large data stream #programming #data #aws ",
       "platforms": {
         "tiktok": {
@@ -1121,7 +1147,7 @@ window.__devrelReport={
           "likes": 39,
           "comments": 1,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYItIABGIwnVAXB0hiiWv671je3CciqwpYtAAP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=t2Ffrvb%2FvF19b8QiJBAPD9RcjPE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYItIABGIwnVAXB0hiiWv671je3CciqwpYtAAP~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xQDSBxB3F9OHgyHejYp%2FjD1IcSA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "How to use Iceberg and Databricks to query a large data stream #programming #data #aws ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7542895824045411597",
           "published_at": "2025-08-26T00:00:00Z",
@@ -1137,7 +1163,7 @@ window.__devrelReport={
       "total_likes": 42,
       "total_comments": 1,
       "total_shares": 2,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogNXfLgQQOAibes4V1sIY79eWnLcVRAeYFaGCH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Yo4kwp%2FkvUmiRvqBLr2ysigk044%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogNXfLgQQOAibes4V1sIY79eWnLcVRAeYFaGCH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=CEkaArmCZxmpPb%2F3Z9tlkgwmZWE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Streaming @aws IOT data with MQTT. #programming #coding #data",
       "platforms": {
         "tiktok": {
@@ -1147,7 +1173,7 @@ window.__devrelReport={
           "likes": 42,
           "comments": 1,
           "shares": 2,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogNXfLgQQOAibes4V1sIY79eWnLcVRAeYFaGCH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Yo4kwp%2FkvUmiRvqBLr2ysigk044%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogNXfLgQQOAibes4V1sIY79eWnLcVRAeYFaGCH~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=CEkaArmCZxmpPb%2F3Z9tlkgwmZWE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Streaming @aws IOT data with MQTT. #programming #coding #data",
           "url": "https://www.tiktok.com/@redpanda_data/video/7542521055827545399",
           "published_at": "2025-08-25T00:00:00Z",
@@ -1312,7 +1338,7 @@ window.__devrelReport={
       "total_likes": 15,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okrRPDMfgHCQWJ8U8IAAgegWx2fdPsSDjWOjkY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=EgmMvQpBg0ZJrVScSbg8qEN12bs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okrRPDMfgHCQWJ8U8IAAgegWx2fdPsSDjWOjkY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=v6cOf85obxNjBF5tivL2jeck0UI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Why run a zoo when you can run Redpanda? #programming #programminghumor #coding #data",
       "platforms": {
         "tiktok": {
@@ -1322,7 +1348,7 @@ window.__devrelReport={
           "likes": 15,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okrRPDMfgHCQWJ8U8IAAgegWx2fdPsSDjWOjkY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=EgmMvQpBg0ZJrVScSbg8qEN12bs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okrRPDMfgHCQWJ8U8IAAgegWx2fdPsSDjWOjkY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=v6cOf85obxNjBF5tivL2jeck0UI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Why run a zoo when you can run Redpanda? #programming #programminghumor #coding #data",
           "url": "https://www.tiktok.com/@redpanda_data/video/7538938925600050446",
           "published_at": "2025-08-15T00:00:00Z",
@@ -1384,7 +1410,7 @@ window.__devrelReport={
       "id": "linkedin:urn:li:ugcPost:7437565302265163776",
       "canonical_title": "What are your {hashtag|\\#|aiagents} doing? How can you make them use data better? We answer all these questions and more",
       "duration_seconds": 0,
-      "total_views": 833,
+      "total_views": 834,
       "total_likes": 17,
       "total_comments": 0,
       "total_shares": 14,
@@ -1393,7 +1419,7 @@ window.__devrelReport={
         "linkedin": {
           "video_id": "urn:li:ugcPost:7437565302265163776",
           "title": "What are your {hashtag|\\#|aiagents} doing? How can you make them use data better? We answer all these questions and more",
-          "views": 833,
+          "views": 834,
           "likes": 17,
           "comments": 0,
           "shares": 14,
@@ -1438,7 +1464,7 @@ window.__devrelReport={
       "total_likes": 29,
       "total_comments": 0,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okRgfbHbAD3Ex7SoRyqBDhPghEI5IAFvV03LfD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=sgMSb15RMsaiuRo%2FQ9UFNSuEzYQ%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okRgfbHbAD3Ex7SoRyqBDhPghEI5IAFvV03LfD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=ZDp9636IT6Svt7Y1AqFT5CRSBN8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Who let #ai steal my #data? #cybersecurity #softwareengineer #chatgpt #data #tech ",
       "platforms": {
         "tiktok": {
@@ -1448,7 +1474,7 @@ window.__devrelReport={
           "likes": 29,
           "comments": 0,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okRgfbHbAD3Ex7SoRyqBDhPghEI5IAFvV03LfD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=sgMSb15RMsaiuRo%2FQ9UFNSuEzYQ%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okRgfbHbAD3Ex7SoRyqBDhPghEI5IAFvV03LfD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=ZDp9636IT6Svt7Y1AqFT5CRSBN8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Who let #ai steal my #data? #cybersecurity #softwareengineer #chatgpt #data #tech ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7507252090251627818",
           "published_at": "2025-05-22T00:00:00Z",
@@ -1464,7 +1490,7 @@ window.__devrelReport={
       "total_likes": 30,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8xRsoEmusf0lgSOEVyhrqgIDfAEFDA6zBNpKI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=P6LWBVl8niOyA%2Fya63BzNu2MtaI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8xRsoEmusf0lgSOEVyhrqgIDfAEFDA6zBNpKI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=JS4GLv2vTSKrwqkG4dlzTtyDLNg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Why did #openai buy #openclaw? #aitools #aicoding #coding ",
       "platforms": {
         "tiktok": {
@@ -1474,7 +1500,7 @@ window.__devrelReport={
           "likes": 30,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8xRsoEmusf0lgSOEVyhrqgIDfAEFDA6zBNpKI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=P6LWBVl8niOyA%2Fya63BzNu2MtaI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8xRsoEmusf0lgSOEVyhrqgIDfAEFDA6zBNpKI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=JS4GLv2vTSKrwqkG4dlzTtyDLNg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Why did #openai buy #openclaw? #aitools #aicoding #coding ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7611273170091298062",
           "published_at": "2026-02-26T00:00:00Z",
@@ -1486,21 +1512,21 @@ window.__devrelReport={
       "id": "tiktok:7622303020159634702",
       "canonical_title": "Every dev these days #ai #code #claude #vibecoding",
       "duration_seconds": 13,
-      "total_views": 755,
+      "total_views": 756,
       "total_likes": 13,
       "total_comments": 1,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oU2g283VAi4Ee5SpRv8BD3YVFiIiIBiHY3QxfB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=VPc0uM7lTCzUAaX35PjqP1CNHY0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oU2g283VAi4Ee5SpRv8BD3YVFiIiIBiHY3QxfB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=jlY942hqx%2BqAjFCTk%2BeI8CmjUYQ%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Every dev these days #ai #code #claude #vibecoding",
       "platforms": {
         "tiktok": {
           "video_id": "7622303020159634702",
           "title": "Every dev these days #ai #code #claude #vibecoding",
-          "views": 755,
+          "views": 756,
           "likes": 13,
           "comments": 1,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oU2g283VAi4Ee5SpRv8BD3YVFiIiIBiHY3QxfB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=VPc0uM7lTCzUAaX35PjqP1CNHY0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oU2g283VAi4Ee5SpRv8BD3YVFiIiIBiHY3QxfB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=jlY942hqx%2BqAjFCTk%2BeI8CmjUYQ%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Every dev these days #ai #code #claude #vibecoding",
           "url": "https://www.tiktok.com/@redpanda_data/video/7622303020159634702",
           "published_at": "2026-03-28T00:00:00Z",
@@ -1914,7 +1940,7 @@ window.__devrelReport={
       "total_likes": 24,
       "total_comments": 6,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okhKNehnOBQ1ifcfeKKvceGgAoYG0pAN3A4wSY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=A97c1TMbuqL%2BINL9aPM5nuGK5Jc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okhKNehnOBQ1ifcfeKKvceGgAoYG0pAN3A4wSY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=u5iyijv4Akh3pLeq0lHS8v5tpvo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "#openai killed #sora and it was costing them $15 million a day.  #news #techtok ",
       "platforms": {
         "tiktok": {
@@ -1924,7 +1950,7 @@ window.__devrelReport={
           "likes": 24,
           "comments": 6,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okhKNehnOBQ1ifcfeKKvceGgAoYG0pAN3A4wSY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=A97c1TMbuqL%2BINL9aPM5nuGK5Jc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/okhKNehnOBQ1ifcfeKKvceGgAoYG0pAN3A4wSY~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=u5iyijv4Akh3pLeq0lHS8v5tpvo%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "#openai killed #sora and it was costing them $15 million a day.  #news #techtok ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7621630978183679245",
           "published_at": "2026-03-26T00:00:00Z",
@@ -1936,7 +1962,7 @@ window.__devrelReport={
       "id": "linkedin:urn:li:ugcPost:7443300764493479937",
       "canonical_title": "Is Al coming for your job? Yes... but let me explain. ",
       "duration_seconds": 0,
-      "total_views": 566,
+      "total_views": 567,
       "total_likes": 10,
       "total_comments": 0,
       "total_shares": 4,
@@ -1945,7 +1971,7 @@ window.__devrelReport={
         "linkedin": {
           "video_id": "urn:li:ugcPost:7443300764493479937",
           "title": "Is Al coming for your job? Yes... but let me explain. ",
-          "views": 566,
+          "views": 567,
           "likes": 10,
           "comments": 0,
           "shares": 4,
@@ -2053,6 +2079,30 @@ window.__devrelReport={
           "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7440758792369139713/",
           "published_at": "2026-03-20T18:30:03Z",
           "duration_seconds": 0
+        }
+      }
+    },
+    {
+      "id": "youtube:dp_e6LjRCVg",
+      "canonical_title": "Claude can control your computer, but is your Al development a security hole? #claude #anthropic #ai",
+      "duration_seconds": 77,
+      "total_views": 516,
+      "total_likes": 8,
+      "total_comments": 0,
+      "total_shares": 0,
+      "thumbnail": "https://i.ytimg.com/vi/dp_e6LjRCVg/maxresdefault.jpg",
+      "platforms": {
+        "youtube": {
+          "video_id": "dp_e6LjRCVg",
+          "title": "Claude can control your computer, but is your Al development a security hole? #claude #anthropic #ai",
+          "views": 516,
+          "likes": 8,
+          "comments": 0,
+          "shares": 0,
+          "thumbnail": "https://i.ytimg.com/vi/dp_e6LjRCVg/maxresdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=dp_e6LjRCVg",
+          "published_at": "2026-04-07T00:00:00Z",
+          "duration_seconds": 77
         }
       }
     },
@@ -2182,32 +2232,6 @@ window.__devrelReport={
       }
     },
     {
-      "id": "tiktok:7626026137373756685",
-      "canonical_title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt...",
-      "duration_seconds": 130,
-      "total_views": 477,
-      "total_likes": 1,
-      "total_comments": 0,
-      "total_shares": 2,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMqRg1DCMQppFm5WfSfBRGjzRudaLREFAEDywQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=rb%2FEgL54ch7RnzCAEqKLe%2BLiNO8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
-      "description": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #artificialintelligence #Tech",
-      "platforms": {
-        "tiktok": {
-          "video_id": "7626026137373756685",
-          "title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt...",
-          "views": 477,
-          "likes": 1,
-          "comments": 0,
-          "shares": 2,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMqRg1DCMQppFm5WfSfBRGjzRudaLREFAEDywQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=rb%2FEgL54ch7RnzCAEqKLe%2BLiNO8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
-          "description": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #artificialintelligence #Tech",
-          "url": "https://www.tiktok.com/@redpanda_data/video/7626026137373756685",
-          "published_at": "2026-04-07T00:00:00Z",
-          "duration_seconds": 130
-        }
-      }
-    },
-    {
       "id": "linkedin:urn:li:ugcPost:7440108494952763392",
       "canonical_title": "Do you have an {hashtag|\\#|ai} mandate? ",
       "duration_seconds": 0,
@@ -2282,6 +2306,30 @@ window.__devrelReport={
       }
     },
     {
+      "id": "youtube:MXFZ-LPaPp0",
+      "canonical_title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #tech #technews #coding",
+      "duration_seconds": 130,
+      "total_views": 424,
+      "total_likes": 6,
+      "total_comments": 0,
+      "total_shares": 0,
+      "thumbnail": "https://i.ytimg.com/vi/MXFZ-LPaPp0/maxresdefault.jpg",
+      "platforms": {
+        "youtube": {
+          "video_id": "MXFZ-LPaPp0",
+          "title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #tech #technews #coding",
+          "views": 424,
+          "likes": 6,
+          "comments": 0,
+          "shares": 0,
+          "thumbnail": "https://i.ytimg.com/vi/MXFZ-LPaPp0/maxresdefault.jpg",
+          "url": "https://www.youtube.com/watch?v=MXFZ-LPaPp0",
+          "published_at": "2026-04-07T00:00:00Z",
+          "duration_seconds": 130
+        }
+      }
+    },
+    {
       "id": "linkedin:urn:li:ugcPost:7437223174443864064",
       "canonical_title": "Does your AI strategy have the flexibility to switch to the next best model? ",
       "duration_seconds": 0,
@@ -2339,7 +2387,7 @@ window.__devrelReport={
       "total_likes": 10,
       "total_comments": 2,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/os4EDvqSvQAE4q4mznRW8fDrqgExlBDepQIRIF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Wevz7M6RuY2j9O6Klx3c7sESiuk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/os4EDvqSvQAE4q4mznRW8fDrqgExlBDepQIRIF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=w0rMnszT7iOOXN2HlPAsw7t6muI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What are the drawbacks of cheap #ai? It’s worse than you think… #programming #techtok #techexplained ",
       "platforms": {
         "tiktok": {
@@ -2349,7 +2397,7 @@ window.__devrelReport={
           "likes": 10,
           "comments": 2,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/os4EDvqSvQAE4q4mznRW8fDrqgExlBDepQIRIF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Wevz7M6RuY2j9O6Klx3c7sESiuk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/os4EDvqSvQAE4q4mznRW8fDrqgExlBDepQIRIF~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=w0rMnszT7iOOXN2HlPAsw7t6muI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What are the drawbacks of cheap #ai? It’s worse than you think… #programming #techtok #techexplained ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7619043100639448333",
           "published_at": "2026-03-19T00:00:00Z",
@@ -2365,7 +2413,7 @@ window.__devrelReport={
       "total_likes": 4,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8IaAEppivoiCKBIA97SgEBZi4CrAlA6hDNQU~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7ffbpugF2EzITuceIxm%2Fl563uUg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8IaAEppivoiCKBIA97SgEBZi4CrAlA6hDNQU~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=Oi2GenBt775DKot%2FRXF3mGZHUZI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Should competitors be banned from events? #eventmarketing #software #programming #coding #startup ",
       "platforms": {
         "tiktok": {
@@ -2375,35 +2423,11 @@ window.__devrelReport={
           "likes": 4,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8IaAEppivoiCKBIA97SgEBZi4CrAlA6hDNQU~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7ffbpugF2EzITuceIxm%2Fl563uUg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8IaAEppivoiCKBIA97SgEBZi4CrAlA6hDNQU~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=Oi2GenBt775DKot%2FRXF3mGZHUZI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Should competitors be banned from events? #eventmarketing #software #programming #coding #startup ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7512184516186836266",
           "published_at": "2025-06-04T00:00:00Z",
           "duration_seconds": 24
-        }
-      }
-    },
-    {
-      "id": "youtube:dp_e6LjRCVg",
-      "canonical_title": "Claude can control your computer, but is your Al development a security hole? #claude #anthropic #ai",
-      "duration_seconds": 77,
-      "total_views": 369,
-      "total_likes": 7,
-      "total_comments": 0,
-      "total_shares": 0,
-      "thumbnail": "https://i.ytimg.com/vi/dp_e6LjRCVg/maxresdefault.jpg",
-      "platforms": {
-        "youtube": {
-          "video_id": "dp_e6LjRCVg",
-          "title": "Claude can control your computer, but is your Al development a security hole? #claude #anthropic #ai",
-          "views": 369,
-          "likes": 7,
-          "comments": 0,
-          "shares": 0,
-          "thumbnail": "https://i.ytimg.com/vi/dp_e6LjRCVg/maxresdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=dp_e6LjRCVg",
-          "published_at": "2026-04-07T00:00:00Z",
-          "duration_seconds": 77
         }
       }
     },
@@ -2415,7 +2439,7 @@ window.__devrelReport={
       "total_likes": 10,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/octOTTmQr1LGlFVeAtIvfeIHLRAG0BVRTqeZJQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=r5DOreSXmvRFXaHyc8Vm9U%2B%2F8%2BY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/octOTTmQr1LGlFVeAtIvfeIHLRAG0BVRTqeZJQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xC7wJ057dr%2F01a66zZFg%2Fy90cgE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Nobody shows you this part of AI agents 👀 #ai #agent  #mcp #techexplained #dev",
       "platforms": {
         "tiktok": {
@@ -2425,7 +2449,7 @@ window.__devrelReport={
           "likes": 10,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/octOTTmQr1LGlFVeAtIvfeIHLRAG0BVRTqeZJQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=r5DOreSXmvRFXaHyc8Vm9U%2B%2F8%2BY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/octOTTmQr1LGlFVeAtIvfeIHLRAG0BVRTqeZJQ~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=xC7wJ057dr%2F01a66zZFg%2Fy90cgE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Nobody shows you this part of AI agents 👀 #ai #agent  #mcp #techexplained #dev",
           "url": "https://www.tiktok.com/@redpanda_data/video/7608262781221063950",
           "published_at": "2026-02-18T00:00:00Z",
@@ -2504,30 +2528,6 @@ window.__devrelReport={
           "url": "https://www.youtube.com/watch?v=wiCXuBXMhYw",
           "published_at": "2026-03-18T00:00:00Z",
           "duration_seconds": 59
-        }
-      }
-    },
-    {
-      "id": "youtube:MXFZ-LPaPp0",
-      "canonical_title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #tech #technews #coding",
-      "duration_seconds": 130,
-      "total_views": 330,
-      "total_likes": 6,
-      "total_comments": 0,
-      "total_shares": 0,
-      "thumbnail": "https://i.ytimg.com/vi/MXFZ-LPaPp0/maxresdefault.jpg",
-      "platforms": {
-        "youtube": {
-          "video_id": "MXFZ-LPaPp0",
-          "title": "Turns out AI coding is addictive - are you prepared? #claude #chatgpt #ai #tech #technews #coding",
-          "views": 330,
-          "likes": 6,
-          "comments": 0,
-          "shares": 0,
-          "thumbnail": "https://i.ytimg.com/vi/MXFZ-LPaPp0/maxresdefault.jpg",
-          "url": "https://www.youtube.com/watch?v=MXFZ-LPaPp0",
-          "published_at": "2026-04-07T00:00:00Z",
-          "duration_seconds": 130
         }
       }
     },
@@ -2636,7 +2636,7 @@ window.__devrelReport={
       "total_likes": 1,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8SB1T3AHKdDapyOA97RWAfvESDFUrEogIfIip~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=kqnz%2Fm2OaFFTKynNwgFIq8MA5UY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8SB1T3AHKdDapyOA97RWAfvESDFUrEogIfIip~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=klszpoJ2HvihDSAWZwfcYoO8X6k%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programming##coding",
       "platforms": {
         "tiktok": {
@@ -2646,7 +2646,7 @@ window.__devrelReport={
           "likes": 1,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8SB1T3AHKdDapyOA97RWAfvESDFUrEogIfIip~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=kqnz%2Fm2OaFFTKynNwgFIq8MA5UY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8SB1T3AHKdDapyOA97RWAfvESDFUrEogIfIip~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=klszpoJ2HvihDSAWZwfcYoO8X6k%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Come see us at Redpanda Streamfest 2025 ##learnprogramming##programming##coding",
           "url": "https://www.tiktok.com/@redpanda_data/video/7553852988293516557",
           "published_at": "2025-09-24T00:00:00Z",
@@ -2662,7 +2662,7 @@ window.__devrelReport={
       "total_likes": 5,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEz5NCBBQPveH4OvfgR7MXFfAfjIDw8AAqXHG~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=mOzEFW%2BQz8oR5NE%2B4DBKBOoUXlc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEz5NCBBQPveH4OvfgR7MXFfAfjIDw8AAqXHG~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=%2F6vlANk94z3Mzj0YD8uTMej1lxk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
       "platforms": {
         "tiktok": {
@@ -2672,7 +2672,7 @@ window.__devrelReport={
           "likes": 5,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEz5NCBBQPveH4OvfgR7MXFfAfjIDw8AAqXHG~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=mOzEFW%2BQz8oR5NE%2B4DBKBOoUXlc%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAEz5NCBBQPveH4OvfgR7MXFfAfjIDw8AAqXHG~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=%2F6vlANk94z3Mzj0YD8uTMej1lxk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What is a Vector Store? #softwareengineer #programming #agenticai #datascience #database #coding",
           "url": "https://www.tiktok.com/@redpanda_data/video/7511862580495797546",
           "published_at": "2025-06-03T00:00:00Z",
@@ -2688,7 +2688,7 @@ window.__devrelReport={
       "total_likes": 7,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYBVRtDdsCHfKoaxwezzSpYEAJuFIEpdDIgAEX~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=jqk0BNN5pPzsgEWeinxZPp5IUeM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYBVRtDdsCHfKoaxwezzSpYEAJuFIEpdDIgAEX~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=VR5omMGP7BBlwFZ5fS96HENAcJ4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Open-Weight AI Caught Up and Most CIOs Missed It #techtok #techexplained #computerscience ",
       "platforms": {
         "tiktok": {
@@ -2698,7 +2698,7 @@ window.__devrelReport={
           "likes": 7,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYBVRtDdsCHfKoaxwezzSpYEAJuFIEpdDIgAEX~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=jqk0BNN5pPzsgEWeinxZPp5IUeM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYBVRtDdsCHfKoaxwezzSpYEAJuFIEpdDIgAEX~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=VR5omMGP7BBlwFZ5fS96HENAcJ4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Open-Weight AI Caught Up and Most CIOs Missed It #techtok #techexplained #computerscience ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7615714587010256141",
           "published_at": "2026-03-10T00:00:00Z",
@@ -2714,7 +2714,7 @@ window.__devrelReport={
       "total_likes": 7,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o0QAVIhFqeTAYCvqa3I4CLVIjHwGCAKkeIe2w2~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=iO44Bz4w4%2FsX7za1QZStzArE4As%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o0QAVIhFqeTAYCvqa3I4CLVIjHwGCAKkeIe2w2~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AszdhIetYL5e69paSw9wtta4RF8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What’s a knowledge base? #coding #programming #aicoding ",
       "platforms": {
         "tiktok": {
@@ -2724,7 +2724,7 @@ window.__devrelReport={
           "likes": 7,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o0QAVIhFqeTAYCvqa3I4CLVIjHwGCAKkeIe2w2~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=iO44Bz4w4%2FsX7za1QZStzArE4As%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o0QAVIhFqeTAYCvqa3I4CLVIjHwGCAKkeIe2w2~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AszdhIetYL5e69paSw9wtta4RF8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What’s a knowledge base? #coding #programming #aicoding ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7614085911181004045",
           "published_at": "2026-03-06T00:00:00Z",
@@ -2740,7 +2740,7 @@ window.__devrelReport={
       "total_likes": 5,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oo0BGVC2QIrfy1MH6pQIbGfCWQJkkwieAAPLJj~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=D4g7Tjmyod8dTQ9F6ZQQDYOFsDI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oo0BGVC2QIrfy1MH6pQIbGfCWQJkkwieAAPLJj~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=tA7jjpWj9iP2Mi9IWmFNOvebpb4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Think #chatgpt is smart? Now imagine 100 of them working as a team. #ai #software #llm #artificialintelligence #techtok ",
       "platforms": {
         "tiktok": {
@@ -2750,7 +2750,7 @@ window.__devrelReport={
           "likes": 5,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oo0BGVC2QIrfy1MH6pQIbGfCWQJkkwieAAPLJj~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=D4g7Tjmyod8dTQ9F6ZQQDYOFsDI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oo0BGVC2QIrfy1MH6pQIbGfCWQJkkwieAAPLJj~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=tA7jjpWj9iP2Mi9IWmFNOvebpb4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Think #chatgpt is smart? Now imagine 100 of them working as a team. #ai #software #llm #artificialintelligence #techtok ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7506889163069738286",
           "published_at": "2025-05-21T00:00:00Z",
@@ -2766,7 +2766,7 @@ window.__devrelReport={
       "total_likes": 2,
       "total_comments": 0,
       "total_shares": 1,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMKGs4araLRuwzUrFY5Agl4YEiXoiPBIBB6iI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=WCM2bQlkFqj5rY3CgJCLMD5XUU4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMKGs4araLRuwzUrFY5Agl4YEiXoiPBIBB6iI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=c7bVqyTcQ%2B6K%2BKrQxb2fzrnbXec%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Resonate + Redpanda is a really cool distributed systems use case. #software #programming #coding ",
       "platforms": {
         "tiktok": {
@@ -2776,7 +2776,7 @@ window.__devrelReport={
           "likes": 2,
           "comments": 0,
           "shares": 1,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMKGs4araLRuwzUrFY5Agl4YEiXoiPBIBB6iI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=WCM2bQlkFqj5rY3CgJCLMD5XUU4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oMKGs4araLRuwzUrFY5Agl4YEiXoiPBIBB6iI~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=c7bVqyTcQ%2B6K%2BKrQxb2fzrnbXec%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Resonate + Redpanda is a really cool distributed systems use case. #software #programming #coding ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7524435867860045111",
           "published_at": "2025-07-07T00:00:00Z",
@@ -2792,7 +2792,7 @@ window.__devrelReport={
       "total_likes": 5,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQi8Ip7f0SFIPyCIMi500AiR93yBnTwBADyBOA~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Wxss0dS9sRbmX1eO6W2DwWBdjzE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQi8Ip7f0SFIPyCIMi500AiR93yBnTwBADyBOA~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=LgxTtGt%2F%2FyTOG0dom3bbXjgOHYk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "MCP security is a joke right now #ai #mcp #Tech #techtok ",
       "platforms": {
         "tiktok": {
@@ -2802,7 +2802,7 @@ window.__devrelReport={
           "likes": 5,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQi8Ip7f0SFIPyCIMi500AiR93yBnTwBADyBOA~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Wxss0dS9sRbmX1eO6W2DwWBdjzE%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oQi8Ip7f0SFIPyCIMi500AiR93yBnTwBADyBOA~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=LgxTtGt%2F%2FyTOG0dom3bbXjgOHYk%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "MCP security is a joke right now #ai #mcp #Tech #techtok ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7624181809600941325",
           "published_at": "2026-04-02T00:00:00Z",
@@ -2818,7 +2818,7 @@ window.__devrelReport={
       "total_likes": 8,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAHPUsiIIBw0eK2PrsipxgONjqjdLCANBANIBz~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=H5TKazbdQ9yRj4i283G9Ij2NsNM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAHPUsiIIBw0eK2PrsipxgONjqjdLCANBANIBz~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=bDeCrLmdHLGEZgzq3IkYmg8ImbA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Check out our new #aiagents podcast: Hello, Agent. #techtok #techexplained #computerscience ",
       "platforms": {
         "tiktok": {
@@ -2828,7 +2828,7 @@ window.__devrelReport={
           "likes": 8,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAHPUsiIIBw0eK2PrsipxgONjqjdLCANBANIBz~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=H5TKazbdQ9yRj4i283G9Ij2NsNM%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oAHPUsiIIBw0eK2PrsipxgONjqjdLCANBANIBz~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=bDeCrLmdHLGEZgzq3IkYmg8ImbA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Check out our new #aiagents podcast: Hello, Agent. #techtok #techexplained #computerscience ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7616064680565558541",
           "published_at": "2026-03-11T00:00:00Z",
@@ -2840,7 +2840,7 @@ window.__devrelReport={
       "id": "linkedin:urn:li:ugcPost:7446949428424429568",
       "canonical_title": "Claude can control your computer - but is AI coding a security risk? And how do you mitigate that risk?",
       "duration_seconds": 0,
-      "total_views": 213,
+      "total_views": 214,
       "total_likes": 7,
       "total_comments": 0,
       "total_shares": 4,
@@ -2849,7 +2849,7 @@ window.__devrelReport={
         "linkedin": {
           "video_id": "urn:li:ugcPost:7446949428424429568",
           "title": "Claude can control your computer - but is AI coding a security risk? And how do you mitigate that risk?",
-          "views": 213,
+          "views": 214,
           "likes": 7,
           "comments": 0,
           "shares": 4,
@@ -2869,7 +2869,7 @@ window.__devrelReport={
       "total_likes": 2,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocfwVU5bMovLIgiWhJZiBEqBBy6QeIRxM2SABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=FisaKM1ypJXArdgL26TUprp3I8U%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocfwVU5bMovLIgiWhJZiBEqBBy6QeIRxM2SABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AvaCScDxrFbCXpjFQPhCbkk4i6M%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "You may have heard about vibe coding, but what about vibe streaming? #learnprogramming #coding #ai #aiagents ",
       "platforms": {
         "tiktok": {
@@ -2879,7 +2879,7 @@ window.__devrelReport={
           "likes": 2,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p19-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocfwVU5bMovLIgiWhJZiBEqBBy6QeIRxM2SABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=FisaKM1ypJXArdgL26TUprp3I8U%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocfwVU5bMovLIgiWhJZiBEqBBy6QeIRxM2SABD~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AvaCScDxrFbCXpjFQPhCbkk4i6M%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "You may have heard about vibe coding, but what about vibe streaming? #learnprogramming #coding #ai #aiagents ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7561974227885149495",
           "published_at": "2025-10-16T00:00:00Z",
@@ -2914,6 +2914,31 @@ window.__devrelReport={
       }
     },
     {
+      "id": "linkedin:urn:li:ugcPost:7447292932392595456",
+      "canonical_title": "Turns out AI coding is addictive - are you prepared? ",
+      "duration_seconds": 0,
+      "total_views": 197,
+      "total_likes": 5,
+      "total_comments": 0,
+      "total_shares": 1,
+      "description": "Turns out AI coding is addictive - are you prepared? \n\n\n\n{hashtag|\\#|claude} {hashtag|\\#|chatgpt} {hashtag|\\#|ai} {hashtag|\\#|tech} {hashtag|\\#|technews} {hashtag|\\#|coding}",
+      "platforms": {
+        "linkedin": {
+          "video_id": "urn:li:ugcPost:7447292932392595456",
+          "title": "Turns out AI coding is addictive - are you prepared? ",
+          "views": 197,
+          "likes": 5,
+          "comments": 0,
+          "shares": 1,
+          "clicks": 10,
+          "description": "Turns out AI coding is addictive - are you prepared? \n\n\n\n{hashtag|\\#|claude} {hashtag|\\#|chatgpt} {hashtag|\\#|ai} {hashtag|\\#|tech} {hashtag|\\#|technews} {hashtag|\\#|coding}",
+          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7447292932392595456/",
+          "published_at": "2026-04-07T19:00:05Z",
+          "duration_seconds": 0
+        }
+      }
+    },
+    {
       "id": "tiktok:7511522361712135466",
       "canonical_title": "What is model context protocol? ##ai##programming##softwareengineer##...",
       "duration_seconds": 47,
@@ -2921,7 +2946,7 @@ window.__devrelReport={
       "total_likes": 1,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o4Ry0rQAIhALeIJkRLGQ1feNIFGOOFEQLBfg58~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=iltZ%2BWlcKVD0Lcw4AsKmuSEvYWI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o4Ry0rQAIhALeIJkRLGQ1feNIFGOOFEQLBfg58~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=HEz9ygUcdxrwYGDj7TV3Ym0xSvY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "What is model context protocol? ##ai##programming##softwareengineer##governance##agenticai##chatgpt",
       "platforms": {
         "tiktok": {
@@ -2931,7 +2956,7 @@ window.__devrelReport={
           "likes": 1,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o4Ry0rQAIhALeIJkRLGQ1feNIFGOOFEQLBfg58~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=iltZ%2BWlcKVD0Lcw4AsKmuSEvYWI%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o4Ry0rQAIhALeIJkRLGQ1feNIFGOOFEQLBfg58~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=HEz9ygUcdxrwYGDj7TV3Ym0xSvY%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "What is model context protocol? ##ai##programming##softwareengineer##governance##agenticai##chatgpt",
           "url": "https://www.tiktok.com/@redpanda_data/video/7511522361712135466",
           "published_at": "2025-06-02T00:00:00Z",
@@ -2947,7 +2972,7 @@ window.__devrelReport={
       "total_likes": 3,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8A0Ii3EYG4yB3BgdUAauiEBRLO7dWtqBIiv1~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=o%2BkoD4kl56bU%2BeBOQaGZ%2FcBMJxA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8A0Ii3EYG4yB3BgdUAauiEBRLO7dWtqBIiv1~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=wBe%2F3G17IDFPNFWy%2Fit7FELRvl4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Come say hello at @AWS summit #nyc - get a free t-shirt. Booth 454. ",
       "platforms": {
         "tiktok": {
@@ -2957,7 +2982,7 @@ window.__devrelReport={
           "likes": 3,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8A0Ii3EYG4yB3BgdUAauiEBRLO7dWtqBIiv1~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=o%2BkoD4kl56bU%2BeBOQaGZ%2FcBMJxA%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/o8A0Ii3EYG4yB3BgdUAauiEBRLO7dWtqBIiv1~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=wBe%2F3G17IDFPNFWy%2Fit7FELRvl4%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Come say hello at @AWS summit #nyc - get a free t-shirt. Booth 454. ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7525197382305238327",
           "published_at": "2025-07-09T00:00:00Z",
@@ -2973,7 +2998,7 @@ window.__devrelReport={
       "total_likes": 1,
       "total_comments": 1,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogIGCSI6liieHYGfFAecLOAIBYIVyZGpOe6m8R~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=UOhmFvXIs02IEbrbgGJEQL0z10I%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogIGCSI6liieHYGfFAecLOAIBYIVyZGpOe6m8R~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=oABwyfuiiXEzsKQcfLHO%2FvYh8dg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Do you have an #ai strategy? #aicoding #programming #coding #aiagents ",
       "platforms": {
         "tiktok": {
@@ -2983,7 +3008,7 @@ window.__devrelReport={
           "likes": 1,
           "comments": 1,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogIGCSI6liieHYGfFAecLOAIBYIVyZGpOe6m8R~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=UOhmFvXIs02IEbrbgGJEQL0z10I%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ogIGCSI6liieHYGfFAecLOAIBYIVyZGpOe6m8R~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=oABwyfuiiXEzsKQcfLHO%2FvYh8dg%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Do you have an #ai strategy? #aicoding #programming #coding #aiagents ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7618668868046720269",
           "published_at": "2026-03-18T00:00:00Z",
@@ -2995,21 +3020,21 @@ window.__devrelReport={
       "id": "tiktok:7623797191139790093",
       "canonical_title": "AI Agents don’t follow the rules. Prove me wrong. #ai #artificialinte...",
       "duration_seconds": 76,
-      "total_views": 161,
+      "total_views": 162,
       "total_likes": 2,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYONfADzFKLDzFRdpQutqASEgIaNBerI13nSEN~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7C3VWARzhbif739naYlonociOek%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYONfADzFKLDzFRdpQutqASEgIaNBerI13nSEN~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AS5eVFL6KexYyxbAPgZkhfZ1dA0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "AI Agents don’t follow the rules. Prove me wrong. #ai #artificialintelligence #Tech #techtok #governance ",
       "platforms": {
         "tiktok": {
           "video_id": "7623797191139790093",
           "title": "AI Agents don’t follow the rules. Prove me wrong. #ai #artificialinte...",
-          "views": 161,
+          "views": 162,
           "likes": 2,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYONfADzFKLDzFRdpQutqASEgIaNBerI13nSEN~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=7C3VWARzhbif739naYlonociOek%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oYONfADzFKLDzFRdpQutqASEgIaNBerI13nSEN~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=AS5eVFL6KexYyxbAPgZkhfZ1dA0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "AI Agents don’t follow the rules. Prove me wrong. #ai #artificialintelligence #Tech #techtok #governance ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7623797191139790093",
           "published_at": "2026-04-01T00:00:00Z",
@@ -3025,7 +3050,7 @@ window.__devrelReport={
       "total_likes": 4,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ok78CXDcAAkrdMtuQeGH3LGLs0QEPR7kAACeQe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=kmLYjnsHuNp%2FJRoyovG%2BYHQVwFs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ok78CXDcAAkrdMtuQeGH3LGLs0QEPR7kAACeQe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=970lybUTkjiZxXYCwHxArqQ4wNU%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Taking Redpanda data to AWS S3 with just a few lines of connector config. No extra services just clean reliable streaming walking you through it step by step. #LearnOnTikTok #TechTok #Developer #CloudComputing #DataEngineering",
       "platforms": {
         "tiktok": {
@@ -3035,7 +3060,7 @@ window.__devrelReport={
           "likes": 4,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ok78CXDcAAkrdMtuQeGH3LGLs0QEPR7kAACeQe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=kmLYjnsHuNp%2FJRoyovG%2BYHQVwFs%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ok78CXDcAAkrdMtuQeGH3LGLs0QEPR7kAACeQe~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=970lybUTkjiZxXYCwHxArqQ4wNU%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Taking Redpanda data to AWS S3 with just a few lines of connector config. No extra services just clean reliable streaming walking you through it step by step. #LearnOnTikTok #TechTok #Developer #CloudComputing #DataEngineering",
           "url": "https://www.tiktok.com/@redpanda_data/video/7538489164149411086",
           "published_at": "2025-08-14T00:00:00Z",
@@ -3075,7 +3100,7 @@ window.__devrelReport={
       "total_likes": 1,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oc4UvmHIgKYi6P13EUKmbuaIiShX9FAJBInBB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=qwHWjCo2Xj%2FIs9Q%2FkhNPT%2FReOig%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oc4UvmHIgKYi6P13EUKmbuaIiShX9FAJBInBB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=PnftxoxnhdeGt%2F2ipB5tyzD9zb0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "This is how you get real-time AI with zero lag 🚀 #AI #Streaming #software ",
       "platforms": {
         "tiktok": {
@@ -3085,7 +3110,7 @@ window.__devrelReport={
           "likes": 1,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oc4UvmHIgKYi6P13EUKmbuaIiShX9FAJBInBB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=qwHWjCo2Xj%2FIs9Q%2FkhNPT%2FReOig%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/oc4UvmHIgKYi6P13EUKmbuaIiShX9FAJBInBB~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=PnftxoxnhdeGt%2F2ipB5tyzD9zb0%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "This is how you get real-time AI with zero lag 🚀 #AI #Streaming #software ",
           "url": "https://www.tiktok.com/@redpanda_data/video/7619334579387649293",
           "published_at": "2026-03-20T00:00:00Z",
@@ -3101,7 +3126,7 @@ window.__devrelReport={
       "total_likes": 3,
       "total_comments": 0,
       "total_shares": 0,
-      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/owV1oBla2PmEVXIaXhd1tBRviil1gAAAIICnL~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Su%2FjOgQNXaOmOrYNQ5OmHNdem8w%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+      "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/owV1oBla2PmEVXIaXhd1tBRviil1gAAAIICnL~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=5hLY7yQi3fnPq7a7kmCwWzD1sn8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
       "description": "Are you paying too much for Al by not using open-weight models? #aicoding #coding #programming #claude #chatgpt",
       "platforms": {
         "tiktok": {
@@ -3111,38 +3136,14 @@ window.__devrelReport={
           "likes": 3,
           "comments": 0,
           "shares": 0,
-          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/owV1oBla2PmEVXIaXhd1tBRviil1gAAAIICnL~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775761200\u0026x-signature=Su%2FjOgQNXaOmOrYNQ5OmHNdem8w%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
+          "thumbnail": "https://p16-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/owV1oBla2PmEVXIaXhd1tBRviil1gAAAIICnL~tplv-tiktokx-origin.image?dr=9636\u0026x-expires=1775775600\u0026x-signature=5hLY7yQi3fnPq7a7kmCwWzD1sn8%3D\u0026t=4d5b0474\u0026ps=13740610\u0026shp=81f88b70\u0026shcp=43f4a2f9\u0026idc=useast8",
           "description": "Are you paying too much for Al by not using open-weight models? #aicoding #coding #programming #claude #chatgpt",
           "url": "https://www.tiktok.com/@redpanda_data/video/7613155058594712862",
           "published_at": "2026-03-03T00:00:00Z",
           "duration_seconds": 66
         }
       }
-    },
-    {
-      "id": "linkedin:urn:li:ugcPost:7447292932392595456",
-      "canonical_title": "Turns out AI coding is addictive - are you prepared? ",
-      "duration_seconds": 0,
-      "total_views": 7,
-      "total_likes": 0,
-      "total_comments": 0,
-      "total_shares": 0,
-      "description": "Turns out AI coding is addictive - are you prepared? \n\n\n\n{hashtag|\\#|claude} {hashtag|\\#|chatgpt} {hashtag|\\#|ai} {hashtag|\\#|tech} {hashtag|\\#|technews} {hashtag|\\#|coding}",
-      "platforms": {
-        "linkedin": {
-          "video_id": "urn:li:ugcPost:7447292932392595456",
-          "title": "Turns out AI coding is addictive - are you prepared? ",
-          "views": 7,
-          "likes": 0,
-          "comments": 0,
-          "shares": 0,
-          "description": "Turns out AI coding is addictive - are you prepared? \n\n\n\n{hashtag|\\#|claude} {hashtag|\\#|chatgpt} {hashtag|\\#|ai} {hashtag|\\#|tech} {hashtag|\\#|technews} {hashtag|\\#|coding}",
-          "url": "https://www.linkedin.com/feed/update/urn:li:ugcPost:7447292932392595456/",
-          "published_at": "2026-04-07T19:00:05Z",
-          "duration_seconds": 0
-        }
-      }
     }
   ],
   "unmatched": null
-};
+}
