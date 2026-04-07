@@ -495,13 +495,14 @@ function linearRegression(values) {
 // ── Week-over-Week Chart ──────────────────────────────────────────────────────
 
 function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate, metric = 'views') {
-  // Align to Monday-based weeks
+  // Align to Monday-based weeks — use UTC throughout so publish dates like
+  // "2026-04-06T00:00:00Z" (UTC Monday) don't shift into Sunday in local time.
   const startOfMonday = d => {
-    const day = d.getDay(); // 0=Sun
+    const day = d.getUTCDay(); // 0=Sun
     const diff = day === 0 ? -6 : 1 - day;
     const mon = new Date(d);
-    mon.setDate(d.getDate() + diff);
-    mon.setHours(0, 0, 0, 0);
+    mon.setUTCDate(d.getUTCDate() + diff);
+    mon.setUTCHours(0, 0, 0, 0);
     return mon;
   };
 
@@ -511,14 +512,14 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate, metric = 'vi
   const msPerDay = 86400000;
   const thisWeek = startOfMonday(anchor);
   const cutoff   = new Date(thisWeek);
-  cutoff.setDate(cutoff.getDate() - (numWeeks - 1) * 7);
+  cutoff.setUTCDate(cutoff.getUTCDate() - (numWeeks - 1) * 7);
 
   // Build week slots — each slot also stores per-platform projItems for immature videos
   const slots = Array.from({ length: numWeeks }, (_, i) => {
     const start = new Date(cutoff);
-    start.setDate(cutoff.getDate() + i * 7);
+    start.setUTCDate(cutoff.getUTCDate() + i * 7);
     const end = new Date(start);
-    end.setDate(start.getDate() + 7);
+    end.setUTCDate(start.getUTCDate() + 7);
     return {
       start, end, yt: 0, tt: 0, li: 0,
       projItems: { youtube: [], tiktok: [], linkedin: [] },
@@ -550,7 +551,7 @@ function buildWeekOverWeekData(allItems, numWeeks = 12, reportDate, metric = 'vi
   }
 
   const labels = slots.map(s =>
-    s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
+    s.start.toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' })
   );
   const ytArr = slots.map(s => s.yt);
   const ttArr = slots.map(s => s.tt);
