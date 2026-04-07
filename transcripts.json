@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-02T15:31:05Z",
+  "updated_at": "2026-04-07T13:23:52Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -354,6 +354,12 @@
       "fetched_at": "2026-03-31T22:37:11Z",
       "lang": "en",
       "text": "Kind: captions Language: en You've got AI agents that can talk, generate, even plan. But how do they actually use tools safely and consistently? Agents today struggle to communicate and coordinate effectively. MCP solves this by creating a common language between them. It defines a shared language so agents and tools can understand each other that makes everything faster, safer, and easier to debug because agents are becoming more powerful and more independent. And with that comes the need for shared rules they all follow. It's designed for AI agents from day one. That means less guesswork, more alignment, and better cooperation between models and services. The model context protocol is evolving fast. Soon it will help agents work seamlessly across every platform and",
+      "source": "auto"
+    },
+    "youtube:jvVGA5Z0_Ys": {
+      "fetched_at": "2026-04-07T13:23:52Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Claude can now control your entire Mac desktop. Keyboard, mouse, browser, apps, all of it. You assign a task from your phone, walk away, and it executes while you're gone. And this isn't one company doing something experimental. [music] The entire developer tooling landscape shifted this month. Agents that write code, run experiments, open pull requests, and ship changes all while you're offline. We're no longer AI assisted coding. We're in the era of agents that code, test, [music] and iterate without you in the loop. Now, the scary part. A supply chain attack just hit light LLM. 97 million weekly downloads, injecting credential stealing malware, and a recent study found AI co-authored code carries nearly three times the security vulnerabilities of human written code. These tools are shipping today. They're production ready, but treat your AI agent like an untrusted contractor's pull request. \u0026gt;\u0026gt; [music] \u0026gt;\u0026gt; Sandbox it, audit permissions, review everything. The developer job is changing from writing code to managing agents that write code for you. [music] That's not coming. That's already happened. Are you letting AI agents run unsupervised? Tell me in the comments and subscribe so you don't miss what's",
       "source": "auto"
     },
     "youtube:k7-QynpF6Js": {
