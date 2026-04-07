@@ -1,6 +1,6 @@
 window.__devrelTranscripts={
   "version": 1,
-  "updated_at": "2026-04-07T13:23:52Z",
+  "updated_at": "2026-04-07T15:14:25Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -314,6 +314,12 @@ window.__devrelTranscripts={
       "text": "Kind: captions Language: en So, you've probably heard of Vive coding, but have you heard of Vive streaming? Okay, hear me out. Tomorrow, I'm going to be here in San Francisco at Intercom's headquarters at the future of agents hackathon, and I'm going to tell you what V live streaming is, how it works, and how Red Panda Serverless is going to help you do it. I love hackathons. This is going to be so much fun. I just got to San Francisco. Come see me. Come see some of our team. It's going to be great.",
       "source": "auto"
     },
+    "youtube:MXFZ-LPaPp0": {
+      "fetched_at": "2026-04-07T15:14:23Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Developers are losing sleep. And it's not because of deadlines. Agentic coding, where AI agents write, test, and debug your code end to end. It's not just productive, it's addictive. [music] One engineer who spent a decade at Google recently called it the AI vampire. He compared it to a slot machine. You pull the lever with every prompt. You get random rewards, sometimes incredible payouts, and you just keep pulling. Developers everywhere are saying the [music] same thing. One engineer said his weekends just disappear. He starts Saturday with a plan of things to learn and suddenly it's Monday. A study of over 500 developers found a nearly 20% jump in after hours commits among AI tool users. But here's the real danger. Researchers are calling it cognitive debt. [music] Your agents produce code so fast that you lose your mental model of what your system actually does. Technical debt lives in the code. [music] Cognitive debt lives in your brain and it's invisible. Your velocity metrics look great while your understanding just erodess underneath. So what do you do? Well, first [music] speed without understanding is not sustainable. You are still the bottleneck not for writing code but for knowing what it does and why. Second, set the pace. Step away. Think about the architecture while the agents work. And third, your agents might not sleep, but they still need infrastructure that can keep up with them. When you've got multiple agents producing events, shipping code, triggering workflows around the clock, your streaming layer has to match that pace, which is literally why we built Red Panda. Fast, reliable streaming that doesn't slow down because your agents aren't going to. Agentic coding is transformative, [music] but the developers who thrive won't be the ones pulling all-nighters chasing dopamine. They'll be the ones who stay in control. So, [music] be honest. When was the last time your agent was still running and you told yourself just one more prompt? Drop it in the comments. I want to hear your story. And make sure you follow for more Agentic AI news and developments.",
+      "source": "auto"
+    },
     "youtube:UqPUDRXOy7A": {
       "fetched_at": "2026-03-31T22:35:28Z",
       "lang": "en",
@@ -336,6 +342,12 @@ window.__devrelTranscripts={
       "fetched_at": "2026-03-31T22:36:25Z",
       "lang": "en",
       "text": "Kind: captions Language: en We got banned from sponsoring the biggest data streaming event of the year. We tried to sponsor Current London and uh we got turned down. No real reason was given, but Current is run by Confluent and they are technically a competitor. So instead of setting up a booth, we took to the streets. We met tons of developers. We had real conversations and we made a scene in the best way, our way. and we'll see you at the next",
+      "source": "auto"
+    },
+    "youtube:dp_e6LjRCVg": {
+      "fetched_at": "2026-04-07T15:14:25Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Claude can now control your entire Mac desktop. Keyboard, mouse, browser, apps, all of it. You assign a task from your phone, walk away, and it executes while you're gone. And this isn't one company doing something experimental. [music] The entire developer tooling landscape shifted this month. Agents that write code, run experiments, open pull requests, and ship changes all while you're offline. We're no longer AI assisted coding. We're in the era of agents that code, test, [music] and iterate without you in the loop. Now, the scary part. A supply chain attack just hit light LLM. 97 million weekly downloads, injecting credential stealing malware, and a recent study found AI co-authored code carries nearly three times the security vulnerabilities of human written code. These tools are shipping today. They're production ready, but treat your AI agent like an untrusted contractor's pull request. \u0026gt;\u0026gt; [music] \u0026gt;\u0026gt; Sandbox it, audit permissions, review everything. The developer job is changing from writing code to managing agents that write code for you. [music] That's not coming. That's already happened. Are you letting AI agents run unsupervised? Tell me in the comments and subscribe so you don't miss what's",
       "source": "auto"
     },
     "youtube:fkjAvYe1KmU": {
