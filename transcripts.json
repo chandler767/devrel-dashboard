@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-10T18:26:48Z",
+  "updated_at": "2026-04-14T16:57:32Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -254,6 +254,12 @@
       "text": "Kind: captions Language: en The biggest AI models aren't the best AI models. AT\u0026amp;T just proved it. They were running everything through large language models, processing over 8 billion tokens a day, and costs were out of control. So, they made a shift. They swapped out their large language models for small, fine-tuned ones. The result, costs dropped 90%. Not a little bit, 90%. And here's the kicker. Their usage actually tripled from 8 billion tokens to 27 billion. They're now reporting a 5x return on their investment. And this isn't just AT\u0026amp;T being clever. Gartner predicts that by 2027, enterprises will be using small models at three times the rate of large general purpose ones. Nvidia's research shows that models under 10 billion parameters can achieve 60 to 80% of what large language models can today. The takeaway, it's not about how big your model is. It's about matching the right task to the right model. Make sure to follow if you want to keep up with the latest AI agent news and to learn how Red Panda could",
       "source": "auto"
     },
+    "youtube:5JRwH_415x4": {
+      "fetched_at": "2026-04-14T16:57:32Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Llama changed everything. Startups built products on it. Enterprises bet strategies on it. Meta was the open source AI company. Not anymore. Muse Spark is Meta's new flagship model, their most capable yet, and it's completely locked down. No self-hosting, [music] no fine-tuning, no access outside Meta's platforms. Llama's still there, but Meta's best work, that's proprietary now. If you're a CTO counting on Meta to keep pushing open weight models forward, this is your signal to diversify. Here's the good news. Google dropped Gemini 4 the same week under Apache 2.0, fully open, natively multimodal, and the 27B model is beating Llama 4's 109B on math and coding. The open source AI race isn't over. Meta just stopped running it. If you want to stay ahead of shifts like this, make sure you like this video [music] and subscribe for more.",
+      "source": "auto"
+    },
     "youtube:5YRbGSbE2Is": {
       "fetched_at": "2026-03-31T22:35:35Z",
       "lang": "en",
@@ -336,6 +342,12 @@
       "fetched_at": "2026-03-31T22:37:00Z",
       "lang": "en",
       "text": "Kind: captions Language: en Did you know that you can turn logs and event data from S3 into a data stream? Let's give it a go. It's super easy. We'll start by taking a look at the data we have in an S3 bucket. This is the CSV file that we want to stream. In this case, it's a list of user actions along with some sensitive data that we'll strip out in the next step as part of turning this into a stream. Next, we'll use Red Panic Connect to create a pipeline. This YAML config example starts by declaring an input component for AWS S3. This defines the source of the data for the pipeline. In this case, it's pulling data from our S3 bucket with the scanner configured to parse CSV files. Next, we're using a pipeline component to strip out sensitive SSN data with a mapping processor written in bloblane. Last, we're ready to pass this data into our output component to stream this data into our clean users topic. Now, let's start this pipeline and take a look at the topic we're sending data to. As you can see, we have each of the items as a message with the SSN number redacted and all of our data is properly formatted. Pretty cool, right? Now, we'll take it the other direction by exporting a data stream to S3.",
+      "source": "auto"
+    },
+    "youtube:YI0SPqV8aPE": {
+      "fetched_at": "2026-04-14T16:57:29Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en The AI race just flipped. Anthropic is now making more money than OpenAI, but that's not the real story. Anthropic built a model so powerful, they won't let you use it. Claude Mythos outperforms every publicly available AI model by a massive margin. It found a 27-year-old vulnerability in OpenBSD that automated tools missed after [music] 5 million attempts. Anthropic's response? Too dangerous for public release. So, they created Project Glasswing. Only about 40 vetted organizations like Microsoft, Google, and CrowdStrike get access. Everyone else? Locked out. Here's what this means for you. The most capable AI tools may no longer be [music] generally accessible. Model selection now involves security clearances, not [music] just benchmarks. If you're building with AI agents, you need infrastructure that handles governance from day one, identity, access [music] control, audit trails. That's exactly what Red Panda's Agentic Data Plane was built for. The question isn't just which model is best anymore, it's which models you're even allowed to use. Interested in AI governance? Follow for more and drop a comment with your take.",
       "source": "auto"
     },
     "youtube:b6eJB3lso1Q": {
