@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-14T16:57:32Z",
+  "updated_at": "2026-04-15T19:51:51Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -384,6 +384,12 @@
       "fetched_at": "2026-03-31T22:37:11Z",
       "lang": "en",
       "text": "Kind: captions Language: en You've got AI agents that can talk, generate, even plan. But how do they actually use tools safely and consistently? Agents today struggle to communicate and coordinate effectively. MCP solves this by creating a common language between them. It defines a shared language so agents and tools can understand each other that makes everything faster, safer, and easier to debug because agents are becoming more powerful and more independent. And with that comes the need for shared rules they all follow. It's designed for AI agents from day one. That means less guesswork, more alignment, and better cooperation between models and services. The model context protocol is evolving fast. Soon it will help agents work seamlessly across every platform and",
+      "source": "auto"
+    },
+    "youtube:jibRVPvktzs": {
+      "fetched_at": "2026-04-15T19:51:51Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en An engineer posted something last [music] week that stopped me cold. They built a CrewAI agent to read Jira tickets and post summaries to Slack. It worked perfectly. Then they noticed their agent was copying employee social security numbers, internal API credentials, and customer emails directly into Slack messages. The agent wasn't malfunctioning. It was doing exactly what it was told. The sensitive data was in the ticket body. The agent summarized the whole thing. This is the data security problem almost no one building AI pipelines is thinking about. LangChain, CrewAI, all these frameworks, they're built for capability, not compliance. There's no built-in PII scanner, no credential detector. And the native fix doesn't work. You can't just add instructions to the system prompt saying, \"Don't include sensitive information.\" Models leak data when prompted correctly, even with the explicit safety training. The real fix is to stop relying on the model's judgment entirely. You need guardrails at the infrastructure layer, something that sits between your agents and your data, something [music] that enforces access controls, scopes, permissions, and logs every single interaction. This is exactly what Red Panda's Agnostic Data Plane was built for. It gives agents governed access to enterprise data with fine-grained authorization. Every prompt, every input, every action gets reported into immutable logs. You can replay and audit full sessions. The agents are coming. The permissions aren't. If you're connecting AI to any system that touches customer data, you need governance that works at machine speed. The agent sees everything [music] it has access to. The question is, should it? If AI security is on your radar, hit follow. And let me know in the comments, how are you handling agent permissions right now?",
       "source": "auto"
     },
     "youtube:jvVGA5Z0_Ys": {
