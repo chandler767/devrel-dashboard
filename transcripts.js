@@ -1,6 +1,6 @@
 window.__devrelTranscripts={
   "version": 1,
-  "updated_at": "2026-04-15T19:51:51Z",
+  "updated_at": "2026-04-17T14:31:18Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -276,6 +276,12 @@ window.__devrelTranscripts={
       "fetched_at": "2026-03-31T22:36:46Z",
       "lang": "en",
       "text": "Kind: captions Language: en What if I told you a free openweight AI model just outscored GPT5 at coding for 120th the cost? We're talking less than one percentage point, separating the best paid model from the best free one. But that's not even where it gets wild. Top tier proprietary output tokens cost $14 to25 per million. That open weight model only costs $1.20. That's up to a 21 times price difference for a model that's punching in the same weight class. The floor is dropping out. Now, does that mean openweight models are better at everything? No. Proprietary models are still winning on the hardest problems. But for 80% of your typical day-to-day work, the quality gap is basically gone. And the pricing gap, it's now a canyon. This is why many smart teams are moving to model fixing. Basically, they use cheap openweight models for routine work and then they switch to proprietary models when it needs to be escalated. The question isn't whether openweight AI models are good enough. It's can you afford to keep ignoring it?",
+      "source": "auto"
+    },
+    "youtube:9MBdL0BHk_Y": {
+      "fetched_at": "2026-04-17T14:31:18Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en AI agents are the new hires nobody's onboarding. Companies are deploying them everywhere, but Gartner predicts over 40% [music] of these projects will be canceled by 2027. Not because the agents aren't capable, because of escalating costs, unclear value, and zero risk controls. Nobody's managing them. This is why agent command centers are becoming essential. Think of it as mission control for your AI workforce. [music] A single pane of glass to orchestrate, monitor, and govern every agent across your [music] enterprise. You see what they're doing, why they're doing it, and catch failures before they cascade. But, here's the infrastructure piece. These agents need to talk to each other in real time, share context, coordinate instantly. That requires a streaming data backbone with platforms like Redpanda delivering sub-millisecond latency, so your agents aren't flying blind between decisions. In the agentic AI era, the winners won't just have the smartest agents. They'll have the best visibility into what those agents are actually doing. Interested in AI agent architecture? \u0026gt;\u0026gt; [music] \u0026gt;\u0026gt; Follow for more.",
       "source": "auto"
     },
     "youtube:Ajavw0yqhJ4": {
