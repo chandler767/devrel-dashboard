@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-17T14:31:18Z",
+  "updated_at": "2026-04-18T12:21:14Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -420,6 +420,12 @@
       "fetched_at": "2026-03-31T22:35:57Z",
       "lang": "en",
       "text": "Kind: captions Language: en 4,000 jobs gone overnight. Block, the company behind Square and Cash [music] App, just cut 40% of its workforce because AI made those roles unnecessary. Their stock jumped 15%. [music] This is happening everywhere, and it's not slowing down. Terrence Tao, probably the smartest mathematician alive, just [music] called this a cognitive capernac revolution. We used to think human intelligence was the center of the universe. It's not. There's a new kind of intelligence here and it has very different strengths than [music] we do. And the things we spend most of our time on, those were never actually the most important parts of what we do. AI doesn't replace the important work. It clears the way for it. The people who treat AI like a threat will get left behind. The people who learn to think alongside it, who use it to move faster, [music] see further, and focus on what actually matters, they're the ones who will thrive. So, the question isn't whether AI is coming for your job. It's whether you're learning to work with the new intelligence in the room or pretending it's not there. Want to get ahead of AI before it takes your job? Make sure to give this video a like and follow or subscribe [music] for more about learning to work alongside AI.",
+      "source": "auto"
+    },
+    "youtube:lzIO4Ga88As": {
+      "fetched_at": "2026-04-18T12:21:14Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Here's a stat that should terrify every CTO. 75% [music] of tech leaders say governance is their number one challenge when deploying AI agents. And yet, 79% of organizations have already implemented them anyway. So, what's going wrong? You give an AI agent access to your calendar, your email, your Salesforce instance, all so it can actually be useful. Then, you put it in a sandbox and call it secure. But, the credentials are already inside that [music] sandbox. You've built a vault and locked the thief in with the gold. Only 24% of organizations have full visibility into what their AI agents are actually doing. The other 76% flying blind. So, what actually works? Four things. A gateway as your single choke point. An audit log so you know why the agent acted, not just what it did. A token vault so agents never hold your credentials directly. And \u0026gt;\u0026gt; [music] \u0026gt;\u0026gt; sandboxed compute that only talks to the outside world through that gateway. At Red Panda, we're building exactly this. An agentic data plane that treats AI agents like the security risk they are, while still letting them do their jobs. Want to actually secure your agents? Follow for more.",
       "source": "auto"
     },
     "youtube:nCoNgVTKqB8": {

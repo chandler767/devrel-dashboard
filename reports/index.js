@@ -1,6 +1,11 @@
 window.__devrelIndex={
   "reports": [
     {
+      "id": "2026-04-18T12-21-10Z",
+      "file": "reports/2026-04-18T12-21-10Z.json",
+      "generated_at": "2026-04-18T12:21:10Z"
+    },
+    {
       "id": "2026-04-17T14-31-12Z",
       "file": "reports/2026-04-17T14-31-12Z.json",
       "generated_at": "2026-04-17T14:31:12Z"
