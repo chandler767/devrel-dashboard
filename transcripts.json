@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-18T12:21:14Z",
+  "updated_at": "2026-04-22T17:21:51Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -266,6 +266,12 @@
       "text": "Kind: captions Language: en Wait, how does someone build an app that updates in real time? Yeah, that's data streaming. The app isn't asking for data. It's receiving it as it happens. Streaming lets applications react instantly. Things like tracking, fraud alerts, even multiplayer gaming, those are all powered by data streams. For high throughput data streams, you'll often see developers using things like Red Panda and Kafka to make it happen. So, the app's not checking for data, it's subscribed to it. Exactly. Follow or subscribe to learn more about data streams and how you can build with",
       "source": "auto"
     },
+    "youtube:5gcJLSz-_qw": {
+      "fetched_at": "2026-04-22T17:21:47Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en What if one of your biggest cloud bills was also your most negotiable? I'm talking about data streaming and why teams are rethinking Confluent right now. Let's talk BYOC, bring your own cloud. With Confluent, your data moves through their infrastructure. CKU pricing, egress fees, and Confluent's own blog admits networking can be over 50% of your Kafka costs. Redpanda BYOC [music] runs the data plane inside your VPC. Flat software license, your cloud bill, your rates. Ignite Consulting found you could run two Redpanda BYOC clusters for the price of one Confluent dedicated cluster. 55 to 60% savings. Chess.com saved $400,000 annually. ShareChat cut infrastructure costs by 70%. And now that [music] IBM's $11 billion acquisition of Confluent is done, Confluent's delisted, leadership is turning over. The question every team should be asking is, \"What are our alternatives?\" Follow for more and comment below. Still on Confluent [music] or already made the move?",
+      "source": "auto"
+    },
     "youtube:6Ehg9P83ZzA": {
       "fetched_at": "2026-03-31T22:36:50Z",
       "lang": "en",
@@ -294,6 +300,12 @@
       "fetched_at": "2026-03-31T22:36:11Z",
       "lang": "en",
       "text": "Kind: captions Language: en For most people when they think of AI, they're thinking of LLMs or large language models. Those are the AIs where you ask it a question and it gives you a response. So what about an agent? Well, an agent works in a similar way to LLM, but it's able to complete multiple steps without needing response from you. If it helps, think of an AI agent as having three core traits. It knows the goal, it builds a plan, and it takes action all on its own. AI agents can use tools, they can run tasks, they can interact with APIs, and they can do all this without your input. Most importantly, agents can recover from failure and keep going until a job is completed. This is what separates an AI agent from a chatbot or LLM with plugins. It isn't just responding, it's adapting to whatever it encounters. When an AI has memory, autonomy, and tools, it isn't just helpful anymore. It's fully capable.",
+      "source": "auto"
+    },
+    "youtube:EQxhhcWDn40": {
+      "fetched_at": "2026-04-22T17:21:51Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Your competitors are already using AI automation and most of them still doing it wrong. 88% of organizations are using AI automation in at least one function right now up from 55% just 2 years ago. But only one in three has actually scaled it. That gap is where billions are being left on the table. So what is AI automation? It's systems that don't just respond to commands, they act. They watch your data streams, make decisions, and trigger workflows in real time. No human in the loop. No waiting. Think fraud detection that fires before a transaction clears. Supply chain rerouting before a disruption hits your floor. Realtime decisions powered by real-time data. Here's the part most teams miss. AI automation is only as fast as the data feeding it. Batch jobs from last night won't cut it when decisions need to happen now. The companies getting it right are seeing 26 to 55% productivity gains and $3.70 back for every dollar invested because they paired smart models with real time data infrastructure. By 2025, the enterprises pulling ahead are the ones embedding continuous data flows into every system and every decision point. Interested in how AI automation actually works at scale? Follow for more and drop a comment. Is your team in the 88% using AI or the 33% that's actually scaled",
       "source": "auto"
     },
     "youtube:FabK4yNEsFM": {
