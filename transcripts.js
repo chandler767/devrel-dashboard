@@ -1,6 +1,6 @@
 window.__devrelTranscripts={
   "version": 1,
-  "updated_at": "2026-04-22T17:21:51Z",
+  "updated_at": "2026-04-24T15:11:26Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -318,6 +318,12 @@ window.__devrelTranscripts={
       "fetched_at": "2026-03-31T22:35:51Z",
       "lang": "en",
       "text": "Kind: captions Language: en Enthropic just shipped remote control for clawed code. That means you now have a full coding assistant on your phone. That's really cool. You can start a task, go walk your dog, and your agent will just keep building. It's really neat. But let's zoom out for a second because this is actually a signal about something much more important than just mobile convenience. We just crossed a threshold. AI coding assistants started as basically autocomplete. Then they became agents. [music] You give them a highle task, some tools, and they're able to execute across systems. [music] Now those agents are running asynchronously in parallel, completely separate from the developer entirely. We went from prompt and wait to multiple agents working across your stack all at the same time. And here's where the enterprise conversation has to shift. [music] When you're in the loop, monitoring every change, proving every task, you are the guardrail. But when 10 agents are running in parallel on virtual machines triggered by your phone halfway across the city, you're not the guardrail anymore. You actually need one built into the system. That's the infrastructure gap that remote coding just made urgent. The agents are leaving the building [music] and your governance layer needs to be ready before they do. Follow for more about emerging AI tools, trends, and things you should be on the lookout",
+      "source": "auto"
+    },
+    "youtube:GGsIsxmlqVA": {
+      "fetched_at": "2026-04-24T15:11:26Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Your AI agent just made a $50,000 decision. Do you know why? Here's the scary part. A Deloitte survey found that 47% of enterprise AI users made at least one major business decision based on hallucinated content. Nearly half. If you're a CIO, CTO, or a developer shipping AI features, we need to talk about the elephant in the server room. Observability. AI systems aren't traditional software. They're non-deterministic. And enterprise leaders now point to security, runaway costs, and hallucinations as their top concerns when scaling agents. You can't fix what you can't see. That's why AI observability isn't a nice-to-have. [music] It's the new uptime. Stream every input, every output, every tool call, every token, every data source in real time. New Relic survey [music] shows AI monitoring adoption jumped from 42% to 54% in a single year. The majority for the first time ever. The winners in 2026 won't have the smartest agents. They'll be the teams who can actually see what their agents are doing before the bill, the breach, or the bad decision hits. Interested in the future of AI and streaming data? Follow for more. Drop a comment with your biggest agent headache.",
       "source": "auto"
     },
     "youtube:HdiVJCsknQ0": {
