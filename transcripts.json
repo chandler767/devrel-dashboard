@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-24T15:11:26Z",
+  "updated_at": "2026-04-27T18:04:50Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -360,6 +360,12 @@
       "fetched_at": "2026-03-31T22:35:28Z",
       "lang": "en",
       "text": "Kind: captions Language: en The EU AI Act's big enforcement deadline is coming up this August. [music] And the part most people are sleeping on, it's not the legal stuff, it's the data. Quick context, the EU AI Act is the world's first comprehensive AI regulation. It classifies AI systems by risk level, from downright banned to minimal risk. If you're running high-risisk AI, anything from credit scoring, fraud detection, or essential infrastructure, you need to be compliant by August 2026. [music] And the fines are serious. Up to 35 million or 7% in global revenue. Here's where it gets interesting. Everyone's focused on classifying their AI systems, but article 10 of the act has very specific governance requirements. You need to prove where your training data came from. You need auditable records of every transformation. [music] You need continuous monitoring for bias and data quality. And you need these things not just at launch but ongoing. Your AI compliance problem [music] is really a data infrastructure problem. If you can't trace data from source to model output, you've got a gap. [music] Here's the twist. The EU has actually proposed pushing this deadline to late 2027. But that hasn't been approved yet. [music] So the smart move, treat August 2026 is real because even if the dates change, the requirements won't. Make sure to follow if you want to keep up with the latest AI agent news and to learn how Red Panda could",
+      "source": "auto"
+    },
+    "youtube:WYO2QZKAe1A": {
+      "fetched_at": "2026-04-27T18:04:50Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Your AI agent just drained your entire budget. Now what? If your answer isn't hit the kill switch, we need to talk. An agent kill switch is a hard stop. A mechanism outside the agent's runtime that instantly revokes its tool access, [music] cancels its queues, and halts every action in flight. The big red button for autonomous AI. But let's think of it less like a light switch and more like a circuit breaker panel. I'll break it into three layers to explain. Layer one, a global hard stop that kills agent everywhere instantly. Use this when something is actively on fire. Layer two, soft pauses that freeze a single session without stopping the whole fleet. So one bad agent or session doesn't take down the good ones. Layer three, automatic governors, spend caps, rate limits, and policy triggers that fire before human notices. And critically, all of this lives in a control plane outside the agent. Because an agent should never ever be able to disable its own off switch. Treat your agents like production [music] services, not science experiments. Observability tells you what's happening. A kill switch lets you do something [music] about it. Interested in the future of AI and streaming data? Follow for more and like this video.",
       "source": "auto"
     },
     "youtube:XXZSqUgHvNg": {
