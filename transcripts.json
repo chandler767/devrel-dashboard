@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-27T18:04:50Z",
+  "updated_at": "2026-04-29T20:54:52Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -380,6 +380,12 @@
       "text": "Kind: captions Language: en The AI race just flipped. Anthropic is now making more money than OpenAI, but that's not the real story. Anthropic built a model so powerful, they won't let you use it. Claude Mythos outperforms every publicly available AI model by a massive margin. It found a 27-year-old vulnerability in OpenBSD that automated tools missed after [music] 5 million attempts. Anthropic's response? Too dangerous for public release. So, they created Project Glasswing. Only about 40 vetted organizations like Microsoft, Google, and CrowdStrike get access. Everyone else? Locked out. Here's what this means for you. The most capable AI tools may no longer be [music] generally accessible. Model selection now involves security clearances, not [music] just benchmarks. If you're building with AI agents, you need infrastructure that handles governance from day one, identity, access [music] control, audit trails. That's exactly what Red Panda's Agentic Data Plane was built for. The question isn't just which model is best anymore, it's which models you're even allowed to use. Interested in AI governance? Follow for more and drop a comment with your take.",
       "source": "auto"
     },
+    "youtube:YMZGcwIvons": {
+      "fetched_at": "2026-04-29T20:54:45Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en We're treating agents like features, when [music] they actually behave like employees. Think about it. When you hire someone, you don't just hand them a laptop and walk away. They need access to the right systems, fresh information, clear boundaries on what they can and can't do, and a manager who notices when something's off. Most agentic pilots skip all of that. We wire an LLM to a stale database, point it at a broken workflow, and act surprised when [music] it hallucinates a refund policy from years ago. The teams getting real return on their AI investments are doing three unglamorous things. They're redesigning the workflow before automating it, because a faster broken process is still broken. They're feeding agents live data, so decisions reflect what's actually happening. And they're governing agents like team members, identity, permissions, audit trails, from day one, not after the incident. Stop asking, \"Which model should we use?\" Start asking, \"What would a great new hire need to succeed here?\" Interested in [music] shipping agents that actually deliver? Follow for more. Like this video, and drop your biggest agentic blocker in the comments.",
+      "source": "auto"
+    },
     "youtube:b6eJB3lso1Q": {
       "fetched_at": "2026-03-31T22:35:38Z",
       "lang": "en",
@@ -404,6 +410,12 @@
       "text": "Kind: captions Language: en Why do Resonate and Red Panda make a really great team? Well, let's look at a use case where you have a worker that sits between two streaming topics. A worker in this position needs to do two things really well. The first is it needs to be able to do that work concurrently, meaning it can't really get hung up on head of line blocking issues. The second is it needs to be able to recover cleanly from process crashes. Meaning that if it goes down in the middle of doing some work, it needs to be able to resume from where it left off without repeating any of the work that it's already done. While avoiding head of line blocking issues is really important for efficiency purposes, the really critical aspect of a worker in that position is to be able to recover and resume. Whether that's on the same worker after it's been restarted or on a completely different one. That's because when you're building a distributed system, durability is critical and red panda topics provide durability. Typically, developers have to become savvy distributed systems engineers to ensure that the workers sitting between the red panda topics retain that level of durability. But Resonate, just like Red Panda, provides that level of durability out of the box, extending the durable world from the Red Panda topic through the worker back to the Red Panda topic. And that's why Resonate and Red Panda make such a great team. Red Panda enables you to durably pass data anywhere around your distributed system and Resonate enables you to do any sort of work durably on that data with a dead simple programming",
       "source": "auto"
     },
+    "youtube:hXMnUS28e-M": {
+      "fetched_at": "2026-04-29T20:54:49Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Your AI agent just wired $2 million to the wrong vendor and nobody was watching. Welcome to Agentic AI without a human in the loop. Here's the framework most [music] teams miss. Human in the loop isn't one pattern, it's three. There's human in the loop where a person approves before the agent acts. [music] Human on the loop where the agent acts but a person monitors and can intervene. And human out of the loop, full autonomy. Mature systems use all three in the same workflow. The oversight level should be a property of the decision, not the system. So, how do you choose? Here are three rules to follow. First, if the action is irreversible, moving money, deleting data, hitting publish, you want human in the loop, approving before execution every single time. Second, if confidence is low or the inputs look unusual, route it to a person. Anthropic's own engineering guidance recommends checkpoints exactly where agents face uncertainty or high stakes branching. Third, if it's a regulated workflow like finance, healthcare, or legal, auditable human approval isn't optional. But don't gate every decision behind a human because that's not oversight. That's a bottleneck. Let agents run on low stakes, reversible work, and save your humans for the blast radius moments. Interested in building agentic systems that actually [music] scale? Follow for more.",
+      "source": "auto"
+    },
     "youtube:h_zlUFqjkGA": {
       "fetched_at": "2026-03-31T22:36:00Z",
       "lang": "",
@@ -414,6 +426,12 @@
       "fetched_at": "2026-03-31T22:37:11Z",
       "lang": "en",
       "text": "Kind: captions Language: en You've got AI agents that can talk, generate, even plan. But how do they actually use tools safely and consistently? Agents today struggle to communicate and coordinate effectively. MCP solves this by creating a common language between them. It defines a shared language so agents and tools can understand each other that makes everything faster, safer, and easier to debug because agents are becoming more powerful and more independent. And with that comes the need for shared rules they all follow. It's designed for AI agents from day one. That means less guesswork, more alignment, and better cooperation between models and services. The model context protocol is evolving fast. Soon it will help agents work seamlessly across every platform and",
+      "source": "auto"
+    },
+    "youtube:jVlKnOFLCYE": {
+      "fetched_at": "2026-04-29T20:54:52Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en 9 seconds. One API call. The founder of Pocket OS watched an AI coding agent delete the entire production database for his company and every backup along with it. The agent then wrote a confession admitting it broke every safety rule it was given. But here's the thing, this isn't really an AI story. It's a data architecture story. Three quick lessons for anyone running production right now. One, if your backups live in the same volume as your data, those aren't backups. Two, API tokens with blanket destructive permissions were already risky. Hand one to an autonomous agent and you've armed it. Scope every token. Three, Gartner says 40% of agentic AI projects will get canceled by 2027, mostly over governance and risk controls. The agents aren't the bottleneck. Your data plane is. Want more on building infrastructure that survives the agent era? Follow and like this short.",
       "source": "auto"
     },
     "youtube:jibRVPvktzs": {
