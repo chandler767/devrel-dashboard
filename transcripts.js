@@ -1,6 +1,6 @@
 window.__devrelTranscripts={
   "version": 1,
-  "updated_at": "2026-04-29T20:54:52Z",
+  "updated_at": "2026-04-30T16:46:11Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -354,6 +354,12 @@ window.__devrelTranscripts={
       "fetched_at": "2026-04-07T15:14:23Z",
       "lang": "en",
       "text": "Kind: captions Language: en Developers are losing sleep. And it's not because of deadlines. Agentic coding, where AI agents write, test, and debug your code end to end. It's not just productive, it's addictive. [music] One engineer who spent a decade at Google recently called it the AI vampire. He compared it to a slot machine. You pull the lever with every prompt. You get random rewards, sometimes incredible payouts, and you just keep pulling. Developers everywhere are saying the [music] same thing. One engineer said his weekends just disappear. He starts Saturday with a plan of things to learn and suddenly it's Monday. A study of over 500 developers found a nearly 20% jump in after hours commits among AI tool users. But here's the real danger. Researchers are calling it cognitive debt. [music] Your agents produce code so fast that you lose your mental model of what your system actually does. Technical debt lives in the code. [music] Cognitive debt lives in your brain and it's invisible. Your velocity metrics look great while your understanding just erodess underneath. So what do you do? Well, first [music] speed without understanding is not sustainable. You are still the bottleneck not for writing code but for knowing what it does and why. Second, set the pace. Step away. Think about the architecture while the agents work. And third, your agents might not sleep, but they still need infrastructure that can keep up with them. When you've got multiple agents producing events, shipping code, triggering workflows around the clock, your streaming layer has to match that pace, which is literally why we built Red Panda. Fast, reliable streaming that doesn't slow down because your agents aren't going to. Agentic coding is transformative, [music] but the developers who thrive won't be the ones pulling all-nighters chasing dopamine. They'll be the ones who stay in control. So, [music] be honest. When was the last time your agent was still running and you told yourself just one more prompt? Drop it in the comments. I want to hear your story. And make sure you follow for more Agentic AI news and developments.",
+      "source": "auto"
+    },
+    "youtube:TmR43o4NBoc": {
+      "fetched_at": "2026-04-30T16:46:11Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Half of organizations using AI have already had something go wrong with it. That's straight from McKenzie's latest state of AI report. And the most common failure is inaccuracy. Here's the catch. Agentic AI isn't regular software. The same prompt can result in a different outcome. The agent picks its own tools, chains together a dozen steps, and when something goes sideways, your usual dashboards won't help. And when the mistake isn't a wrong answer, but an unauthorized action, that's a very different conversation with your auditors. Speaking of auditors, regulators around the world are landing on the same idea. High-risisk AI systems have to automatically log what they do over their entire lifetime in a way that holds up under scrutiny. That's what an observability harness is for. It captures every decision your agent makes, every tool it calls, every prompt and response as they happen. This is a streaming data problem. You're generating a fire hose of events. Your quality, security, and compliance teams all need to see them in real time. Because the real question isn't whether someone asks what your agent did. It's whether you'll be able to answer. Interested in building production ready Agentic systems? Follow for more.",
       "source": "auto"
     },
     "youtube:UqPUDRXOy7A": {
