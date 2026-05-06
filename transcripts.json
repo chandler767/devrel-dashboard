@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-04-30T16:46:11Z",
+  "updated_at": "2026-05-06T15:38:44Z",
   "transcripts": {
     "tiktok:7506889163069738286": {
       "fetched_at": "2026-03-31T22:36:54Z",
@@ -300,6 +300,12 @@
       "fetched_at": "2026-03-31T22:36:11Z",
       "lang": "en",
       "text": "Kind: captions Language: en For most people when they think of AI, they're thinking of LLMs or large language models. Those are the AIs where you ask it a question and it gives you a response. So what about an agent? Well, an agent works in a similar way to LLM, but it's able to complete multiple steps without needing response from you. If it helps, think of an AI agent as having three core traits. It knows the goal, it builds a plan, and it takes action all on its own. AI agents can use tools, they can run tasks, they can interact with APIs, and they can do all this without your input. Most importantly, agents can recover from failure and keep going until a job is completed. This is what separates an AI agent from a chatbot or LLM with plugins. It isn't just responding, it's adapting to whatever it encounters. When an AI has memory, autonomy, and tools, it isn't just helpful anymore. It's fully capable.",
+      "source": "auto"
+    },
+    "youtube:Dnr-TqPacNs": {
+      "fetched_at": "2026-05-06T15:38:44Z",
+      "lang": "en",
+      "text": "Kind: captions Language: en Every team building multi-agent AI right now is about to rediscover everything. Distributed system engineers learned the hard way over the last 20 years. Think about what's actually happening when you wire up a few agents together. You've got independent processes sending messages, sharing state, and calling each other over networks that occasionally lie to you. That's not novel AI architecture. That's a distributed system wearing a very convincing trench code, which means all the old problems are back with new names. What happens when an agent retries the same action twice? Congratulations. You've reinvented. Two agents updating the same record at once. Welcome back to consistency. One agent flooding another faster than it can handle. That's back pressure. And we've been solving it since Kafka was a spec doc. Most agent frameworks today don't think about any of this. They assume happy path execution, in order messages, and infinite downstream capacity, none of which holds up in production. So before you ship a multi- aent system, ask the boring questions. Are your messages durable? Is ordering guaranteed where it matters? What's your replay story when something goes wrong? If your team is treating agents like magic instead of software, you're going to learn these lessons the expensive way. Like this short and follow for more about building agentic systems.",
       "source": "auto"
     },
     "youtube:EQxhhcWDn40": {
