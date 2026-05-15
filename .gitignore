@@ -10,3 +10,6 @@ devrel-fetch.exe
 
 # macOS
 .DS_Store
+
+# Git worktrees
+.worktrees/
