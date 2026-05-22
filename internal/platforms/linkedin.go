@@ -224,64 +224,131 @@ func (c *liClient) fetchPosts(authorURN string) ([]liPost, error) {
 	return all, nil
 }
 
-// batchOrgPostImpressions fetches engagement metrics for all posts of an org in
-// a single API call. Returns a map of postURN → liEngagement.
+// batchOrgPostImpressions fetches engagement metrics for all posts of an org.
+// LinkedIn limits /rest/organizationalEntityShareStatistics to fewer than 100
+// URNs per call, so this chunks into batches of 99 and merges the results.
+// Returns a map of postURN → liEngagement.
 // The RestLi List(...) syntax must not be percent-encoded, so we use getRestLi.
 func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (map[string]liEngagement, error) {
+	const batchSize = 99
+	out := make(map[string]liEngagement, len(postURNs))
+
 	encoded := url.Values{
 		"q":                    {"organizationalEntity"},
 		"organizationalEntity": {orgURN},
 	}
 
-	var ugcPosts, shares []string
-	for _, urn := range postURNs {
-		if strings.HasPrefix(urn, "urn:li:ugcPost:") {
-			ugcPosts = append(ugcPosts, url.QueryEscape(urn))
-		} else {
-			shares = append(shares, url.QueryEscape(urn))
+	for i := 0; i < len(postURNs); i += batchSize {
+		end := i + batchSize
+		if end > len(postURNs) {
+			end = len(postURNs)
+		}
+		chunk := postURNs[i:end]
+
+		var ugcPosts, shares []string
+		for _, urn := range chunk {
+			if strings.HasPrefix(urn, "urn:li:ugcPost:") {
+				ugcPosts = append(ugcPosts, url.QueryEscape(urn))
+			} else {
+				shares = append(shares, url.QueryEscape(urn))
+			}
+		}
+
+		var rawParts []string
+		if len(ugcPosts) > 0 {
+			rawParts = append(rawParts, "ugcPosts=List("+strings.Join(ugcPosts, ",")+")")
+		}
+		if len(shares) > 0 {
+			rawParts = append(rawParts, "shares=List("+strings.Join(shares, ",")+")")
+		}
+		raw := strings.Join(rawParts, "&")
+
+		body, err := c.getRestLi("/rest/organizationalEntityShareStatistics", encoded, raw)
+		if err != nil {
+			return nil, err
+		}
+
+		var result struct {
+			Elements []struct {
+				UgcPost              string `json:"ugcPost"`
+				Share                string `json:"share"`
+				TotalShareStatistics struct {
+					ImpressionCount int64 `json:"impressionCount"`
+					LikeCount       int64 `json:"likeCount"`
+					CommentCount    int64 `json:"commentCount"`
+					ShareCount      int64 `json:"shareCount"`
+					ClickCount      int64 `json:"clickCount"`
+				} `json:"totalShareStatistics"`
+			} `json:"elements"`
+		}
+		if err := json.Unmarshal(body, &result); err != nil {
+			return nil, fmt.Errorf("parse /rest/organizationalEntityShareStatistics: %w (%.400s)", err, string(body))
+		}
+
+		for _, el := range result.Elements {
+			key := el.UgcPost
+			if key == "" {
+				key = el.Share
+			}
+			if key != "" {
+				s := el.TotalShareStatistics
+				out[key] = liEngagement{
+					Views:    s.ImpressionCount,
+					Likes:    s.LikeCount,
+					Comments: s.CommentCount,
+					Shares:   s.ShareCount,
+					Clicks:   s.ClickCount,
+				}
+			}
 		}
 	}
 
-	var rawParts []string
-	if len(ugcPosts) > 0 {
-		rawParts = append(rawParts, "ugcPosts=List("+strings.Join(ugcPosts, ",")+")")
-	}
-	if len(shares) > 0 {
-		rawParts = append(rawParts, "shares=List("+strings.Join(shares, ",")+")")
-	}
-	raw := strings.Join(rawParts, "&")
+	return out, nil
+}
 
-	body, err := c.getRestLi("/rest/organizationalEntityShareStatistics", encoded, raw)
-	if err != nil {
-		return nil, err
-	}
+// batchPersonalPostViews fetches engagement metrics for personal posts.
+// LinkedIn limits /rest/socialMetricsV2 to fewer than 100 entities per call,
+// so this chunks the URNs into batches of 99 and merges the results.
+// Returns a map of postURN → liEngagement.
+func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]liEngagement, error) {
+	const batchSize = 99
+	out := make(map[string]liEngagement, len(postURNs))
 
-	var result struct {
-		Elements []struct {
-			UgcPost              string `json:"ugcPost"`
-			Share                string `json:"share"`
-			TotalShareStatistics struct {
-				ImpressionCount int64 `json:"impressionCount"`
-				LikeCount       int64 `json:"likeCount"`
-				CommentCount    int64 `json:"commentCount"`
-				ShareCount      int64 `json:"shareCount"`
-				ClickCount      int64 `json:"clickCount"`
-			} `json:"totalShareStatistics"`
-		} `json:"elements"`
-	}
-	if err := json.Unmarshal(body, &result); err != nil {
-		return nil, fmt.Errorf("parse /rest/organizationalEntityShareStatistics: %w (%.400s)", err, string(body))
-	}
-
-	out := make(map[string]liEngagement, len(result.Elements))
-	for _, el := range result.Elements {
-		key := el.UgcPost
-		if key == "" {
-			key = el.Share
+	for i := 0; i < len(postURNs); i += batchSize {
+		end := i + batchSize
+		if end > len(postURNs) {
+			end = len(postURNs)
 		}
-		if key != "" {
-			s := el.TotalShareStatistics
-			out[key] = liEngagement{
+		chunk := postURNs[i:end]
+
+		escaped := make([]string, len(chunk))
+		for j, u := range chunk {
+			escaped[j] = url.QueryEscape(u)
+		}
+		raw := "entities=List(" + strings.Join(escaped, ",") + ")"
+		body, err := c.getRestLi("/rest/socialMetricsV2", nil, raw)
+		if err != nil {
+			return nil, err
+		}
+
+		var result struct {
+			Results map[string]struct {
+				TotalShareStatistics struct {
+					ImpressionCount int64 `json:"impressionCount"`
+					LikeCount       int64 `json:"likeCount"`
+					CommentCount    int64 `json:"commentCount"`
+					ShareCount      int64 `json:"shareCount"`
+					ClickCount      int64 `json:"clickCount"`
+				} `json:"totalShareStatistics"`
+			} `json:"results"`
+		}
+		if err := json.Unmarshal(body, &result); err != nil {
+			return nil, fmt.Errorf("parse /rest/socialMetricsV2: %w", err)
+		}
+
+		for urn, entry := range result.Results {
+			s := entry.TotalShareStatistics
+			out[urn] = liEngagement{
 				Views:    s.ImpressionCount,
 				Likes:    s.LikeCount,
 				Comments: s.CommentCount,
@@ -290,48 +357,7 @@ func (c *liClient) batchOrgPostImpressions(orgURN string, postURNs []string) (ma
 			}
 		}
 	}
-	return out, nil
-}
 
-// batchPersonalPostViews fetches engagement metrics for personal posts in one call.
-// Returns a map of postURN → liEngagement.
-func (c *liClient) batchPersonalPostViews(postURNs []string) (map[string]liEngagement, error) {
-	escaped := make([]string, len(postURNs))
-	for i, u := range postURNs {
-		escaped[i] = url.QueryEscape(u)
-	}
-	raw := "entities=List(" + strings.Join(escaped, ",") + ")"
-	body, err := c.getRestLi("/rest/socialMetricsV2", nil, raw)
-	if err != nil {
-		return nil, err
-	}
-
-	var result struct {
-		Results map[string]struct {
-			TotalShareStatistics struct {
-				ImpressionCount int64 `json:"impressionCount"`
-				LikeCount       int64 `json:"likeCount"`
-				CommentCount    int64 `json:"commentCount"`
-				ShareCount      int64 `json:"shareCount"`
-				ClickCount      int64 `json:"clickCount"`
-			} `json:"totalShareStatistics"`
-		} `json:"results"`
-	}
-	if err := json.Unmarshal(body, &result); err != nil {
-		return nil, fmt.Errorf("parse /rest/socialMetricsV2: %w", err)
-	}
-
-	out := make(map[string]liEngagement, len(result.Results))
-	for urn, entry := range result.Results {
-		s := entry.TotalShareStatistics
-		out[urn] = liEngagement{
-			Views:    s.ImpressionCount,
-			Likes:    s.LikeCount,
-			Comments: s.CommentCount,
-			Shares:   s.ShareCount,
-			Clicks:   s.ClickCount,
-		}
-	}
 	return out, nil
 }
 
