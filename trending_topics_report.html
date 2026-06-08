@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 5 Trending Topics — AI Landscape Analysis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F9F9F9;
+      --card-bg:   #FFFFFF;
+      --red:       #E2401B;
+      --orange:    #F77923;
+      --text:      #252525;
+      --sub:       #545454;
+      --border:    #EAEAEA;
+      --pill-bg:   #FEF2E9;
+      --pill-text: #DA5D08;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    html, body {
+      width: 210mm;
+      background: var(--bg);
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--text);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 0 0 8mm 0;
+      background: var(--bg);
+    }
+
+    /* ── HEADER ───────────────────────────────── */
+    .header {
+      background: var(--card-bg);
+      border-left: 6px solid var(--red);
+      padding: 10mm 12mm 8mm 12mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-eyebrow {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 4px;
+    }
+
+    .header-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+    }
+
+    .header-subtitle {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--sub);
+      margin-top: 5px;
+    }
+
+    .header-right { text-align: right; }
+
+    .header-logo {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .header-date {
+      font-size: 9.5px;
+      color: var(--sub);
+      margin-top: 3px;
+    }
+
+    /* ── CHART SECTION ────────────────────────── */
+    .section {
+      padding: 6mm 12mm 0 12mm;
+    }
+
+    .section-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--sub);
+      margin-bottom: 5mm;
+      padding-bottom: 2mm;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chart-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5mm 6mm;
+    }
+
+    .chart-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5.5mm;
+      gap: 8px;
+    }
+
+    .chart-row:last-child { margin-bottom: 0; }
+
+    .chart-rank {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--sub);
+      width: 14px;
+      flex-shrink: 0;
+    }
+
+    .chart-label {
+      font-size: 9.5px;
+      font-weight: 600;
+      color: var(--text);
+      width: 56mm;
+      flex-shrink: 0;
+      line-height: 1.2;
+    }
+
+    .chart-bar-track {
+      flex: 1;
+      height: 10px;
+      background: #F0F0F0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .chart-bar {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), var(--orange));
+    }
+
+    /* ── CARDS GRID ───────────────────────────── */
+    .cards-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4mm;
+      padding: 5mm 12mm 0 12mm;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 5mm 5mm 5mm 8mm;
+      position: relative;
+      overflow: hidden;
+      width: calc(50% - 2mm);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--red), var(--orange));
+    }
+
+    .card-full {
+      width: 100%;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      margin-bottom: 3.5mm;
+    }
+
+    .rank-badge {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, var(--red), var(--orange));
+      color: #fff;
+      font-size: 9px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-insight {
+      font-size: 9px;
+      color: var(--sub);
+      line-height: 1.55;
+      margin-bottom: 3.5mm;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .pill {
+      background: var(--pill-bg);
+      color: var(--pill-text);
+      font-size: 7.5px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    /* ── FOOTER ───────────────────────────────── */
+    .footer {
+      padding: 4mm 12mm 0 12mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      margin-top: 6mm;
+    }
+
+    .footer-left, .footer-right {
+      font-size: 8px;
+      color: #AAAAAA;
+    }
+
+    @media print {
+      html, body { background: var(--bg); }
+      .page { page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">DevRel Intelligence</div>
+      <div class="header-title">Top 5 Trending Topics</div>
+      <div class="header-subtitle">AI Landscape Analysis &mdash; May 2026 &nbsp;|&nbsp; Based on 168 videos across YouTube, LinkedIn &amp; TikTok</div>
+    </div>
+    <div class="header-right">
+      <div class="header-logo">Redpanda</div>
+      <div class="header-date">Generated May 13, 2026</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW CHART -->
+  <div class="section" style="padding-top:6mm;">
+    <div class="section-label">Topic Strength Overview</div>
+    <div class="chart-wrap">
+
+      <div class="chart-row">
+        <div class="chart-rank">#1</div>
+        <div class="chart-label">AI Agent Capabilities &amp; Architecture</div>
+        <div class="chart-bar-track"><div class="chart-bar" style="width:100%"></div></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-rank">#2</div>
+        <div class="chart-label">Claude Code Features &amp; Updates</div>
+        <div class="chart-bar-track"><div class="chart-bar" style="width:88%"></div></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-rank">#3</div>
+        <div class="chart-label">Security &amp; Governance in AI Systems</div>
+        <div class="chart-bar-track"><div class="chart-bar" style="width:82%"></div></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-rank">#4</div>
+        <div class="chart-label">Open-weight vs. Proprietary Models</div>
+        <div class="chart-bar-track"><div class="chart-bar" style="width:48%"></div></div>
+      </div>
+
+      <div class="chart-row">
+        <div class="chart-rank">#5</div>
+        <div class="chart-label">Model Context Protocol (MCP)</div>
+        <div class="chart-bar-track"><div class="chart-bar" style="width:22%"></div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOPIC CARDS -->
+  <div class="cards-grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="rank-badge">1</div>
+        <div class="card-title">AI Agent Capabilities &amp; Architecture</div>
+      </div>
+      <div class="card-insight">
+        Content demonstrating concrete agent actions&mdash;tool use, multi-step tasks, autonomous decision-making&mdash;consistently outperforms abstract architecture explainers. Capability reveals drive the highest engagement by a wide margin.
+      </div>
+      <div class="pills">
+        <span class="pill">agent autonomy</span>
+        <span class="pill">multi-agent</span>
+        <span class="pill">tool use</span>
+        <span class="pill">agentic AI</span>
+        <span class="pill">autonomous tasks</span>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="rank-badge">2</div>
+        <div class="card-title">Claude Code Features &amp; Updates</div>
+      </div>
+      <div class="card-insight">
+        Feature reveals and counter-intuitive best practices drive disproportionate views. Expanding the "top 1% users do X" angle into a recurring series has clear upside given audience appetite for differentiated guidance.
+      </div>
+      <div class="pills">
+        <span class="pill">Claude Code</span>
+        <span class="pill">AI dev tools</span>
+        <span class="pill">vibe coding</span>
+        <span class="pill">feature reveal</span>
+        <span class="pill">best practices</span>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="rank-badge">3</div>
+        <div class="card-title">Security &amp; Governance in AI Systems</div>
+      </div>
+      <div class="card-insight">
+        Risk framing elevates any technical topic. Pairing genuine threat analysis with mitigation steps earns both strong viewership and comment engagement from developers seeking practical reassurance.
+      </div>
+      <div class="pills">
+        <span class="pill">AI security</span>
+        <span class="pill">MCP attacks</span>
+        <span class="pill">enterprise auth</span>
+        <span class="pill">data governance</span>
+        <span class="pill">EU AI Act</span>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="card-header">
+        <div class="rank-badge">4</div>
+        <div class="card-title">Open-weight vs. Proprietary Models</div>
+      </div>
+      <div class="card-insight">
+        Audiences crave nuanced trade-off analysis, not just benchmarks. The Meta/Llama vs. proprietary tension is an evergreen narrative with strong comment velocity and replay value as the market shifts.
+      </div>
+      <div class="pills">
+        <span class="pill">Llama</span>
+        <span class="pill">open source AI</span>
+        <span class="pill">model cost</span>
+        <span class="pill">proprietary</span>
+        <span class="pill">trade-offs</span>
+      </div>
+    </div>
+
+    <!-- Card 5 — full width -->
+    <div class="card card-full">
+      <div class="card-header">
+        <div class="rank-badge">5</div>
+        <div class="card-title">Model Context Protocol (MCP)</div>
+      </div>
+      <div class="card-insight">
+        MCP content peaks when framed around security vulnerabilities and integration challenges rather than spec walkthroughs. "Exposing its risks" consistently outperforms "explaining the standard." As enterprise adoption accelerates, this gap will widen&mdash;a weekly MCP security series has significant untapped potential.
+      </div>
+      <div class="pills">
+        <span class="pill">MCP</span>
+        <span class="pill">context protocol</span>
+        <span class="pill">tool integration</span>
+        <span class="pill">OAuth 2.1</span>
+        <span class="pill">enterprise adoption</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">DevRel Dashboard &mdash; Internal Report &mdash; May 2026</div>
+    <div class="footer-right">redpanda.com</div>
+  </div>
+
+</div>
+</body>
+</html>
